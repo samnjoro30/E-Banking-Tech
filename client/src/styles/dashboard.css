@@ -1,0 +1,152 @@
+.dashboard-container {
+    max-width: 1200px; /* Limit the width for better readability */
+    margin: 20px auto; /* Center the container */
+    padding: 20px;
+    border: 1px solid #ccc; /* Light border for separation */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: relative;
+}
+
+.user-info {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below the user info */
+}
+
+.user-info p {
+    margin: 0; /* Remove default margin */
+}
+
+.dashboard-h1 {
+    font-size: 1.5rem; /* Larger heading size */
+    color: #333; /* Darker color for the heading */
+}
+
+h2 {
+    font-size: 1.2rem; /* Slightly smaller for subheading */
+    color: #555; /* Medium color for subheading */
+}
+.dashboard-container.dark {
+    background-color: #1c1c1c; /* Dark background */
+    color: #f0f0f0; /* Light text */
+}
+.dashboard-container.dark h1, .dashboard-container.dark h2, .dashboard-container.dark p {
+    color: #f0f0f0; /* Ensure headings and text are readable in dark mode */
+}
+
+.dashboard-container.dark button {
+    background-color: #333; /* Darker button background */
+    color: #f0f0f0; /* Light button text */
+}
+.dashboard-container.dark .modal-content {
+    background: #2c2c2c;
+    color: white;
+}
+button {
+    margin: 5px; /* Add some space between buttons */
+    padding: 10px 15px; /* Add padding for better touch targets */
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.error-message {
+    color: red; /* Red for error messages */
+    margin-top: 10px; /* Space above error messages */
+}
+.logout-container {
+    position: absolute; /* Use absolute positioning for the logout button */
+    top: 20px; /* Position it near the top */
+    right: 20px; /* Align it to the right */
+}
+
+.logout-container button {
+    background-color: #dc3545; /* Red color for logout button */
+    color: white; /* White text for contrast */
+    border: none; /* Remove border */
+    padding: 10px 15px; /* Add padding */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.logout-container button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+.modal {
+    position: fixed; /* Fixes modal to the viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Make sure modal is on top */
+}
+
+.modal-content {
+    background: white; /* White background for modal */
+    padding: 20px; /* Padding inside modal */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 300px; /* Width of the modal */
+}
+
+.modal-content label {
+    display: block; /* Stack labels */
+    margin-bottom: 10px; /* Space between labels */
+}
+
+.modal-content input {
+    width: 100%; /* Full width for inputs */
+    padding: 8px; /* Padding inside inputs */
+    margin-bottom: 15px; /* Space below inputs */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.modal-content button {
+    width: 48%; /* Button width */
+    margin: 0 1%; /* Space between buttons */
+}
+/* styles/dashboard.css */
+
+body {
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+body.dark-mode {
+    background-color: #121212; /* Dark background */
+    color: white; /* Light text color */
+}
+
+/* Style other elements as needed for dark mode */
+.dashboard-container {
+    background-color: inherit; /* Use the body background color */
+}
+
+button {
+    background-color: #f0f0f0; /* Light button color */
+    color: black; /* Dark button text */
+}
+
+body.dark-mode button {
+    background-color: #333; /* Dark button color */
+    color: white; /* Light button text */
+}
+
+/* Add any other necessary styles */

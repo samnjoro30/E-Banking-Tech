@@ -1,0 +1,59 @@
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Padding inside the input */
+    font-size: 16px; /* Font size of the input */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove outline on focus */
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+    margin-bottom: 15px; /* Space below the input fields */
+}
+
+/* Focus State for Inputs */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+/* Label Styles */
+label {
+    display: block; /* Make labels take the full width */
+    margin-bottom: 5px; /* Space between label and input */
+    color: #333; /* Label color */
+    font-size: 16px; /* Font size of the label */
+    font-weight: bold; /* Bold font for labels */
+}
+
+/* Password Strength Indicator */
+p {
+    text-align: center; /* Center the text */
+    color: #555; /* Color for the password strength indicator */
+    margin-top: 5px; /* Space above the password strength indicator */
+}
+
+/* Error Message */
+.error-message {
+    color: red; /* Red color for error messages */
+    text-align: center; /* Center error messages */
+    margin-top: 10px; /* Space above error messages */
+}
+
+/* Register Button Styles */
+button[type="submit"] {
+    background-color: #0044cc; /* Button background color */
+    color: white; /* Text color of the button */
+    border: none; /* No border */
+    padding: 12px 25px; /* Padding for the button */
+    border-radius: 30px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    width: 100%; /* Full width of the button */
+}
+
+/* Button Hover State */
+button[type="submit"]:hover {
+    background-color: #003399; /* Darker shade on hover */
+}

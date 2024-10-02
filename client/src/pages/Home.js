@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Home.css'// Assuming you're adding custom CSS for styling
+import '../styles/Home.css'; // Assuming you're adding custom CSS for styling
 
 const Home = () => {
     return (
@@ -13,8 +13,9 @@ const Home = () => {
                     <li><Link to="/services">Services</Link></li>
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/contact">Contact</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Register</Link></li>
+                    {/* Update these links to point to the /auth route */}
+                    <li><Link to="/auth">Login</Link></li>
+                    <li><Link to="/auth">Register</Link></li>
                 </ul>
             </nav>
 
@@ -23,7 +24,8 @@ const Home = () => {
                 <div className="hero-content">
                     <h2>Welcome to E-Banking</h2>
                     <p>Your financial partner, anywhere, anytime.</p>
-                    <Link to="/register" className="cta-button">Get Started</Link>
+                    {/* Update the button to route to the Auth component */}
+                    <Link to="/auth" className="cta-button">Get Started</Link>
                 </div>
                 <div className="hero-architecture">
                     {/* Illustration of Bank Architecture */}

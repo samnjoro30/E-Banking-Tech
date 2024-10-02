@@ -1,0 +1,219 @@
+/* Main Container */
+body {
+    background-color: rgb(232, 225, 225);
+}
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: relative;
+    background: linear-gradient(to right, #f0f4f8, #e1e9ef);
+    overflow: hidden;
+    /* Temporary border for visibility */
+    border: 2px solid rgb(16, 12, 12);
+}
+
+
+/* Panels */
+.panel {
+    width: 30%;
+    height: 70%;
+    background: rgba(255, 255, 255, 0.8); /* Glassmorphism Effect */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    padding: 40px;
+    transition: all 0.5s ease-in-out;
+    border-radius: 12px;
+    z-index: 3;
+    opacity: 0;
+    transform: scale(0.8);
+    /* Temporary border for visibility */
+    border: 3px solid blue;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: space-between;
+}
+
+/* Visible State */
+.panel-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Positioning Panels */
+.panel-left {
+    left: 10%;
+    transform-origin: left;
+}
+
+.panel-right {
+    right: 10%;
+    transform-origin: right;
+}
+
+/* Button */
+.switch-btn {
+    background-color: #0044cc;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    align-self: center;
+}
+
+.switch-btn:hover {
+    background-color: #003399;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .panel {
+        width: 90%;
+    }
+}
+
+.login,
+.register,
+h1 {
+    text-align: center;
+    color: #41ca61;
+    margin-bottom: 20px;
+    font-style: italic;           /* Make the text italic */
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+}
+.login,
+.register,
+p {
+    margin-top: 10px;
+    text-align: center;
+    color: #333; /* Default color for regular paragraphs */
+    font-size: 14px; 
+    font-family: 'Georgia', serif;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+.login,
+.register,
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+.login,
+.register,
+button[type="submit"]:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
+/* Focus State for Password Input */
+
+.password-container input:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+/* Show/Hide Password Button */
+.login,
+.register,
+.password-container button {
+    position: absolute; /* Positioned relative to the password container */
+    top: 50%; /* Vertically center */
+    right: 10px; /* Align to the right edge */
+    transform: translateY(-50%); /* Center vertically */
+    background: none; /* No background */
+    border: none; /* No border */
+    background-color: #007bff; /* Button color */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 25px; /* Button font size */
+    padding: 0; /* Remove padding */
+    z-index: 3; /* Ensure it appears above other elements */
+}
+
+/* Button Hover State */
+.login,
+.register,
+.password-container button:hover {
+    color: #0056b3; /* Darker color on hover */
+}
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+ul li {
+    margin: 5px 0; /* Spacing between list items */
+    text-align: left; /* Align text to the left */
+    color: #555; /* Darker grey for list items */
+}
+
+/* Focus State for Password Input */
+.password-container input:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+.welcome-text {
+    text-align: right; /* Align text to the right */
+}
+
+/* Additional styles for headings and paragraphs */
+.welcome-text h1 {
+    color: #41ca61; /* Ensure contrast with the background */
+    font-size: 1.8rem; /* Increase font size for emphasis */
+    margin-bottom: 20px;
+}
+
+.welcome-text p {
+    color: #333; /* Ensure paragraph color is readable */
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.welcome-text ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding-left: 0; /* Remove left padding */
+    text-align: right; /* Align list to the right */
+}
+
+.welcome-text li {
+    margin-top: 5px; /* Spacing between list items */
+}

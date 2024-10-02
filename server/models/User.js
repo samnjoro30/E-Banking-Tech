@@ -10,14 +10,10 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isVerified: { type: Boolean, default: false },
     otp: { type: String },  // Temporary OTP storage
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    balance: { type: Number, default: 0 },
+    transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }],
 });
 
 // Pre-save hook to hash password before saving to the database
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 10);
-    next();
-});
-
 module.exports = mongoose.model('User', userSchema);

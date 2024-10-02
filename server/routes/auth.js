@@ -1,11 +1,12 @@
 const express = require('express');
-const { registerUser, loginUser, verifyOTP } = require('../controllers/auth');
+const { registerUser, loginUser, verifyOTP, /*getUserProfile,*/ getDashboardData } = require('../controllers/auth');
 const { check, validationResult } = require('express-validator');
+const authMiddleware = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 router.post('/login', loginUser);
 router.post('/verify-otp', verifyOTP);
-
+router.get('/dashboard', authMiddleware, getDashboardData);
 // Add validation in the route
 router.post('/register', [
     check('email').isEmail().withMessage('Invalid email address'),

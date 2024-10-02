@@ -1,0 +1,23 @@
+const express = require('express');
+const router = express.Router();
+const {transferFunds, getTransactions, createTransaction} = require('../controllers/Transaction');
+const  authMiddleware  = require('../middlewares/authMiddleware');
+const { body, validationResult } = require('express-validator');
+
+// Fetch user transactions
+router.get('/transactions', authMiddleware, getTransactions);
+
+router.post('/transfer', 
+    [
+      body('recipient').notEmpty().withMessage('Recipient is required'),
+      body('amount').isFloat({ gt: 0 }).withMessage('Amount must be greater than zero'),
+    ],
+    authMiddleware, 
+    transferFunds
+ );
+// Create a transaction (e.g., transfer funds)
+router.post('/transactions', authMiddleware, createTransaction);
+
+module.exports = router;
+
+

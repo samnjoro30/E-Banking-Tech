@@ -6,7 +6,7 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     throw new Error('Missing email configuration in environment variables.');
 }
 
-const transporter = nodemailer.createTransport({
+/*const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         type: 'OAuth2',
@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
-
+*/
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
     process.env.GMAIL_CLIENT_ID,     // Client ID from Google Cloud

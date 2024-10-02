@@ -7,10 +7,11 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const socketIo = require('socket.io');
 const http = require('http');
+const session = require('express-session');
 
 const  app = express();
 
-const allowedOrigins = ['http://localhost:3000', 'https://your-production-url.com'];
+const allowedOrigins = ['http://localhost:3000'];
 const corsOptions = {
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
@@ -31,15 +32,15 @@ app.use(express.json());
 //helmet for securing header
 app.use(helmet({
   contentSecurityPolicy: false,  // Disable this if you're using inline scripts or styles
-    crossOriginEmbedderPolicy: true,
-    crossOriginResourcePolicy: { policy: "same-origin" },
-    dnsPrefetchControl: true,
-    expectCt: true,
-    frameguard: { action: 'deny' },  // Prevent clickjacking
-    hidePoweredBy: true,  // Hides 'X-Powered-By' header
-    hsts: { maxAge: 31536000, includeSubDomains: true },  // Enforce HTTPS
-    noSniff: true,  // Prevent MIME-type sniffing
-    xssFilter: true,  // Basic XSS protection
+  crossOriginEmbedderPolicy: true,
+  crossOriginResourcePolicy: { policy: "same-origin" },
+  dnsPrefetchControl: true,
+  expectCt: true,
+  frameguard: { action: 'deny' },  // Prevent clickjacking
+  hidePoweredBy: true,  // Hides 'X-Powered-By' header
+  hsts: { maxAge: 31536000, includeSubDomains: true },  // Enforce HTTPS
+  noSniff: true,  // Prevent MIME-type sniffing
+  xssFilter: true,  // Basic XSS protection
 })); 
 app.use(cors(corsOptions));
 app.use(morgan('dev')); //log http request
@@ -73,6 +74,15 @@ const connectDB = async (retries = 5) => {
 };
 connectDB();
 
+app.use(session({
+  secret: 'your_secret_key', // Change this to a more secure secret
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    secure: false,
+    sameSite: 'Lax'
+   } // Set to true if using HTTPS
+}));
 
 const server = http.createServer(app);
 const io = socketIo(server,{
@@ -140,6 +150,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', require('./routes/transaction'));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import zxcvbn from 'zxcvbn';  // For password strength checking
 import { useNavigate } from 'react-router-dom';
+import '../styles/Auth.css';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -140,25 +141,6 @@ const Register = () => {
                         required
                     />
                 </div>
-
-                {/* Password strength indicator */}
-                <div>
-                   <p>Must include:</p>
-                   <ul>
-                        <li style={{ color: passwordComplexity.hasLowercase ? 'green' : 'red' }}>
-                        Lowercase letter
-                        </li>
-                        <li style={{ color: passwordComplexity.hasUppercase ? 'green' : 'red' }}>
-                        Uppercase letter
-                        </li>
-                        <li style={{ color: passwordComplexity.hasNumber ? 'green' : 'red' }}>
-                        Number
-                        </li>
-                        <li style={{ color: passwordComplexity.hasSpecialChar ? 'green' : 'red' }}>
-                        Special character
-                        </li>
-                    </ul>
-                </div>
                 <div>
                     <p>Password Strength: {['Too weak', 'Weak', 'Fair', 'Good', 'Strong'][passwordStrength]}</p>
                 </div>
@@ -195,4 +177,4 @@ export default Register;
 
 
 
-
+ 

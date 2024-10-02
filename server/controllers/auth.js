@@ -1,9 +1,11 @@
 const { generateOTP, sendOTPEmail } = require('../utils/otp');
+const jwt = require('../utils/jwt');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const zxcvbn = require('zxcvbn');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
+const jwtr = require('jsonwebtoken');
 
 
 // Generate account number function
@@ -91,6 +93,7 @@ const registerUser = async (req, res) => {
         user.otp = otp;
         user.otpExpires = Date.now() + 10 * 60 * 1000;
         await user.save();
+        const token = jwt.generateToken(newUser);
         console.log('OTP generated and saved successfully');
 
         try {
@@ -106,7 +109,7 @@ const registerUser = async (req, res) => {
         }
 
         // Respond to the client
-        res.status(201).json({ message: 'User registered successfully. OTP sent to your email.', userId: user._id });
+        res.status(201).json({ message: 'User registered successfully. OTP sent to your email.', userId: user._id }, { token });
         res.status(201).json({ message: 'User registered successfully. OTP sent to your email', userId: user._id });
     } catch (err) {
         console.error(err.message);
@@ -116,18 +119,36 @@ const registerUser = async (req, res) => {
 // After login, generate OTP and send via email
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            console.log('User not found:', email);
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(400).json({ message: 'Invalid email or password' });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+        
+        const token = jwtr.sign(
+            { userId: user._id, firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRES_IN } // '1h', '7d', etc.
+        );
+
+        // Return token and user info
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            user: { firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber }
+        });
+
+       
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Server error' });
     }
-
-    const otp = generateOTP();
-    await sendOTPEmail(user.email, otp);
-    user.otp = otp;  // Save the OTP temporarily in the database
-    await user.save();
-
-    res.status(200).json({ message: 'OTP sent to your email', userId: user._id });
 };
 
 // Verify OTP
@@ -156,8 +177,33 @@ const verifyOTP = async (req, res) => {
         res.status(500).json({ message: 'Error verifying OTP' });
     }
 };
-module.exports = { registerUser, loginUser, verifyOTP };
+/*const getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password'); // Access user ID from req.user
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};*/
+const getDashboardData = async (req, res) => {
+    try {
+        const user = req.user; // Assuming you're using middleware to attach user from the token
+        if (!user) return res.status(404).json({ message: 'User not found' });
 
-
-//303322194273-qpnq0f0c6fb9uhme0gsi4ulpbkogevjb.apps.googleusercontent.com -client id
-//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 - secret key
+        res.status(200).json({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            accountNumber: user.accountNumber,
+            balance: user.balance // Assuming you have a balance property
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+module.exports = { registerUser, loginUser, verifyOTP, getDashboardData};
