@@ -49,17 +49,17 @@ const Dashboard = () => {
             try {
                 const token = getToken();
                 if (!token) {
-                    navigate('/auth');
+                    navigate('/login');
                     return;
                 }
-                const res = await axios.get('http://localhost:5000/api/auth/dashboard', {
+                const res = await axios.get('https://e-banking-tech.onrender.com/api/auth/dashboard', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 setUserData(res.data);
                 console.log(res.data);
-                const transactionsRes = await axios.get('http://localhost:5000/api/transaction/transactions', {
+                const transactionsRes = await axios.get('https://e-banking-tech.onrender.com/api/transaction/transactions', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -91,7 +91,7 @@ const Dashboard = () => {
         }
         try {
             const token = getToken();
-            await axios.post('http://localhost:5000/api/transaction/transfer',
+            await axios.post('https://e-banking-tech.onrender.com/api/transaction/transfer',
                 { ...transferData, amount: transferAmount },
                  {
                 headers: {
@@ -212,8 +212,6 @@ const Dashboard = () => {
                                 <td>{transaction.amount}</td>
                                 <td>{transaction.type}</td>
                                 <td>{new Date(transaction.date).toLocaleString()}</td>
-                                <td>{transaction.senderAccountNumber.name}</td> {/* Sender's name */}
-                                <td>{transaction.recipientAccountNumber.name}</td> {/* Recipient's name */}
                             </tr>
                         ))}
                     </tbody>

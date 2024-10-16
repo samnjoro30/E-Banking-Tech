@@ -59,13 +59,13 @@ const Register = () => {
             return;
         }
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/register', formData);
             setOtpSent(true); // OTP has been sent
             setMessage('Registration successful! OTP sent to your email.', message);
             console.log(res.data);
             
             // Handle successful registration (e.g., redirect to OTP verification page)
-            const response = await axios.post('http://localhost:5000/api/generate-card', {
+            const response = await axios.post('https://e-banking-tech.onrender.com/api/generate-card', {
                 cardHolder: `${formData.firstName} ${formData.lastName}`});
 
 
@@ -80,7 +80,7 @@ const Register = () => {
     const verifyOtp = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', { email, otp });
             // Assume the response contains the account number
             const accountNumber = res.data.accountNumber;
 

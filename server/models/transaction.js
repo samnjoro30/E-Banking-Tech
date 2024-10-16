@@ -23,6 +23,9 @@ const transactionSchema = new mongoose.Schema({
         enum: ['credit', 'debit'],
         required: true,
     },
+    senderAccountNumber: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    recipientAccountNumber: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

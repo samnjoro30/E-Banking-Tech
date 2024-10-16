@@ -4,18 +4,13 @@ const mongoose = require('mongoose');
 // Fetch user transactions
 const getTransactions = async (req, res) => {
     try {
-        const accountNumber = req.user.accountNumber;
-        
-        const transactions = await Transaction.find({ accountNumber })
-            .populate('senderAccountNumber', 'name')  // Assuming 'name' is a field in your User model
-            .populate('recipientAccountNumber', 'name')
-            .sort({ date: -1 });
+        const transactions = await Transaction.findOne({ accountNumber: req.accountNumber }).sort({ date: -1 });
 
         if (!transactions || transactions.length === 0) {
             return res.status(404).json({ message: 'No transactions found' });
         }
-
-        res.json(transactions);
+        
+        res.json(Array.isArray(transactions) ? transactions : [transactions]);
     } catch (err) {
         console.error('Error fetching transactions:', err);
         res.status(500).json({ message: 'Failed to fetch transactions' });

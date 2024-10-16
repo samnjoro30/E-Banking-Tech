@@ -29,7 +29,7 @@ const Login = () => {
         e.preventDefault({email, password});
         console.log()
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/login', { email, password });
             const { token } = res.data;
             localStorage.setItem('token', token);
             setMessage('Login successful! Redirecting...');
