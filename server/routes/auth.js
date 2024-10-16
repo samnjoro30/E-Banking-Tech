@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, loginUser, verifyOTP, /*getUserProfile,*/ getDashboardData } = require('../controllers/auth');
+const { registerUser, loginUser, verifyOTP, resetPassword, forgotPassword, /*getUserProfile,*/ getDashboardData } = require('../controllers/auth');
 const { check, validationResult } = require('express-validator');
 const authMiddleware = require('../middlewares/authMiddleware');
 const router = express.Router();
@@ -14,6 +14,9 @@ router.post('/register', [
     check('firstName').notEmpty().withMessage('First name is required'),
     check('lastName').notEmpty().withMessage('Last name is required')
 ], registerUser);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
+
 
 
 module.exports = router;

@@ -8,9 +8,6 @@ const Auth = () => {
 
     const toggleAuthMode = () => {
         setIsLoginActive(!isLoginActive);
-        // Toggle diagonal animation
-        const container = document.querySelector('.container');
-        container.classList.toggle('diagonal-hide');
     };
 
     return (
@@ -24,6 +21,7 @@ const Auth = () => {
                             <h1>Welcome Back!</h1>
                             <p>Login to manage your account and enjoy seamless banking services.</p>
                             <Login />
+                            
                         </div>
                     ) : (
                         <div className="welcome-text">
@@ -36,24 +34,25 @@ const Auth = () => {
                                 <li>Instant Fund Transfers</li>
                                 <li>Comprehensive Financial Insights</li>
                             </ul>
+                            <button className="switch-btn" onClick={toggleAuthMode}>
+                                Already have an account? Login
+                            </button>
                         </div>
                     )}
-                    <button className="switch-btn" onClick={toggleAuthMode}>
-                        {isLoginActive ? 'Don\'t have an account? Register' : 'Already have an account? Login'}
-                    </button>
                 </div>
             </div>
 
             {/* Right Panel (Register Form/More Info) */}
             <div className={`panel panel-right ${isLoginActive ? '' : 'panel-visible'}`}>
-                <div className="panel-content">
+                <div className="panel-content no-container">
                     {!isLoginActive ? (
                         <div>
                             <h1>E-Banking Tech</h1>
                             <Register />
+                            
                         </div>
                     ) : (
-                        <div>
+                        <div className="discover-text">
                             <h1>Discover E-Banking Tech</h1>
                             <p>Join our e-banking platform to experience seamless banking solutions.</p>
                             <p>Features:</p>
@@ -63,12 +62,12 @@ const Auth = () => {
                                 <li>Instant Notifications</li>
                                 <li>Customer Support</li>
                             </ul>
+                            <button className="switch-btn" onClick={toggleAuthMode}>
+                                Don't have an account? Register
+                            </button>
                         </div>
                     )}
                 </div>
-                <button className="switch-btn" onClick={toggleAuthMode}>
-                    {isLoginActive ? 'Don\'t have an account? Register' : 'Already have an account? Login'}
-                </button>
             </div>
         </div>
     );

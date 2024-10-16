@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const speakeasy = require('speakeasy');
 const { google } = require('googleapis');
+require('dotenv').config
 
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     throw new Error('Missing email configuration in environment variables.');
@@ -30,8 +31,8 @@ oauth2Client.setCredentials({
 // Create transporter with OAuth2
 const createTransporter = async () => {
     const accessToken = await oauth2Client.getAccessToken();
-    console.log("Access token generated: ", token);
-    if (!token) {
+    console.log("Access token generated: ", accessToken);
+    if (!accessToken) {
         throw new Error('Failed to get access token');
     }
     

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css'; // Assuming you're adding custom CSS for styling
+import bankVideo from '../images/Bank3.mp4'; 
 
 const Home = () => {
     return (
@@ -30,10 +31,13 @@ const Home = () => {
                 <div className="hero-architecture">
                     {/* Illustration of Bank Architecture */}
                     <h3>Bank Architecture</h3>
-                    <img src="bank-architecture.png" alt="Bank Architecture" className="architecture-image" />
+                    <video autoPlay muted loop>
+                        <source src={bankVideo} type="video/mp4" />
+                    </video>
                     <p>This is how we structure our digital banking services for seamless customer experience.</p>
                 </div>
             </section>
+            
 
             {/* Services Section */}
             <section className="services-section">
@@ -61,11 +65,7 @@ const Home = () => {
             {/* Footer Section */}
             <footer className="footer">
                 <p>&copy; 2024 E-Banking | All rights reserved.</p>
-                <ul className="social-links">
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">LinkedIn</a></li>
-                </ul>
+                
             </footer>
         </div>
     );

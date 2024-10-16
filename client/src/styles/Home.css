@@ -94,7 +94,11 @@ body {
     text-align: center;
     color: #333;
 }
-
+.hero-architecture video {
+    width: 80%;
+    height: 300px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure the video fills the container */
+}
 .architecture-image {
     width: 100%;
     max-width: 400px;
@@ -175,6 +179,9 @@ body {
 .social-links li a:hover {
     color: #ffce00;
 }
+/* About Section */
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

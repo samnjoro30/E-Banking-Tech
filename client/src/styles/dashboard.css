@@ -150,3 +150,85 @@ body.dark-mode button {
 }
 
 /* Add any other necessary styles */
+.user-email {
+    color: #007bff; /* Blue for email */
+}
+
+.user-account-number {
+    color: #28a745; /* Green for account number */
+}
+
+.user-balance {
+    color: #dc3545; /* Red for balance */
+}
+.transactions-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0; /* Allows for rounded corners */
+    margin-top: 20px;
+}
+
+.transactions-table th, .transactions-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.transactions-table th {
+    background-color: #4CAF50; /* Table header background color */
+    color: white; /* Table header text color */
+    
+    padding: 15px;
+}
+
+.transactions-table tr {
+    border-bottom: 1px solid #ddd; /* Border between rows */
+}
+
+.transactions-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row coloring */
+}
+
+.transactions-table tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* White background for odd rows */
+}
+
+.transactions-table tbody tr:hover {
+    background-color: #f1f1f1; /* Light gray hover effect */
+    transition: background-color 0.3s ease;
+}
+
+.transactions-table td {
+    border-bottom: 1px solid #ddd; /* Row bottom border */
+    padding: 15px;
+}
+
+.transactions-table tbody tr:last-child td {
+    border-bottom: none; /* Remove border for last row */
+}
+
+.transactions-table {
+    border-radius: 10px;
+    overflow: hidden; /* Ensures border-radius applies to the entire table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+/* Add border-radius for the first and last cells of the table to smooth out corners */
+.transactions-table thead th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.transactions-table thead th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.transactions-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px; /* Bottom-left corner rounding */
+}
+
+.transactions-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px; /* Bottom-right corner rounding */
+}
+
+.header {
+    right: 20px;
+}

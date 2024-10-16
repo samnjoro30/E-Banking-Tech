@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
+import CreditCard from '../components/CreditCard';
+import Notification from '../components/notification';
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
@@ -10,13 +12,18 @@ const Dashboard = () => {
         lastName: '',
         email: '',
         accountNumber: '',
-        balance: 0,
+        balance: 500,
+        cardNumber: '', // Sample card number
+        cardHolder: '',           // Sample card holder name
+        expiryDate: '',              // Sample expiry date
+        cvv: ''
     });
     const [error, setError] = useState('');
     const [transactions, setTransactions] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [transferData, setTransferData] = useState({ recipient: '', amount: '' });
     const [showTransactions, setShowTransactions] = useState(false);
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -42,7 +49,7 @@ const Dashboard = () => {
             try {
                 const token = getToken();
                 if (!token) {
-                    navigate('/login');
+                    navigate('/auth');
                     return;
                 }
                 const res = await axios.get('http://localhost:5000/api/auth/dashboard', {
@@ -51,17 +58,19 @@ const Dashboard = () => {
                     }
                 });
                 setUserData(res.data);
-                const transactionsRes = await axios.get('http://localhost:5000/api/auth/transactions', {
+                console.log(res.data);
+                const transactionsRes = await axios.get('http://localhost:5000/api/transaction/transactions', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                
                 setTransactions(transactionsRes.data);
             } catch (err) {
                 setError('Failed to fetch user data. Please log in again.');
                 console.error(err.response?.data);
                 removeToken();
-                navigate('/login'); // Redirect to login if there's an error
+                navigate('/auth'); // Redirect to login if there's an error
             }
         };
         fetchData();
@@ -74,9 +83,17 @@ const Dashboard = () => {
             return;
         }
 
+        const transferAmount = Number(transferData.amount);
+
+        if (isNaN(transferAmount) || transferAmount <= 0) {
+            setError('Invalid transfer amount.');
+            return;
+        }
         try {
             const token = getToken();
-            await axios.post('http://localhost:5000/api/auth/transfer', transferData, {
+            await axios.post('http://localhost:5000/api/transaction/transfer',
+                { ...transferData, amount: transferAmount },
+                 {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -91,57 +108,51 @@ const Dashboard = () => {
     };
 
     const checkBalance = () => {
-        alert(`Your current balance is $${userData.balance}`);
+       
+        alert(`Your current balance is ${userData.balance}`);
+        
+
     };
 
     const handleLogout = () => {
         removeToken();
         navigate('/');
     };
+  
 
     return (
+
         <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
             <div className="toggle-container">
                 <button onClick={toggleDarkMode}>
                     {isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                 </button>
             </div>
-
+           
             <div className="logout-container">
+                <Notification />
                 <button onClick={handleLogout}>Logout</button>
             </div>
 
             <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
 
             <div className="user-info">
-                <p>Email: {userData.email}</p>
-                <p>Account Number: {userData.accountNumber}</p>
+                <p>
+                    <span style={{ color: 'black' }}>Email: </span>
+                    <span style={{ color: '#007bff' }}>{userData.email}</span>
+                </p>
+                <p>
+                    <span style={{ color: 'black' }}>Account Number: </span>
+                    <span style={{ color: '#28a745' }}>{userData.accountNumber}</span>
+                </p>
+                <p>
+                    <span style={{ color: 'black' }}>Balance: </span>
+                    <span style={{ color: '#dc3545' }}>Ksh{userData.balance}</span>
+                </p>
             </div>
 
-            <p>Balance: ${userData.balance}</p>
-
+           
             <h2>Banking Features</h2>
-            <button onClick={checkBalance}>Check Balance</button>
-
-            <button onClick={() => setShowTransactions(!showTransactions)}>
-                {showTransactions ? 'Hide Transactions' : 'View Transaction History'}
-            </button>
-
-       
-            {/* Toggle Transactions */}
-            {showTransactions && (
-                <div>
-                    <h2>Recent Transactions</h2>
-                    <ul>
-                        {transactions.map(transaction => (
-                            <li key={transaction.id}>
-                                {transaction.date}: {transaction.description} - ${transaction.amount.toFixed(2)}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-
             {/* Transfer Funds Modal */}
             <button onClick={() => setModalOpen(true)}>Transfer Funds</button>
             {modalOpen && (
@@ -149,7 +160,7 @@ const Dashboard = () => {
                     <div className="modal-content">
                         <h2>Transfer Funds</h2>
                         <label>
-                            Recipient:
+                            To Account Number:
                             <input 
                                 type="text" 
                                 value={transferData.recipient} 
@@ -176,14 +187,63 @@ const Dashboard = () => {
                     </div>
                 </div>
             )}
+            <button onClick={checkBalance}>Check Balance</button>
 
-            {/* Error Handling */}
-            {error && <p className="error-message">{error}</p>}
+            <button onClick={() => setShowTransactions(!showTransactions)}>
+                {showTransactions ? 'Hide Transactions' : 'View Transaction History'}
+            </button>
+            {showTransactions && (
             <div>
-                
+            <h2>Recent Transactions</h2>
+            {transactions.length > 0 ? (
+                <table className="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {transactions.map(transaction => (
+                            <tr key={transaction._id}>
+                                <td>{transaction.description}</td>
+                                <td>{transaction.amount}</td>
+                                <td>{transaction.type}</td>
+                                <td>{new Date(transaction.date).toLocaleString()}</td>
+                                <td>{transaction.senderAccountNumber.name}</td> {/* Sender's name */}
+                                <td>{transaction.recipientAccountNumber.name}</td> {/* Recipient's name */}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No recent transactions found.</p>
+            )}
+        </div>
+        
+            )}
+
+
+            <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
+               {/* ... (rest of your existing JSX) */}
+
+               {/* Credit Card Display */}
+               <h2>The upcoming features VISA for global payment</h2>
+                <h2>Your Credit Card</h2>
+                    <CreditCard
+                       cardNumber={userData.cardNumber}
+                       cardHolder={userData.cardHolder}
+                       expiryDate={userData.expiryDate}
+                       cvv={userData.cvv}
+                    />
+ 
+              {/* ... (rest of your existing JSX) */}
             </div>
         </div>
     );
 };
 
 export default Dashboard;
+

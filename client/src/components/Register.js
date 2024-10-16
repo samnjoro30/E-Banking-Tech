@@ -28,7 +28,6 @@ const Register = () => {
     const [error, setError] = useState('');
     const { firstName, lastName, email, password, confirmPassword} = formData;
 
-    const navigate = useNavigate();
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -50,7 +49,7 @@ const Register = () => {
             hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
         };
     };
-    
+    const navigate = useNavigate();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -64,7 +63,14 @@ const Register = () => {
             setOtpSent(true); // OTP has been sent
             setMessage('Registration successful! OTP sent to your email.', message);
             console.log(res.data);
+            
             // Handle successful registration (e.g., redirect to OTP verification page)
+            const response = await axios.post('http://localhost:5000/api/generate-card', {
+                cardHolder: `${formData.firstName} ${formData.lastName}`});
+
+
+            const cardDetails = response.data;
+            console.log(cardDetails);
         } catch (err) {
             setMessage(err.response.data.message);
             console.error(err.response.data);

@@ -4,12 +4,25 @@ const mongoose = require('mongoose');
 // Fetch user transactions
 const getTransactions = async (req, res) => {
     try {
-        const transactions = await Transaction.find({ userId: req.userId }).sort({ date: -1 });
+        const accountNumber = req.user.accountNumber;
+        
+        const transactions = await Transaction.find({ accountNumber })
+            .populate('senderAccountNumber', 'name')  // Assuming 'name' is a field in your User model
+            .populate('recipientAccountNumber', 'name')
+            .sort({ date: -1 });
+
+        if (!transactions || transactions.length === 0) {
+            return res.status(404).json({ message: 'No transactions found' });
+        }
+
         res.json(transactions);
     } catch (err) {
+        console.error('Error fetching transactions:', err);
         res.status(500).json({ message: 'Failed to fetch transactions' });
     }
 };
+
+
 
 // Create a transaction (e.g., transfer funds)
 const createTransaction = async (req, res) => {
@@ -41,57 +54,74 @@ const createTransaction = async (req, res) => {
 };
 
 const transferFunds = async (req, res) => {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
     try {
         const { recipient, amount } = req.body;
-        const sender = await User.findById(req.user.id).session(session);
-        const recipientUser = await User.findOne({ accountNumber: recipient }).session(session);
+        const transferAmount = Number(amount);
 
-        if (!recipientUser) {
-            await session.abortTransaction();
-            return res.status(400).json({ message: 'Recipient not found.' });
+        if (isNaN(transferAmount) || transferAmount <= 0) {
+            return res.status(400).json({ message: 'Invalid transfer amount.' });
+        }
+        
+        // Ensure that amount is a number and greater than 0
+        if (typeof amount !== 'number' || amount <= 0) {
+            return res.status(400).json({ message: 'Amount must be a positive number.' });
         }
 
-        if (sender.balance < amount) {
-            await session.abortTransaction();
+        const sender = await User.findOne({ accountNumber: req.user.accountNumber }); // The sender is the logged-in user
+        if (!sender) {
+            return res.status(404).json({ message: 'Sender account not found.' });
+        }
+
+        const recipientUser = await User.findOne({ accountNumber: recipient }); // Find recipient by account number
+        // Check if recipient exists and is different from the sender
+        if (!recipientUser) {
+            return res.status(400).json({ message: 'Recipient account not found.' });
+        }
+
+        if (sender.accountNumber === recipientUser.accountNumber) {
+            return res.status(400).json({ message: 'You cannot transfer money to your own account.' });
+        }
+
+        // Check if sender has enough balance
+        if (sender.balance < transferAmount) {
             return res.status(400).json({ message: 'Insufficient balance.' });
         }
 
-        // Deduct from sender
-        sender.balance -= amount;
-        await sender.save({ session });
+        // Deduct amount from sender's balance
+        sender.balance -= transferAmount;
+        await sender.save();
 
-        // Add to recipient
-        recipientUser.balance += amount;
-        await recipientUser.save({ session });
+        // Add amount to recipient's balance
+        recipientUser.balance += transferAmount;
+        await recipientUser.save();
 
-        // Log transaction for both users
+        // Log sender's transaction
         const senderTransaction = new Transaction({
             userId: sender._id,
-            amount: -amount,
+            amount: -transferAmount,
             type: 'debit',
-            description: `Transfer to ${recipientUser.accountNumber}`,
+            description: `Transfer to account ${recipientUser.accountNumber}`,
         });
-        await senderTransaction.save({ session });
+        await senderTransaction.save();
 
+        // Log recipient's transaction
         const recipientTransaction = new Transaction({
             userId: recipientUser._id,
-            amount: amount,
+            amount: transferAmount,
             type: 'credit',
-            description: `Received from ${sender.accountNumber}`,
+            description: `Received from account ${sender.accountNumber}`,
         });
-        await recipientTransaction.save({ session });
+        await recipientTransaction.save();
 
-        await session.commitTransaction();
-        session.endSession();
+        sender.transactions.push(senderTransaction._id);
+        recipientUser.transactions.push(recipientTransaction._id);
+        await sender.save();
+        await recipientUser.save();
+
 
         res.status(200).json({ message: 'Transfer successful.' });
     } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
-        console.error(error);
+        console.error('Transfer Error:', error); // More specific error log
         res.status(500).json({ message: 'Transfer failed.' });
     }
 };

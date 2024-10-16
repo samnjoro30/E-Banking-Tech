@@ -6,6 +6,8 @@ const zxcvbn = require('zxcvbn');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 const jwtr = require('jsonwebtoken');
+require('dotenv').config();
+
 
 
 // Generate account number function
@@ -43,9 +45,41 @@ const sendConfirmationEmail = (email) => {
 
     return transporter.sendMail(mailOptions);
 };
+const generateCardNumber = () => {
+    let cardNumber = '4'; // Starting with '4' for Visa (change this for other types)
+    for (let i = 0; i < 15; i++) {
+        cardNumber += Math.floor(Math.random() * 10); // Append random digits
+    }
+    return cardNumber;
+};
+const generateExpiryDate = () => {
+    const currentYear = new Date().getFullYear();
+    const year = currentYear + Math.floor(Math.random() * 5 + 1); // Random year between now and 5 years later
+    const month = ('0' + Math.floor(Math.random() * 12 + 1)).slice(-2); // Random month
+    return `${month}/${year.toString().slice(-2)}`; // Format MM/YY
+};
 
+// Function to generate a CVV
+const generateCVV = () => {
+    let cvv = '';
+    for (let i = 0; i < 3; i++) {
+        cvv += Math.floor(Math.random() * 10); // Append random digits
+    }
+    return cvv;
+}; 
+/*const creditCard = async (req, res) =>{
+    setTimeout(() => {
+        const cardDetails = {
+            cardNumber: generateCardNumber(),
+            cvv: generateCVV(),
+            expiryDate: generateExpiryDate(), // You can generate a dynamic expiry date if needed
+            cardHolder: `${firstName} ${lastName}` || 'John Doe' // or take this from the user input
+        };
+        res.json(cardDetails);
+    }, 3000);
+};*/
 const registerUser = async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName,  } = req.body;
 
     // Check for validation errors
     const errors = validationResult(req);
@@ -84,7 +118,15 @@ const registerUser = async (req, res) => {
             email,
             password: hashedPassword,
             accountNumber,
+            cardNumber: generateCardNumber(),  // Generate the card number here
+            cardHolder: `${firstName} ${lastName}`,  // Set cardholder name
+            expiryDate: generateExpiryDate(),  // Generate the expiry date
+            cvv: generateCVV(),
+            balance: 500 
+
         });
+
+        
 
         await user.save();
 
@@ -93,7 +135,7 @@ const registerUser = async (req, res) => {
         user.otp = otp;
         user.otpExpires = Date.now() + 10 * 60 * 1000;
         await user.save();
-        const token = jwt.generateToken(newUser);
+        const token = jwt.generateToken(user);
         console.log('OTP generated and saved successfully');
 
         try {
@@ -132,7 +174,7 @@ const loginUser = async (req, res) => {
         }
         
         const token = jwtr.sign(
-            { userId: user._id, firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber },
+            { userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber, cardNumber: user.cardNumber, expiryDate: user.expiryDate, cvv: user.cvv },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN } // '1h', '7d', etc.
         );
@@ -141,7 +183,7 @@ const loginUser = async (req, res) => {
         res.status(200).json({
             message: 'Login successful',
             token,
-            user: { firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber }
+            user: { firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber, cardNumber: user.cardNumber, expiryDate: user.expiryDate, cvv: user.cvv}
         });
 
        
@@ -177,6 +219,46 @@ const verifyOTP = async (req, res) => {
         res.status(500).json({ message: 'Error verifying OTP' });
     }
 };
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const otp = generateOTP();
+        user.otp = otp;
+        user.otpExpires = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
+        await user.save();
+
+        await sendOTPEmail(user.email, otp);
+        res.status(200).json({ message: 'OTP sent to email' });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+const resetPassword = async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user || user.otp !== otp || Date.now() > user.otpExpires) {
+            return res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        user.otp = null;
+        user.otpExpires = null;
+        await user.save();
+
+        res.status(200).json({ message: 'Password reset successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 /*const getUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password'); // Access user ID from req.user
@@ -199,11 +281,15 @@ const getDashboardData = async (req, res) => {
             lastName: user.lastName,
             email: user.email,
             accountNumber: user.accountNumber,
-            balance: user.balance // Assuming you have a balance property
+            balance: user.balance || 1000,
+            cardNumber: user.cardNumber,
+            expiryDate: user.expiryDate,
+            cvv: user.cvv
         });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
     }
 };
-module.exports = { registerUser, loginUser, verifyOTP, getDashboardData};
+
+module.exports = { registerUser, loginUser, verifyOTP, getDashboardData, resetPassword, forgotPassword};

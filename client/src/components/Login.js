@@ -49,17 +49,18 @@ const Login = () => {
             <h1>Login</h1>
             <form onSubmit={onSubmit}>
                 <div>
-                    <label>Email</label>
+                    <label>Email:</label>
                     <input
                         type="email"
                         name="email"
                         value={email}
+                        placeholder="sam@gmail.com"
                         onChange={onChange}
                         required
                     />
                 </div>
                 <div>
-                    <label>Password</label>
+                    <label>Password:</label>
                     <input
                         type={showPassword ? "text" : "password"}
                         name="password"
@@ -86,3 +87,4 @@ const Login = () => {
 };
 
 export default Login;
+
