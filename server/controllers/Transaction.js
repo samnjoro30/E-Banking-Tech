@@ -18,7 +18,6 @@ const getTransactions = async (req, res) => {
 };
 
 
-
 // Create a transaction (e.g., transfer funds)
 const createTransaction = async (req, res) => {
     const { description, amount, type } = req.body;

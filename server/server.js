@@ -11,7 +11,7 @@ const session = require('express-session');
 
 const  app = express();
 
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['https://e-banking-tech-61d82.web.app'];
 const corsOptions = {
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
