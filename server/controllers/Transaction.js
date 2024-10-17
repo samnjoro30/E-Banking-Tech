@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 // Fetch user transactions
 const getTransactions = async (req, res) => {
     try {
-        const transactions = await Transaction.findOne({ accountNumber: req.accountNumber }).sort({ date: -1 });
+        const accountNumber = req.user.accountNumber;
+        console.log('Fetching transations for account:', accountNumber)
 
-        if (!transactions || transactions.length === 0) {
-            return res.status(404).json({ message: 'No transactions found' });
-        }
+        const transactions = await Transaction.find({ accountNumber: req.accountNumber }).sort({ date: -1 });
+
         
         res.json(Array.isArray(transactions) ? transactions : [transactions]);
     } catch (err) {
