@@ -24,7 +24,7 @@ const ResetPassword = () => {
             return;
         }
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/reset-password', { email, otp, newPassword });
+            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/reset-password', { email, otp, newPassword });
             setMessage(res.data.message);
             setError('');
         } catch (err) {

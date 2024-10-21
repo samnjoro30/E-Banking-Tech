@@ -11,7 +11,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/forgot-password', { email });
             setMessage(res.data.message);
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to send reset email');

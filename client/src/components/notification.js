@@ -12,7 +12,7 @@ const Notification = () => {
         // Fetch notifications (you can replace the URL with your API endpoint)
         const fetchNotifications = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/notifications');
+                const res = await axios.get('https://e-banking-tech.onrender.comg/api/notifications');
                 setNotifications(res.data);
             } catch (error) {
                 console.error('Failed to fetch notifications', error);

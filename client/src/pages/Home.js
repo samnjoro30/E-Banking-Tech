@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css'; // Assuming you're adding custom CSS for styling
-import bankVideo from '../images/Bank3.mp4'; 
+import bankVideo from '../images/Bank2.mp4'; 
+import Footer from '../components/footer';
 
 const Home = () => {
     return (
@@ -11,9 +12,9 @@ const Home = () => {
                 <h1 className="brand-name">E-Banking</h1>
                 <ul className="nav-links">
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/services">Services</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
+                    <li><Link to="/">Services</Link></li>
+                    <li><Link to="/">About</Link></li>
+                    <li><Link to="/">Contact</Link></li>
                     {/* Update these links to point to the /auth route */}
                     <li><Link to="/auth">Login</Link></li>
                     <li><Link to="/auth">Register</Link></li>
@@ -59,14 +60,13 @@ const Home = () => {
                         <h4>Investments</h4>
                         <p>Grow your wealth with our investment plans that are tailored to meet your financial goals.</p>
                     </div>
+                    
                 </div>
             </section>
+            <div>
+                < Footer/>
+            </div>
 
-            {/* Footer Section */}
-            <footer className="footer">
-                <p>&copy; 2024 E-Banking | All rights reserved.</p>
-                
-            </footer>
         </div>
     );
 };

@@ -4,9 +4,9 @@ import { getToken } from '../utils/auth'; // Token utility for authentication
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
-    const [editMode, setEditMode] = useState(null); // To track the user being edited
+    const [editMode, setEditMode] = useState(null); 
     const [editUserData, setEditUserData] = useState({}); // User data in edit mode
-    const [searchQuery, setSearchQuery] = useState(''); // For search functionality
+    const [searchQuery, setSearchQuery] = useState(''); 
     const [isLoading, setIsLoading] = useState(true); // Loading state
     const [error, setError] = useState(''); // Error state
 
@@ -15,7 +15,7 @@ const UserManagement = () => {
             setIsLoading(true);
             try {
                 const token = getToken();
-                const res = await axios.get('http://localhost:5000/api/admin/users', {
+                const res = await axios.get('https://e-banking-tech.onrender.com/api/admin/users', {
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
                 setUsers(res.data);
@@ -32,7 +32,7 @@ const UserManagement = () => {
     const handleEditUser = async (userId) => {
         const token = getToken();
         try {
-            await axios.put(`http://localhost:5000/api/admin/users/${userId}`, editUserData, {
+            await axios.put(`https://e-banking-tech.onrender.com/api/admin/users/${userId}`, editUserData, {
                 headers: { 'Authorization': `Bearer ${token}` },
             });
             alert('User updated successfully');
@@ -49,11 +49,11 @@ const UserManagement = () => {
         
         const token = getToken();
         try {
-            await axios.post(`http://localhost:5000/api/admin/deactivate-user/${userId}`, {}, {
+            await axios.post(`https://e-banking-tech.onrender.com/api/admin/deactivate-user/${userId}`, {}, {
                 headers: { 'Authorization': `Bearer ${token}` },
             });
             alert('User deactivated successfully');
-            // Optimistically remove the user from the list
+            
             setUsers(users.filter(user => user._id !== userId));
         } catch (err) {
             alert('Error deactivating user');

@@ -14,7 +14,7 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         const fetchTransactionData = async () => {
-            const res = await axios.get('http://localhost:5000/api/reports/transactions-data');
+            const res = await axios.get('https://e-banking-tech.onrender.com/api/reports/transactions-data');
             const chartData = {
                 labels: res.data.map(item => `${item._id.month}/${item._id.year}`),
                 datasets: [
@@ -33,15 +33,13 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-dashboard">
-            <nav>
-                <button onClick={() => setActiveTab('user-management')}>User Management</button>
-                <button onClick={() => setActiveTab('audit-logs')}>Audit Logs</button>
-                <button onClick={() => setActiveTab('reports')}>Reports</button>
-            </nav>
             <div className="admin-content">
                 {activeTab === 'user-management' && <UserManagement />}
                 {activeTab === 'audit-logs' && <AuditLogs />}
                 {activeTab === 'reports' && <Reports />}
+            </div>
+            <div>
+           
             </div>
           {/* <h1>Analysis Dashboard</h1>
             <h2>bar chart</h2>

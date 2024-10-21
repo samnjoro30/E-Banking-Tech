@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import Register from './components/Register';
 import Login from './components/Login';
 import ResetPassword from './components/ResetPassword';
@@ -15,8 +16,22 @@ import Reports from './components/Reports';  // Import reports component
 import UserManagement from './components/UserManagement';  // Import user management component
 
 // Other imports
+const socket = io('https://e-banking-tech.onrender.com');
 
 const App = () => {
+    useEffect(() => {
+        socket.on('connect', () => {
+          console.log('Connected to Socket.IO server');
+        });
+    
+        socket.on('disconnect', () => {
+          console.log('Disconnected from Socket.IO server');
+        });
+    
+        return () => {
+          socket.disconnect();
+        };
+      }, []);
     return (
         <Router>
             <Routes>
@@ -26,7 +41,14 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/verify-otp" element={<VerifyOTP />} />
+                <Route 
+                    path="/verify-otp"
+                    element={
+                        <ProtectedRoute>
+                            <VerifyOTP />
+                       </ProtectedRoute>
+                       } 
+                />
                 <Route 
                     path="/dashboard"
                     element= {

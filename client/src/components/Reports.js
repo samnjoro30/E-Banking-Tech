@@ -7,7 +7,7 @@ const Reports = () => {
     const [reportData, setReportData] = useState([]);
 
     const fetchReport = async () => {
-        const res = await axios.get(`http://localhost:5000/api/admin/reports?type=${reportType}`);
+        const res = await axios.get(`https://e-banking-tech.onrender.com/api/admin/reports?type=${reportType}`);
         setReportData(res.data);
     };
 

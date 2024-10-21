@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
 import CreditCard from '../components/CreditCard';
 import Notification from '../components/notification';
+import Sidebar from '../components/sideView';
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
@@ -23,7 +24,6 @@ const Dashboard = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [transferData, setTransferData] = useState({ recipient: '', amount: '' });
     const [showTransactions, setShowTransactions] = useState(false);
-    const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -127,6 +127,9 @@ const Dashboard = () => {
                 <button onClick={toggleDarkMode}>
                     {isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                 </button>
+            </div>
+            <div>
+                <Sidebar/>
             </div>
            
             <div className="logout-container">

@@ -34,7 +34,7 @@ body {
     z-index: 3;
     opacity: 3;
     transform: scale(0.8);
-    /* Temporary border for visibility */
+   
     border: 3px solid blue;
     display: flex;
     flex-direction: column;
@@ -190,36 +190,15 @@ ul li {
 .password-container input:focus {
     border-color: #002aff; /* Change border color on focus */
 }
-.welcome-text {
-    text-align: right; /* Align text to the right */
+.container2 {
+    width: 50%; /* Take more width for the open, free feel */
+    height: auto;
+    background: none; /* No background to make it free */
+    padding: 0; /* No padding to remove the box look */
+    box-shadow: none; /* Remove shadow */
+    border: none; /* No borders */
+    transform: none; /* No scaling */
+    margin: 0; /* No margin */
+    transform: scale(0.8);
 }
 
-/* Additional styles for headings and paragraphs */
-.welcome-text h1 {
-    color: #41ca61; /* Ensure contrast with the background */
-    font-size: 1.8rem; /* Increase font size for emphasis */
-    margin-bottom: 20px;
-}
-
-.welcome-text p {
-    color: #333; /* Ensure paragraph color is readable */
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.welcome-text ul {
-    list-style-type: none; /* Remove default bullet points */
-    padding-left: 0; /* Remove left padding */
-    text-align: right; /* Align list to the right */
-}
-
-.welcome-text li {
-    margin-top: 5px; /* Spacing between list items */
-}
-p {
-    margin-top: 10px;
-    text-align: center;
-    color: #333;
-    font-size: 14px; 
-    font-family: 'Georgia', serif;
-}

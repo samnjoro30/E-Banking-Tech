@@ -68,7 +68,6 @@ const Register = () => {
             const response = await axios.post('https://e-banking-tech.onrender.com/api/generate-card', {
                 cardHolder: `${formData.firstName} ${formData.lastName}`});
 
-
             const cardDetails = response.data;
             console.log(cardDetails);
         } catch (err) {

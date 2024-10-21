@@ -111,6 +111,24 @@ const registerUser = async (req, res) => {
         // Generate account number
         const accountNumber = await generateAccountNumber();
 
+        const otp = generateOTP();
+        user.otp = otp;
+        user.otpExpires = Date.now() + 10 * 60 * 1000;
+       
+        const token = jwt.generateToken(user);
+        console.log('OTP generated and saved successfully');
+
+        try {
+            await sendOTPEmail(user.email, otp);
+            console.log(`OTP email sent to ${user.email}`);
+        } catch (error) {
+            // If OTP email fails, log the error and rollback OTP
+            user.otp = null;
+            user.otpExpires = null;
+            
+            console.error('Failed to send OTP email:', error.message);
+            return res.status(500).json({ message: 'User registered, but failed to send OTP. Please try again.' });
+        }
         // Create new user
         user = new User({
             firstName,
@@ -122,35 +140,11 @@ const registerUser = async (req, res) => {
             cardHolder: `${firstName} ${lastName}`,  // Set cardholder name
             expiryDate: generateExpiryDate(),  // Generate the expiry date
             cvv: generateCVV(),
-            balance: 500 
-
+            balance: 500
         });
+        await user.save();
 
         
-
-        await user.save();
-
-        // Generate OTP and send email
-        const otp = generateOTP();
-        user.otp = otp;
-        user.otpExpires = Date.now() + 10 * 60 * 1000;
-        await user.save();
-        const token = jwt.generateToken(user);
-        console.log('OTP generated and saved successfully');
-
-        try {
-            await sendOTPEmail(user.email, otp);
-            console.log(`OTP email sent to ${user.email}`);
-        } catch (error) {
-            // If OTP email fails, log the error and rollback OTP
-            user.otp = null;
-            user.otpExpires = null;
-            await user.save();  // Clean up OTP data if sending fails
-            console.error('Failed to send OTP email:', error.message);
-            return res.status(500).json({ message: 'User registered, but failed to send OTP. Please try again.' });
-        }
-
-        // Respond to the client
         res.status(201).json({ message: 'User registered successfully. OTP sent to your email.', userId: user._id }, { token });
         res.status(201).json({ message: 'User registered successfully. OTP sent to your email', userId: user._id });
     } catch (err) {
@@ -292,4 +286,10 @@ const getDashboardData = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, verifyOTP, getDashboardData, resetPassword, forgotPassword};
+module.exports = { registerUser,
+    loginUser,
+    verifyOTP, 
+    getDashboardData, 
+    resetPassword, 
+    forgotPassword
+};

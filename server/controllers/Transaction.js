@@ -119,6 +119,14 @@ const transferFunds = async (req, res) => {
         res.status(500).json({ message: 'Transfer failed.' });
     }
 };
+const Trans_notification = () => {
 
-module.exports = { getTransactions, createTransaction, transferFunds}
+};
+
+module.exports = { 
+    getTransactions, 
+    createTransaction, 
+    transferFunds, 
+    Trans_notification
+}
 

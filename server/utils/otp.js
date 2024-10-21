@@ -32,7 +32,7 @@ oauth2Client.setCredentials({
 const createTransporter = async () => {
     const accessToken = await oauth2Client.getAccessToken();
     console.log("Access token generated: ", accessToken);
-    if (!accessToken) {
+    if (!accessToken || !accessToken.token) {
         throw new Error('Failed to get access token');
     }
     

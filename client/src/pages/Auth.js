@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Register from '../components/Register';
 import Login from '../components/Login';
-import '../styles/Auth.css';  // Link to the CSS file
-
+import '../styles/Auth.css'; 
 const Auth = () => {
     const [isLoginActive, setIsLoginActive] = useState(true);
 
@@ -24,7 +23,7 @@ const Auth = () => {
                             
                         </div>
                     ) : (
-                        <div className="welcome-text">
+                        <div className="container2">
                             <h1>Welcome to E-Banking</h1>
                             <p>Manage your finances seamlessly.</p>
                             <p>Features:</p>
@@ -52,7 +51,7 @@ const Auth = () => {
                             
                         </div>
                     ) : (
-                        <div className="discover-text">
+                        <div className="container2">
                             <h1>Discover E-Banking Tech</h1>
                             <p>Join our e-banking platform to experience seamless banking solutions.</p>
                             <p>Features:</p>

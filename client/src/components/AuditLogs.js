@@ -7,7 +7,7 @@ const AuditLogs = () => {
 
     useEffect(() => {
         const fetchLogs = async () => {
-            const res = await axios.get('http://localhost:5000/api/admin/audit-logs');
+            const res = await axios.get('https://e-banking-tech.onrender.com/api/admin/audit-logs');
             setLogs(res.data);
         };
         fetchLogs();
