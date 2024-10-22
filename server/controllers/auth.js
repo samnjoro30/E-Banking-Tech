@@ -34,6 +34,15 @@ const isPasswordComplex = (password) => {
     return lowercase && uppercase && number && specialChar;
 };
 
+//testing
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        type: 'OAuth2',
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 // Send confirmation email after registration
 const sendConfirmationEmail = (email) => {
     const mailOptions = {
@@ -143,6 +152,12 @@ const registerUser = async (req, res) => {
             balance: 500
         });
         await user.save();
+        try {
+            await sendConfirmationEmail(User.email);
+        }catch (error){
+            console.error("error sending a confirmation email", error.message);
+            return res.status(500).json({message: "email not sent"})
+        }
 
         
         res.status(201).json({ message: 'User registered successfully. OTP sent to your email.', userId: user._id }, { token });
