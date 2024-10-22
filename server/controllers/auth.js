@@ -120,10 +120,25 @@ const registerUser = async (req, res) => {
         // Generate account number
         const accountNumber = await generateAccountNumber();
 
+        // Create new user
+        user = new User({
+            firstName,
+            lastName,
+            email,
+            password: hashedPassword,
+            accountNumber,
+            cardNumber: generateCardNumber(),  // Generate the card number here
+            cardHolder: `${firstName} ${lastName}`,  // Set cardholder name
+            expiryDate: generateExpiryDate(),  // Generate the expiry date
+            cvv: generateCVV(),
+            balance: 500
+        });
+
         const otp = generateOTP();
         user.otp = otp;
         user.otpExpires = Date.now() + 10 * 60 * 1000;
        
+        await user.save();
         const token = jwt.generateToken(user);
         console.log('OTP generated and saved successfully');
 
@@ -138,22 +153,8 @@ const registerUser = async (req, res) => {
             console.error('Failed to send OTP email:', error.message);
             return res.status(500).json({ message: 'User registered, but failed to send OTP. Please try again.' });
         }
-        // Create new user
-        user = new User({
-            firstName,
-            lastName,
-            email,
-            password: hashedPassword,
-            accountNumber,
-            cardNumber: generateCardNumber(),  // Generate the card number here
-            cardHolder: `${firstName} ${lastName}`,  // Set cardholder name
-            expiryDate: generateExpiryDate(),  // Generate the expiry date
-            cvv: generateCVV(),
-            balance: 500
-        });
-        await user.save();
         try {
-            await sendConfirmationEmail(User.email);
+            await sendConfirmationEmail(user.email);
         }catch (error){
             console.error("error sending a confirmation email", error.message);
             return res.status(500).json({message: "email not sent"})
