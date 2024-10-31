@@ -1,14 +1,14 @@
 // Sidebar.js
 import React from 'react';
+import '../styles/sideview.css';
 
 const Sidebar = () => {
     return (
         <aside className="sidebar-container">
             <ul>
-                <li>🏦 Wallet</li>
-                <li>💳 Cards</li>
-                <li>📊 Analytics</li>
-                {/* Add more icons or links */}
+                <li><span role="img" aria-label="wallet">🏦</span> Wallet</li>
+                <li><span role="img" aria-label="cards">💳</span> Cards</li>
+                <li><span role="img" aria-label="analytics">📊</span> Analytics</li>
             </ul>
         </aside>
     );

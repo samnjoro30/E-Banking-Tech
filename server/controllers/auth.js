@@ -88,7 +88,7 @@ const generateCVV = () => {
     }, 3000);
 };*/
 const registerUser = async (req, res) => {
-    const { email, password, firstName, lastName,  } = req.body;
+    const { email, password, firstName, lastName, pin } = req.body;
 
     // Check for validation errors
     const errors = validationResult(req);
@@ -117,6 +117,11 @@ const registerUser = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+        // Validate the PIN to ensure it's a 5-digit number
+        if (!/^\d{5}$/.test(pin)) {
+            return res.status(400).json({ message: 'PIN must be a 5-digit number.' });
+        }
+        const hashedPin = await bcrypt.hash(pin, 10);
         // Generate account number
         const accountNumber = await generateAccountNumber();
 
@@ -126,6 +131,7 @@ const registerUser = async (req, res) => {
             lastName,
             email,
             password: hashedPassword,
+            pin: hashedPin,
             accountNumber,
             cardNumber: generateCardNumber(),  // Generate the card number here
             cardHolder: `${firstName} ${lastName}`,  // Set cardholder name

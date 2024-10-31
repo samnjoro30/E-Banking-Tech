@@ -2,15 +2,20 @@ const express = require('express');
 const router = express.Router();
 const {transferFunds, getTransactions, createTransaction, Trans_notification} = require('../controllers/Transaction');
 const  authMiddleware  = require('../middlewares/authMiddleware');
-const { body, validationResult } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 
 // Fetch user transactions
-router.get('/transactions', authMiddleware, getTransactions);
+router.get('/transactions',
+  [
+    check('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer'),
+    check('limit').optional().isInt({ min: 1 }).withMessage('Limit must be a positive integer'),
+  ], authMiddleware, getTransactions);
 
 router.post('/transfer', 
     [
       body('recipient').notEmpty().withMessage('Recipient is required'),
       body('amount').isFloat({ gt: 0 }).withMessage('Amount must be greater than zero'),
+      check('pin').isString().withMessage('PIN is required for security verification.')
     ],
     authMiddleware, 
     transferFunds

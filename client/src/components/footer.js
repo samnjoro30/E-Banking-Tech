@@ -94,7 +94,7 @@ const Footer = () => {
 // Inline CSS styles for simple styling
 const styles = {
     footerContainer: {
-        backgroundColor: 'green',
+        backgroundColor: 'black',
         color: '#fff',
         padding: '40px 20px',
         textAlign: 'center',

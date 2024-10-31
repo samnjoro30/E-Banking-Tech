@@ -1,0 +1,30 @@
+.user-dashboard {
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.user-dashboard h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.user-info p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.user-info p strong {
+    color: #333;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

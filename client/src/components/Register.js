@@ -9,10 +9,12 @@ const Register = () => {
         firstName: '',
         lastName: '',
         email: '',
+        pin: '',
         password: '',
         confirmPassword: ''
     });
 
+    const [pin, setPin] = useState('');
     const [otp, setOtp] = useState(''); // For storing the OTP input
     const [otpSent, setOtpSent] = useState(false); 
     const [passwordStrength, setPasswordStrength] = useState(0);
@@ -124,6 +126,17 @@ const Register = () => {
                         value={email}
                         onChange={onChange}
                         required
+                    />
+                </div>
+                <div>
+                    <label>PIN(5 digits)</label>
+                    <input
+                       type="text"
+                        value={pin}
+                        onChange={(e) => setPin(e.target.value)}
+                        maxLength={5} // Restrict to 5 digits
+                        pattern="\d{5}" // Pattern for 5 digits
+                        required // Make this field required
                     />
                 </div>
                 <div>
