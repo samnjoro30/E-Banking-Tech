@@ -35,6 +35,12 @@ const Register = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
+        if (name === 'pin') {
+            setPin(value);
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
+
         if (name === 'password') {
             const complexity = checkPasswordComplexity(value);
             setPasswordComplexity(complexity);
@@ -132,11 +138,12 @@ const Register = () => {
                     <label>PIN(5 digits)</label>
                     <input
                        type="text"
-                        value={pin}
-                        onChange={(e) => setPin(e.target.value)}
-                        maxLength={5} // Restrict to 5 digits
-                        pattern="\d{5}" // Pattern for 5 digits
-                        required // Make this field required
+                       name="pin"
+                       value={pin}
+                       onChange={onChange}
+                       maxLength={5} // Restrict to 5 digits
+                       pattern="\d{5}" // Pattern for 5 digits
+                       required // Make this field required
                     />
                 </div>
                 <div>

@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     accountNumber: { type: String, unique: true },
-    pin: {type: Number, required: true },  // Bank-specific field
+    pin: {type: String, required: true },  // Bank-specific field
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isVerified: { type: Boolean, default: false },
     otp: { type: String },  // Temporary OTP storage
