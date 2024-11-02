@@ -139,10 +139,8 @@ const registerUser = async (req, res) => {
         });
         
         await user.save();
-
+        const otp = generateOTP();
         const token = jwt.generateToken(user);
-       
-
         try {
             await sendOTPEmail(user.email, otp);
             console.log(`OTP email sent to ${user.email}`);
