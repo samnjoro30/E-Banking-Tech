@@ -20,7 +20,7 @@ const VerifyOTP = () => {
         try {
             const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', formData);
             setMessage(res.data.message);
-            Navigate('/auth');
+            Navigate('/verify-otp');
         } catch (err) {
             setMessage('Error verifying OTP');
         }

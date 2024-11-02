@@ -44,9 +44,7 @@ const App = () => {
                 <Route 
                     path="/verify-otp"
                     element={
-                        <ProtectedRoute>
                             <VerifyOTP />
-                       </ProtectedRoute>
                        } 
                 />
                 <Route 

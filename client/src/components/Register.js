@@ -80,7 +80,7 @@ const Register = () => {
                 sessionStorage.setItem('email', formData.email);
                 console.log("OTP email sent, form state updated.");
                 setTimeout(() => {
-                    navigate('/verify-otp'); // Redirect to the dashboard after successful login
+                    navigate('/verify-otp'); 
                 }, 2000);
             }
             
@@ -105,13 +105,13 @@ const Register = () => {
     const verifyOtp = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth', { email, otp });
+            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', { email, otp });
             // Assume the response contains the account number
             const accountNumber = res.data.accountNumber;
 
             setMessage(`OTP verified successfully! Your account number is ${accountNumber}`);
             setTimeout(() => {
-                navigate('/auth'); // Redirect to login after successful OTP verification
+                navigate('/'); // Redirect to login after successful OTP verification
             }, 3000); // Redirect after 3 seconds
         } catch (err) {
             setError(err.response?.data?.message || "Error verifying OTP");

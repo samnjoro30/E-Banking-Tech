@@ -25,12 +25,7 @@ const userSchema = new mongoose.Schema({
     cvv: { type: String }  // Add CVV if needed
 });
 
-userSchema.pre('save', async function(next) {
-    if (this.isModified('hashedPin')) {
-        this.hashedPin = await bcrypt.hash(this.hashedPin, 10);
-    }
-    next();
-});
+
 // Method to verify the PIN
 userSchema.methods.verifyPin = async function(pin) {
     if (!this.hashedPin) {
