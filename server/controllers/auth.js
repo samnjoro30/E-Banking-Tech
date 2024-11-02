@@ -38,7 +38,6 @@ const isPasswordComplex = (password) => {
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        type: 'OAuth2',
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     }
@@ -136,10 +135,6 @@ const registerUser = async (req, res) => {
             phoneNumber,
             pin: hashedPin,
             accountNumber,
-            cardNumber: generateCardNumber(),  // Generate the card number here
-            cardHolder: `${firstName} ${lastName}`,  // Set cardholder name
-            expiryDate: generateExpiryDate(),  // Generate the expiry date
-            cvv: generateCVV(),
             balance: 500
         });
         const otp = generateOTP();
