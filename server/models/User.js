@@ -33,6 +33,9 @@ userSchema.pre('save', async function(next) {
 });
 // Method to verify the PIN
 userSchema.methods.verifyPin = async function(pin) {
+    if (!this.hashedPin) {
+        throw new Error("PIN not set for this user");
+    }
     return await bcrypt.compare(pin, this.hashedPin);
 };
 // Pre-save hook to hash password before saving to the database
