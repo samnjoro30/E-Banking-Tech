@@ -1,10 +1,11 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { isAuthenticated } from '../utils/auth';
 
 const ProtectedRoute = ({ children }) => {
-    if (!isAuthenticated()) {
-        return <Navigate to="/login" />;
+    const location = useLocation();
+    if (!isAuthenticated()& location.pathname !== '/verify-otp') {
+        return <Navigate to="/auth" />;
     }
 
     return children;

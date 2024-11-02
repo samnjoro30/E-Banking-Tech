@@ -133,7 +133,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
             gender,
             phoneNumber,
-            hashedPin,
+            pin: hashedPin,
             accountNumber,
             balance: 500
         });
