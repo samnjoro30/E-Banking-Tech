@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     gender: {type: String, required: true},
     password: { type: String, required: true },
     accountNumber: { type: String, unique: true },
-    pin: {type: String, required: true },  // Bank-specific field
+    hashedPin: {type: String, required: true },  // Bank-specific field
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isVerified: { type: Boolean, default: false },
     otp: { type: String },  // Temporary OTP storage
@@ -25,7 +25,16 @@ const userSchema = new mongoose.Schema({
     cvv: { type: String }  // Add CVV if needed
 });
 
-
+userSchema.pre('save', async function(next) {
+    if (this.isModified('hashedPin')) {
+        this.hashedPin = await bcrypt.hash(this.hashedPin, 10);
+    }
+    next();
+});
+// Method to verify the PIN
+userSchema.methods.verifyPin = async function(pin) {
+    return await bcrypt.compare(pin, this.hashedPin);
+};
 // Pre-save hook to hash password before saving to the database
 
 module.exports = mongoose.model('User', userSchema);

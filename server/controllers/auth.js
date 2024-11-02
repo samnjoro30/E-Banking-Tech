@@ -133,32 +133,34 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
             gender,
             phoneNumber,
-            pin: hashedPin,
+            hashedPin,
             accountNumber,
             balance: 500
         });
-        const otp = generateOTP();
-        user.otp = otp;
-        user.otpExpires = Date.now() + 10 * 60 * 1000;
-       
+        
         await user.save();
+
         const token = jwt.generateToken(user);
-        console.log('OTP generated and saved successfully');
+       
 
         try {
             await sendOTPEmail(user.email, otp);
             console.log(`OTP email sent to ${user.email}`);
+            res.status(201).json({
+                message: 'User registered successfully. OTP sent to your email.',
+                userId: user._id,
+                token,
+            });
         } catch (error) {
             // If OTP email fails, log the error and rollback OTP
             user.otp = null;
             user.otpExpires = null;
+            await user.save();
             
             console.error('Failed to send OTP email:', error.message);
             return res.status(500).json({ message: 'User registered, but failed to send OTP. Please try again.' });
         }
         
-        res.status(201).json({ message: 'User registered successfully. OTP sent to your email.', userId: user._id }, { token });
-        res.status(201).json({ message: 'User registered successfully. OTP sent to your email', userId: user._id });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
@@ -296,7 +298,7 @@ const getDashboardData = async (req, res) => {
             lastName: user.lastName,
             email: user.email,
             accountNumber: user.accountNumber,
-            balance: user.balance || 1000,
+            balance: user.balance,
             cardNumber: user.cardNumber,
             expiryDate: user.expiryDate,
             cvv: user.cvv

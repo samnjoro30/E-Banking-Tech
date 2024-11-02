@@ -12,7 +12,7 @@ const Dashboard = () => {
         lastName: '',
         email: '',
         accountNumber: '',
-        balance: 500,
+        balance: '',
         cardNumber: '',
         cardHolder: '',
         expiryDate: '',

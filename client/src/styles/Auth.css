@@ -138,7 +138,7 @@ button[type="button"]{
     transition: background-color 0.3s;
 }
 button[type="button"]:hover{
-    color:#45a049;
+    color:#9e9f9e;
 
 }
 button[type="submit"] {
