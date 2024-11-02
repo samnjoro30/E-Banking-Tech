@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
+    phoneNumber: {type: String, required: true, unique: true},
+    dob: {type: String, required: true},
+    gender: {type: String, required: true},
     password: { type: String, required: true },
     accountNumber: { type: String, unique: true },
     pin: {type: String, required: true },  // Bank-specific field

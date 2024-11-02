@@ -10,9 +10,11 @@ const Register = () => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
+        phoneNumber: '',
         dob: '',
         email: '',
         pin: '',
+        gender: '',
         password: '',
         confirmPassword: ''
     });
@@ -32,7 +34,7 @@ const Register = () => {
     
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const { firstName, lastName, email, password, confirmPassword, dob} = formData;
+    const { firstName, lastName, email, password, confirmPassword, dob, phoneNumber, gender} = formData;
 
 
     const onChange = (e) => {
@@ -74,6 +76,7 @@ const Register = () => {
             const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/register', formData);
             setOtpSent(true); // OTP has been sent
             setMessage('Registration successful! OTP sent to your email.', message);
+            navigate('/verify-otp');
             console.log(res.data);
             
             // Handle successful registration (e.g., redirect to OTP verification page)
@@ -157,6 +160,19 @@ const Register = () => {
                            You are under 18. Would you like to open a Teens Savings Account?
                         </p>
                          )}
+                        <label>Gender:</label>
+                        <select
+                           name="gender"
+                           type="text"
+                           value={formData.gender}
+                           onChange={onChange}
+                           required
+                        >
+                           <option value="">Select Gender</option>
+                           <option value="Male">Male</option>
+                           <option value="Female">Female</option>
+                           <option value="Other">Other</option>
+                        </select>
                         <label>Email</label>
                         <input
                             type="email"
@@ -165,6 +181,21 @@ const Register = () => {
                             onChange={onChange}
                             required
                         />
+
+                        <label>Phone Number:</label>
+                        <input
+                           type="text"
+                           name="phoneNumber"
+                           placeholder="07XXXXXXXX or 01XXXXXXXX"
+                           pattern="(07|01)\d{8}"
+                           title="Please enter a valid 10-digit phone number starting with 07 or 01"
+                           value={formData.phoneNumber}
+                           onChange={onChange}
+                           required
+                        />
+                        {formData.phoneNumber && !/^(07|01)\d{8}$/.test(formData.phoneNumber) && (
+                           <p style={{ color: 'red', fontSize: 'smaller' }}>Please enter a valid 10-digit phone number starting with 07 or 01.</p>
+                        )}
                         <button type="button" onClick={handleNext}>Next</button>
                     </div>
                 )}

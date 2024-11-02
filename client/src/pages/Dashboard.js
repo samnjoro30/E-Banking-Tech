@@ -22,7 +22,7 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const [transactions, setTransactions] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const [transferData, setTransferData] = useState({ recipient: '', amount: '' });
+    const [transferData, setTransferData] = useState({ recipient: '', amount: '', pin: ''});
     const [showTransactions, setShowTransactions] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
     const navigate = useNavigate();

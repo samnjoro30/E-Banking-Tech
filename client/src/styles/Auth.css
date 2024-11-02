@@ -103,6 +103,8 @@ p {
 
 input[type="email"],
 input[type="password"],
+input[type="gender"],
+input[type="date"],
 input[type="text"] {
     width: 100%;
     padding: 10px;
@@ -112,8 +114,14 @@ input[type="text"] {
     outline: none;
     transition: border-color 0.3s ease;
 }
-
+label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+  }
+  
 input[type="email"]:focus,
+input[type="date"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
     border-color: #194d24;
@@ -157,7 +165,6 @@ button[type="submit"]:active {
     transform: scale(0.95); /* Slightly shrink on click */
 }
 
-/* Focus State for Password Input */
 
 .password-container input:focus {
     border-color: #1b8f3f; /* Change border color on focus */
