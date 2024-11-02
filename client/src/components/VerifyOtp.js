@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import '../styles/verify.css'; // Import your CSS file
 
 const VerifyOTP = () => {
     const [formData, setFormData] = useState({
@@ -15,40 +16,44 @@ const VerifyOTP = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', formData);
             setMessage(res.data.message);
-            Navigate('/verify-otp');
+            Navigate('/auth');
         } catch (err) {
             setMessage('Error verifying OTP');
         }
     };
 
     return (
-        <div>
-            <h2>Verify OTP</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Enter your email"
-                    name="email"
-                    value={email}
-                    onChange={onChange}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Enter OTP"
-                    name="otp"
-                    value={otp}
-                    onChange={onChange}
-                    required
-                />
-                <button type="submit">Verify OTP</button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className="center-container">
+            <div className="form-container">
+                <h2>Verify OTP</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        name="email"
+                        value={email}
+                        onChange={onChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Enter OTP"
+                        name="otp"
+                        value={otp}
+                        onChange={onChange}
+                        required
+                    />
+                    <button type="submit">Verify OTP</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
         </div>
     );
 };
