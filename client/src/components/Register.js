@@ -79,9 +79,7 @@ const Register = () => {
                 setMessage('Registration successful! OTP sent to your email.');
                 sessionStorage.setItem('email', formData.email);
                 console.log("OTP email sent, form state updated.");
-                setTimeout(() => {
-                    navigate('/verify-otp'); 
-                }, 2000);
+                navigate('/verify-otp'); 
             }
             
         } catch (err) {

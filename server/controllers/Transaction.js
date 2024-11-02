@@ -112,7 +112,8 @@ const transferFunds = async (req, res) => {
 
         //pin validation
         const sender = await User.findOne({ accountNumber: req.user.accountNumber });
-        if (!sender || !sender.verifyPin(pin)) { // Implement verifyPin method for PIN hashing/verification
+        const verifyPin = await bcrypt.compare(pin, sender.pin)
+        if (!sender || verifyPin) { // Implement verifyPin method for PIN hashing/verification
             return res.status(401).json({ message: 'Invalid PIN for authentication.' });
         }
         if (isNaN(transferAmount) || transferAmount <= 0) {

@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     gender: {type: String, required: true},
     password: { type: String, required: true },
     accountNumber: { type: String, unique: true },
-    hashedPin: {type: String, required: true },  // Bank-specific field
+    pin: {type: String, required: true },  // Bank-specific field
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isVerified: { type: Boolean, default: false },
     otp: { type: String },  // Temporary OTP storage
@@ -27,12 +27,7 @@ const userSchema = new mongoose.Schema({
 
 
 // Method to verify the PIN
-userSchema.methods.verifyPin = async function(pin) {
-    if (!this.hashedPin) {
-        throw new Error("PIN not set for this user");
-    }
-    return await bcrypt.compare(pin, this.hashedPin);
-};
+
 // Pre-save hook to hash password before saving to the database
 
 module.exports = mongoose.model('User', userSchema);
