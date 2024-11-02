@@ -142,7 +142,6 @@ const registerUser = async (req, res) => {
             cvv: generateCVV(),
             balance: 500
         });
-
         const otp = generateOTP();
         user.otp = otp;
         user.otpExpires = Date.now() + 10 * 60 * 1000;
