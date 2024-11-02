@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const VerifyOTP = () => {
     const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const VerifyOTP = () => {
         try {
             const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', formData);
             setMessage(res.data.message);
+            Navigate('/auth');
         } catch (err) {
             setMessage('Error verifying OTP');
         }

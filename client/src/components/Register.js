@@ -74,17 +74,13 @@ const Register = () => {
         }
         try {
             const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/register', formData);
-            setOtpSent(true); // OTP has been sent
-            setMessage('Registration successful! OTP sent to your email.', message);
-            navigate('/verify-otp');
-            console.log(res.data);
+            if (res.status === 201 && res.data.message.includes("OTP sent")) {
+                setOtpSent(true);  // Set otpSent true only on success
+                setMessage('Registration successful! OTP sent to your email.');
+                sessionStorage.setItem('email', formData.email);
+                console.log("OTP email sent, form state updated.");
+            }
             
-            // Handle successful registration (e.g., redirect to OTP verification page)
-            const response = await axios.post('https://e-banking-tech.onrender.com/api/generate-card', {
-                cardHolder: `${formData.firstName} ${formData.lastName}`});
-
-            const cardDetails = response.data;
-            console.log(cardDetails);
         } catch (err) {
             setMessage(err.response.data.message);
             console.error(err.response.data);
@@ -112,7 +108,7 @@ const Register = () => {
 
             setMessage(`OTP verified successfully! Your account number is ${accountNumber}`);
             setTimeout(() => {
-                navigate('/login'); // Redirect to login after successful OTP verification
+                navigate('/auth'); // Redirect to login after successful OTP verification
             }, 3000); // Redirect after 3 seconds
         } catch (err) {
             setError(err.response?.data?.message || "Error verifying OTP");
@@ -126,6 +122,7 @@ const Register = () => {
     return (
         <div>
             <h1>Register</h1>
+            {!otpSent ? (
             <form onSubmit={onSubmit}>
             {step === 1 && (
                     <div>
@@ -244,8 +241,7 @@ const Register = () => {
                 )}
 
             </form>
-            {/* OTP Input Field */}
-            {otpSent && (
+            ) :(
                 <form onSubmit={verifyOtp}>
                     <div>
                         <label>Enter OTP</label>
