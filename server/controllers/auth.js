@@ -88,7 +88,7 @@ const generateCVV = () => {
     }, 3000);
 };*/
 const registerUser = async (req, res) => {
-    const { email, password, firstName, lastName, pin } = req.body;
+    const { email, password, firstName, lastName, pin, gender, dob, phoneNumber } = req.body;
 
     // Check for validation errors
     const errors = validationResult(req);
@@ -130,7 +130,10 @@ const registerUser = async (req, res) => {
             firstName,
             lastName,
             email,
+            dob,
             password: hashedPassword,
+            gender,
+            phoneNumber,
             pin: hashedPin,
             accountNumber,
             cardNumber: generateCardNumber(),  // Generate the card number here
