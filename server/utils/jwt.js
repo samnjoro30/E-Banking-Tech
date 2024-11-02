@@ -11,6 +11,7 @@ const generateToken = (user) => {
     );
 };
 
+
 // Verify JWT Token
 const verifyToken = (token) => {
     try {

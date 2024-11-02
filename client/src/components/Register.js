@@ -4,16 +4,20 @@ import zxcvbn from 'zxcvbn';  // For password strength checking
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 
+
 const Register = () => {
+    const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
+        dob: '',
         email: '',
         pin: '',
         password: '',
         confirmPassword: ''
     });
 
+    const [isUnder18, setIsUnder18] = useState(false);
     const [pin, setPin] = useState('');
     const [otp, setOtp] = useState(''); // For storing the OTP input
     const [otpSent, setOtpSent] = useState(false); 
@@ -28,7 +32,7 @@ const Register = () => {
     
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const { firstName, lastName, email, password, confirmPassword} = formData;
+    const { firstName, lastName, email, password, confirmPassword, dob} = formData;
 
 
     const onChange = (e) => {
@@ -40,13 +44,13 @@ const Register = () => {
         } else {
             setFormData({ ...formData, [name]: value });
         }
-
-        if (name === 'password') {
+        if (name === 'dob') {
+            checkAge(value);
+        } else if (name === 'password') {
             const complexity = checkPasswordComplexity(value);
             setPasswordComplexity(complexity);
-
             const strength = zxcvbn(value);
-            setPasswordStrength(strength.score);  // Update strength score
+            setPasswordStrength(strength.score);
         }
     };
     const checkPasswordComplexity = (password) => {
@@ -84,6 +88,18 @@ const Register = () => {
             // Handle registration error
         }
     };
+    const checkAge = (dob) => {
+        const birthDate = new Date(dob);
+        const today = new Date();
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        setIsUnder18(age < 18);
+    };
     const verifyOtp = async (e) => {
         e.preventDefault();
         try {
@@ -100,80 +116,102 @@ const Register = () => {
             console.error(err.response?.data);
         }
     };
+
+    const handleNext = () => setStep((prevStep) => prevStep + 1);
+    const handlePrevious = () => setStep((prevStep) => prevStep - 1);
+
     return (
         <div>
             <h1>Register</h1>
             <form onSubmit={onSubmit}>
-                <div>
-                    <label>First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={firstName}
-                        onChange={onChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={lastName}
-                        onChange={onChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={onChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>PIN(5 digits)</label>
-                    <input
-                       type="text"
-                       name="pin"
-                       value={pin}
-                       onChange={onChange}
-                       maxLength={5} // Restrict to 5 digits
-                       pattern="\d{5}" // Pattern for 5 digits
-                       required // Make this field required
-                    />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        onChange={onChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Confirm Password</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        value={confirmPassword}
-                        onChange={onChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Password Strength: {['Too weak', 'Weak', 'Fair', 'Good', 'Strong'][passwordStrength]}</p>
-                </div>
-                {/* Display error message if passwords don't match */}
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+            {step === 1 && (
+                    <div>
+                        <h2>Step 1: Personal Information</h2>
+                        <label>First Name</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={firstName}
+                            onChange={onChange}
+                            required
+                        />
+                        <label>Last Name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={lastName}
+                            onChange={onChange}
+                            required
+                        />
+                        <label>Date of Birth</label>
+                        <input
+                           type="date"
+                           name="dob"
+                           value={dob}
+                           onChange={onChange}
+                           required
+                        />
 
+                        {isUnder18 && (
+                        <p style={{ color: 'blue' }}>
+                           You are under 18. Would you like to open a Teens Savings Account?
+                        </p>
+                         )}
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={onChange}
+                            required
+                        />
+                        <button type="button" onClick={handleNext}>Next</button>
+                    </div>
+                )}
+                {step === 2 && (
+                    <div>
+                        <h2>Step 2: Security Information</h2>
+                        <label>PIN (5 digits)</label>
+                        <input
+                            type="text"
+                            name="pin"
+                            value={pin}
+                            onChange={onChange}
+                            maxLength={5}
+                            pattern="\d{5}"
+                            required
+                        />
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={onChange}
+                            required
+                        />
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            onChange={onChange}
+                            required
+                        />
+                        <p>Password Strength: {['Too weak', 'Weak', 'Fair', 'Good', 'Strong'][passwordStrength]}</p>
+                        <button type="button" onClick={handlePrevious}>Previous</button>
+                        <button type="button" onClick={handleNext}>Next</button>
+                    </div>
+                )}
+                {step === 3 && (
+                    <div>
+                        <h2>Step 3: Confirm & Submit</h2>
+                        <p>Review your information and submit.</p>
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
+                        <button type="button" onClick={handlePrevious}>Previous</button>
+                        <button type="submit">Register</button>
+                    </div>
+                )}
 
-                <button type="submit">Register</button>
             </form>
             {/* OTP Input Field */}
             {otpSent && (

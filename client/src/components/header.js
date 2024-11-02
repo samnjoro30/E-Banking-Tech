@@ -1,5 +1,5 @@
 import React from 'react';
-import Notification from './Notification';
+import Notification from './notification';
 import bankVideo from '../images/Bank1.mp4';
 import '../styles/header.css';
 

@@ -12,56 +12,53 @@ body {
     position: relative;
     background: linear-gradient(to right, #f0f4f8, #e1e9ef);
     overflow: hidden;
-    padding: 40px 0; 
-    /* Temporary border for visibility */
-    border: 2px solid rgb(16, 12, 12);
+    padding: 40px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
 }
-
-
 
 /* Panels */
 .panel {
-    width: 100%;
-    height: auto;
-    background: rgba(255, 255, 255, 0.8); /* Glassmorphism Effect */
-    /* backdrop-filter: blur(10px); */
+    display: flex;
+    width: 70%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     padding: 40px;
     transition: all 0.5s ease-in-out;
     border-radius: 12px;
-    z-index: 3;
-    opacity: 3;
-    transform: scale(0.8);
-   
     border: 3px solid blue;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     margin: 20px 0;
 }
 
-/* Visible State */
-.panel-visible {
-    opacity: 1;
-    transform: scale(1);
+.panel-info, .panel-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
 }
 
-/* Positioning Panels */
-.panel-left {
-    left: 10%;
-    transform-origin: left;
+.panel-info {
+    margin-right: 10px;
 }
 
-.panel-right {
-    right: 10%;
-    transform-origin: right;
+.panel-info h1, .panel-info ul, .panel-content h1, .panel-content p {
+    text-align: left;
 }
+
+.panel-info:hover, .panel-content:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
 
 /* Button */
 .switch-btn {
-    background-color: #0044cc;
+    background-color: #234a97;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -74,7 +71,7 @@ body {
 }
 
 .switch-btn:hover {
-    background-color: #003399;
+    background-color: #c5c8cf;
 }
 
 /* Media Queries */
@@ -121,7 +118,21 @@ input[type="password"]:focus,
 input[type="text"]:focus {
     border-color: #194d24;
 }
+button[type="button"]{
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+button[type="button"]:hover{
+    color:#45a049;
 
+}
 button[type="submit"] {
     width: 100%;
     padding: 10px;
@@ -137,7 +148,7 @@ button[type="submit"] {
 .login,
 .register,
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #caced2;
     transform: scale(1.05);
 }
 .login,
@@ -173,7 +184,7 @@ button[type="submit"]:active {
 .login,
 .register,
 .password-container button:hover {
-    color: #182a90; /* Darker color on hover */
+    color: #b7b8bf; /* Darker color on hover */
 }
 ul {
     list-style-type: none; /* Remove bullet points */
@@ -188,17 +199,7 @@ ul li {
 
 /* Focus State for Password Input */
 .password-container input:focus {
-    border-color: #002aff; /* Change border color on focus */
+    border-color: #161924; /* Change border color on focus */
 }
-.container2 {
-    width: 50%; /* Take more width for the open, free feel */
-    height: auto;
-    background: none; /* No background to make it free */
-    padding: 0; /* No padding to remove the box look */
-    box-shadow: none; /* Remove shadow */
-    border: none; /* No borders */
-    transform: none; /* No scaling */
-    margin: 0; /* No margin */
-    transform: scale(0.8);
-}
+
 

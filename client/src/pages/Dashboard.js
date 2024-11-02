@@ -18,6 +18,7 @@ const Dashboard = () => {
         expiryDate: '',
         cvv: ''
     });
+    const [loading, setLoading] = useState('');
     const [error, setError] = useState('');
     const [transactions, setTransactions] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
@@ -64,7 +65,7 @@ const Dashboard = () => {
 
     const transferFunds = async () => {
         if (!transferData.recipient || !transferData.amount) {
-            setError('Recipient and amount are required.');
+            setError('Recipient amount and pin are required.');
             return;
         }
 
@@ -73,6 +74,8 @@ const Dashboard = () => {
             setError('Invalid transfer amount.');
             return;
         }
+
+        setLoading(true);
         try {
             const token = getToken();
             await axios.post('https://e-banking-tech.onrender.com/api/transaction/transfer',
@@ -83,7 +86,9 @@ const Dashboard = () => {
             alert('Transfer successful!');
         } catch (error) {
             setError('Transfer failed. Please try again.');
-        }
+        }finally {
+        setLoading(false); // Hide loading state
+       }
     };
 
     const checkBalance = () => {
@@ -94,6 +99,7 @@ const Dashboard = () => {
         removeToken();
         navigate('/');
     };
+
 
     return (
         <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
@@ -122,7 +128,13 @@ const Dashboard = () => {
                             Amount:
                             <input type="number" value={transferData.amount} onChange={(e) => setTransferData({ ...transferData, amount: e.target.value })} />
                         </label>
-                        <button onClick={transferFunds}>Submit</button>
+                        <label>
+                            PIN:
+                            <input type="text" value={transferData.pin} onChange={(e) => setTransferData({ ...transferData, pin: e.target.value })} />
+                        </label>
+                        <button onClick={transferFunds} disabled={loading}>
+                            {loading ? 'Processing...' : 'Submit'}
+                        </button>
                         <button onClick={() => setModalOpen(false)}>Cancel</button>
                     </div>
                 </div>
