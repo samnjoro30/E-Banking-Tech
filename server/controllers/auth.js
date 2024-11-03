@@ -140,7 +140,6 @@ const registerUser = async (req, res) => {
         
         await user.save();
         const otp = generateOTP();
-        user.otp = otp;
         const token = jwt.generateToken(user);
         try {
             await sendOTPEmail(user.email, otp);
@@ -210,6 +209,11 @@ const verifyOTP = async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
         }
+        console.log("Received OTP:", otp);
+        console.log("Stored OTP:", user.otp);
+        console.log("OTP Expiration:", new Date(user.otpExpires));
+        console.log("Current Time:", new Date());
+
 
         // Check if OTP matches and is not expired
         if (user.otp !== otp || Date.now() > user.otpExpires) {

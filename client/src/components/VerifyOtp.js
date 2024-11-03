@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
-import '../styles/verify.css'; // Import your CSS file
+import { useNavigate } from 'react-router-dom';
+ // Import your CSS file
 
 const VerifyOTP = () => {
     const [formData, setFormData] = useState({
@@ -23,14 +23,14 @@ const VerifyOTP = () => {
         try {
             const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', formData);
             setMessage(res.data.message);
-            Navigate('/auth');
+            navigate('/auth');
         } catch (err) {
-            setMessage('Error verifying OTP');
-            console.log("the error", err)
+            setMessage(err.response?.data?.message || 'Error verifying OTP');
+            console.log("the error", err.response || err.message)
         }
     };
 
-    
+
 
     return (
         <div className="center-container">
