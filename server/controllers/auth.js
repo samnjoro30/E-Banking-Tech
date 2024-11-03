@@ -124,6 +124,8 @@ const registerUser = async (req, res) => {
         // Generate account number
         const accountNumber = await generateAccountNumber();
 
+        const otp = generateOTP();
+        const otpExpires = Date.now() + (parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300) * 1000;
         // Create new user
         user = new User({
             firstName,
@@ -135,11 +137,13 @@ const registerUser = async (req, res) => {
             phoneNumber,
             pin: hashedPin,
             accountNumber,
-            balance: 500
+            balance: 500,
+            otp,  // Store OTP
+            otpExpires 
         });
         
         await user.save();
-        const otp = generateOTP();
+        
         const token = jwt.generateToken(user);
         try {
             await sendOTPEmail(user.email, otp);
