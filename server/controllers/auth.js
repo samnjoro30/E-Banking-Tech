@@ -140,6 +140,7 @@ const registerUser = async (req, res) => {
         
         await user.save();
         const otp = generateOTP();
+        user.otp = otp;
         const token = jwt.generateToken(user);
         try {
             await sendOTPEmail(user.email, otp);
@@ -231,7 +232,8 @@ const verifyOTP = async (req, res) => {
 
         res.status(200).json({ message: 'OTP verified successfully' });
     } catch (err) {
-        res.status(500).json({ message: 'Error verifying OTP' });
+        res.status(500).json({ message: 'there is an error verifying OTP' });
+        console.log("backend error", err.message);
     }
 };
 const forgotPassword = async (req, res) => {

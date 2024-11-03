@@ -32,7 +32,6 @@ const sendOTPEmail = async (to, otp) => {
     };
 
     try {
-        console.log("Sending email with the following options:", mailOptions);
         const info = await transporter.sendMail(mailOptions);
         console.log(`Email sent: ${info.response}`);
         return info;

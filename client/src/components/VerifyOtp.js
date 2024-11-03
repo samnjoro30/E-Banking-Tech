@@ -26,8 +26,11 @@ const VerifyOTP = () => {
             Navigate('/auth');
         } catch (err) {
             setMessage('Error verifying OTP');
+            console.log("the error", err)
         }
     };
+
+    
 
     return (
         <div className="center-container">
