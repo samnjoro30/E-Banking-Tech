@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
- // Import your CSS file
+import '../styles/verify.css'; // Import your CSS file
 
 const VerifyOTP = () => {
     const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ const VerifyOTP = () => {
                         onChange={onChange}
                         required
                     />
-                    <button type="submit">Verify OTP</button>
+                    <button type="th">Verify OTP</button>
                 </form>
                 {message && <p>{message}</p>}
             </div>

@@ -196,7 +196,6 @@ const loginUser = async (req, res) => {
             user: { firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber, cardNumber: user.cardNumber, expiryDate: user.expiryDate, cvv: user.cvv}
         });
 
-       
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: 'Server error' });
@@ -227,6 +226,7 @@ const verifyOTP = async (req, res) => {
         // Clear OTP and its expiration after successful verification
         user.otp = null;
         user.otpExpires = null;
+        user.isVerified = true;
         await user.save();
 
         try {
