@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import zxcvbn from 'zxcvbn';  // For password strength checking
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
@@ -73,7 +74,7 @@ const Register = () => {
             return;
         }
         try {
-            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/register', formData);
+            const res = await axiosInstance.post('/auth/register', formData);
             if (res.status === 201 && res.data.message.includes("OTP sent")) {
                 setOtpSent(true);  // Set otpSent true only on success
                 setMessage('Registration successful! OTP sent to your email.');
@@ -103,7 +104,7 @@ const Register = () => {
     const verifyOtp = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/verify-otp', { email, otp });
+            const res = await axiosInstance.post('/auth/verify-otp', { email, otp });
             // Assume the response contains the account number
             const accountNumber = res.data.accountNumber;
 
@@ -218,6 +219,22 @@ const Register = () => {
                             onChange={onChange}
                             required
                         />
+                        {formData.password && formData.password.length < 8 && (
+                          <p style={{ color: 'red', fontSize: 'smaller' }}>Password must be at least 8 characters long.</p>
+                        )}
+                        {formData.password && !/[A-Z]/.test(formData.password) && (
+                           <p style={{ color: 'red' }}>Password must contain at least one uppercase letter.</p>
+                        )}
+                        {formData.password && !/[a-z]/.test(formData.password) && (
+                           <p style={{ color: 'red', fontSize: 'smaller' }}>Password must contain at least one lowercase letter.</p>
+                        )}
+                        {formData.password && !/[0-9]/.test(formData.password) && (
+                            <p style={{ color: 'red', fontSize: 'smaller' }}>Password must contain at least one number.</p>
+                        )}
+                        {formData.password && !/[!@#$%^&*(),.?":{}|<>]/.test(formData.password) && (
+                           <p style={{ color: 'red', fontSize: 'smaller' }}>Password must contain at least one special character.</p>
+                        )}
+
                         <label>Confirm Password</label>
                         <input
                             type="password"
@@ -226,7 +243,10 @@ const Register = () => {
                             onChange={onChange}
                             required
                         />
-                        <p>Password Strength: {['Too weak', 'Weak', 'Fair', 'Good', 'Strong'][passwordStrength]}</p>
+                        {formData.password && formData.password !== formData.confirmPassword && (
+                          <p style={{ color: 'red', fontSize: 'smaller' }}>The passwords don't match!</p>
+                        )}
+
                         <button type="button" onClick={handlePrevious}>Previous</button>
                         <button type="button" onClick={handleNext}>Next</button>
                     </div>

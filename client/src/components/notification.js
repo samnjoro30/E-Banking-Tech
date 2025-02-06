@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import '../styles/notification.css';
 
 const Notification = () => {
@@ -12,7 +13,7 @@ const Notification = () => {
         // Fetch notifications (you can replace the URL with your API endpoint)
         const fetchNotifications = async () => {
             try {
-                const res = await axios.get('https://e-banking-tech.onrender.comg/api/notifications');
+                const res = await axiosInstance.get('/notifications');
                 setNotifications(res.data);
             } catch (error) {
                 console.error('Failed to fetch notifications', error);

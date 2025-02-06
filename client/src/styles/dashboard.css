@@ -98,6 +98,37 @@ button:hover {
     color: #0056b3;
 }
 
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+.dropdown-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content ul li {
+    padding: 8px;
+    cursor: pointer;
+    color: #333;
+}
+
+.dropdown-content ul li:hover {
+    background-color: #f1f1f1;
+}
 /* Modal Styling */
 .modal {
     position: fixed;

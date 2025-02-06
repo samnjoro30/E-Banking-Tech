@@ -137,7 +137,7 @@ const registerUser = async (req, res) => {
             phoneNumber,
             pin: hashedPin,
             accountNumber,
-            balance: 500,
+            balance: 0,
             otp,  // Store OTP
             otpExpires 
         });
@@ -283,19 +283,11 @@ const resetPassword = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+const changeEmail = async (req, res) =>{
 
-/*const getUserProfile = async (req, res) => {
-    try {
-        const user = await User.findById(req.user.id).select('-password'); // Access user ID from req.user
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.json(user);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-};*/
+}
+
+
 const getDashboardData = async (req, res) => {
     try {
         const user = req.user; // Assuming you're using middleware to attach user from the token
@@ -306,10 +298,7 @@ const getDashboardData = async (req, res) => {
             lastName: user.lastName,
             email: user.email,
             accountNumber: user.accountNumber,
-            balance: user.balance,
-            cardNumber: user.cardNumber,
-            expiryDate: user.expiryDate,
-            cvv: user.cvv
+            balance: user.balance
         });
     } catch (err) {
         console.error(err);

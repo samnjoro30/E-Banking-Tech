@@ -27,7 +27,7 @@ const User = () =>{
             setUserData(res.data.user);
             }catch(error){
                 setError('Failed to fetch user data. Please log in again.', error);
-                navigate('/login');
+                navigate('/auth');
             }
         };
         fetchData();
@@ -35,7 +35,7 @@ const User = () =>{
     return(
         <div className="user-dashboard">
             {error && <p className="error-message">{error}</p>}
-            <h2>User Dashboard</h2>
+            <h2>Account Details</h2>
             <div className="user-info">
                 <p><strong>First Name:</strong> {userData.firstName}</p>
                 <p><strong>Last Name:</strong> {userData.lastName}</p>

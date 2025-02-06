@@ -11,7 +11,7 @@ const session = require('express-session');
 
 const  app = express();
 
-const allowedOrigins = ['https://e-banking-tech-61d82.web.app'];
+const allowedOrigins = ['https://e-banking-tech-61d82.web.app', 'http://localhost:3000'];
 const corsOptions = {
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
@@ -57,7 +57,7 @@ app.use(limiter);
 const connectDB = async (retries = 5) => {
   while (retries) {
       try {
-          await mongoose.connect(process.env.MONGO_URI);
+          await mongoose.connect(process.env.MONGO_LOCAL );
           console.log('MongoDB connected!');
           break;
       } catch (err) {

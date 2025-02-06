@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getToken } from '../utils/auth';
+import axiosInstance from './axiosInstance';
 import '../styles/Auth.css';
 
 const Login = () => {
@@ -29,9 +31,11 @@ const Login = () => {
         e.preventDefault({email, password});
         console.log()
         try {
-            const res = await axios.post('https://e-banking-tech.onrender.com/api/auth/login', { email, password });
-            const { token } = res.data;
+            const res = await axiosInstance.post('/api/auth/login', { email, password });
+            const { token } = getToken();
             localStorage.setItem('token', token);
+
+            //sessionStorage.setItem('userId', userId);
             setMessage('Login successful! Redirecting...');
             console.log(res.data);
 

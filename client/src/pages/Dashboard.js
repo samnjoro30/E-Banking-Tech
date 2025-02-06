@@ -3,8 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
 import CreditCard from '../components/CreditCard';
+import App from '../components/dark';
 import Header from '../components/header';
 import '../styles/dashboard.css';
+import { FaMoneyCheckAlt, FaBalanceScale, FaHistory } from 'react-icons/fa';
+import User from '../components/user';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState({
@@ -12,13 +15,17 @@ const Dashboard = () => {
         lastName: '',
         email: '',
         accountNumber: '',
-        balance: '',
+        balance: 500,
         cardNumber: '',
         cardHolder: '',
         expiryDate: '',
         cvv: ''
     });
+    
+
+    
     const [loading, setLoading] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
     const [error, setError] = useState('');
     const [transactions, setTransactions] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
@@ -40,13 +47,16 @@ const Dashboard = () => {
     const getAuthConfig = () => ({
         headers: { 'Authorization': `Bearer ${getToken()}` }
     });
+    const toggleDropdown = () => {
+        setShowDropdown((prev) => !prev);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = getToken();
                 if (!token) {
-                    navigate('/login');
+                    navigate('/auth');
                     return;
                 }
                 const res = await axios.get('https://e-banking-tech.onrender.com/api/auth/dashboard', getAuthConfig());
@@ -54,6 +64,7 @@ const Dashboard = () => {
 
                 const transactionsRes = await axios.get('https://e-banking-tech.onrender.com/api/transaction/transactions', getAuthConfig());
                 setTransactions(transactionsRes.data);
+               
             } catch (err) {
                 setError('Failed to fetch user data. Please log in again.');
                 removeToken();
@@ -100,19 +111,61 @@ const Dashboard = () => {
         navigate('/');
     };
 
+    if (loading) return <div>Loading transactions...</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
             <Header onLogout={handleLogout} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
 
+            <App />
+
             <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
 
+
             <div className="dashboard-buttons">
-                <button onClick={() => setModalOpen(true)}>Transfer Funds</button>
-                <button onClick={checkBalance}>Check Balance</button>
-                <button onClick={() => setShowTransactions(!showTransactions)}>
-                    {showTransactions ? 'Hide Transactions' : 'View Transaction History'}
+                <button onClick={() => setModalOpen(true)}>
+                    <FaMoneyCheckAlt style={{ marginRight: '8px' }} />
+                    Transfer Funds
                 </button>
+
+                {/* Check Balance Button */}
+                <button onClick={checkBalance}>
+                    <FaBalanceScale style={{ marginRight: '8px' }} />
+                    Check Balance
+                </button>
+                <div className="dropdown">
+                    <button onClick={toggleDropdown}>
+                        <FaHistory style={{ marginRight: '8px' }} />
+                        {showTransactions ? 'Hide Transactions' : 'View Transaction History'}
+                    </button>
+                    {showDropdown && (
+                    <div className="dropdown-content">
+                        <h2>Recent Transactions</h2>
+                        <table className="transactions-table">
+                            <thead>
+                               <tr>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {transactions.map((transaction) => (
+                                    <tr key={transaction._id}>
+                                       <td>{transaction.description}</td>
+                                       <td>{transaction.amount}</td>
+                                       <td>{transaction.type}</td>
+                                       <td>{new Date(transaction.date).toLocaleString()}</td>
+                                    </tr>
+                               ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    )}
+                </div>
+                
             </div>
             {error && <p className="error-message">{error}</p>}
 
@@ -137,32 +190,6 @@ const Dashboard = () => {
                         </button>
                         <button onClick={() => setModalOpen(false)}>Cancel</button>
                     </div>
-                </div>
-            )}
-
-            {showTransactions && (
-                <div>
-                    <h2>Recent Transactions</h2>
-                    <table className="transactions-table">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {transactions.map((transaction) => (
-                                <tr key={transaction._id}>
-                                    <td>{transaction.description}</td>
-                                    <td>{transaction.amount}</td>
-                                    <td>{transaction.type}</td>
-                                    <td>{new Date(transaction.date).toLocaleString()}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
                 </div>
             )}
 

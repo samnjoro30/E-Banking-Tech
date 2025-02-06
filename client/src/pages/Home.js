@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Home.css'; // Assuming you're adding custom CSS for styling
 import bankVideo from '../images/Bank2.mp4'; 
 import Footer from '../components/footer';
+import App from '../components/dark';
 
 const Home = () => {
     return (
@@ -20,6 +21,9 @@ const Home = () => {
                     <li><Link to="/auth">Register</Link></li>
                 </ul>
             </nav>
+            <div>
+                <App />
+            </div>
 
             {/* Hero Section */}
             <section className="hero">

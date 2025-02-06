@@ -95,7 +95,7 @@ const Footer = () => {
 const styles = {
     footerContainer: {
         backgroundColor: 'black',
-        color: '#fff',
+        color: 'white',
         padding: '40px 20px',
         textAlign: 'center',
     },
@@ -109,6 +109,7 @@ const styles = {
     section: {
         flex: '1 1 200px',
         margin: '10px',
+        color: 'white',
     },
     footerBottom: {
         marginTop: '20px',
