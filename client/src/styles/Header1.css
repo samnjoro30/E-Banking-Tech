@@ -1,0 +1,103 @@
+/* Base styles */
+.eb-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 5%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .eb-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Logo / Brand */
+  .eb-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0066cc;
+  }
+  
+  /* Navigation */
+  .eb-nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .eb-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .eb-nav a:hover {
+    color: #0066cc;
+  }
+  
+  /* Buttons */
+  .login-btn, .register-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .login-btn {
+    background: transparent;
+    color: #0066cc;
+    border: 2px solid #0066cc;
+  }
+  
+  .login-btn:hover {
+    background: #0066cc;
+    color: white;
+  }
+  
+  .register-btn {
+    background: #0066cc;
+    color: white;
+    border: none;
+    margin-left: 0.5rem;
+  }
+  
+  .register-btn:hover {
+    background: #0047b3;
+  }
+  
+  /* Mobile Menu Icon */
+  .menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #0066cc;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .eb-nav {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+  
+    .eb-nav.mobile-nav {
+      display: flex;
+    }
+  
+    .menu-icon {
+      display: block;
+    }
+  }
+  

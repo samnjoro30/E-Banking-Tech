@@ -1,76 +1,71 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Home.css'; // Assuming you're adding custom CSS for styling
-import bankVideo from '../images/Bank2.mp4'; 
+import '../styles/Home.css';
+import bankArchImg from '../images/bank.jpeg'; // new image
 import Footer from '../components/footer';
-import App from '../components/dark';
+import Header from '../components/header1';
 
 const Home = () => {
     return (
         <div className="home-page">
-            {/* Navigation Bar */}
-            <nav className="navbar">
-                <h1 className="brand-name">E-Banking</h1>
-                <ul className="nav-links">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/">Services</Link></li>
-                    <li><Link to="/">About</Link></li>
-                    <li><Link to="/">Contact</Link></li>
-                    {/* Update these links to point to the /auth route */}
-                    <li><Link to="/auth">Login</Link></li>
-                    <li><Link to="/auth">Register</Link></li>
-                </ul>
-            </nav>
-            <div>
-                <App />
+            <div className="header">
+                <Header />
             </div>
+            <section className="ebanking-section">
+                <div className="ebanking-content">
+                    <h2 className="title">
+                      WHY CHOOSE OUR <br /> DIGITAL BANKING SOLUTIONS
+                    </h2>
+                    <p className="description">
+                       Our E-Banking platform is designed to keep your financial life seamless and secure. Enjoy 24/7 access, advanced fraud protection, and tools that empower smarter money management.
+                    </p>
 
-            {/* Hero Section */}
-            <section className="hero">
-                <div className="hero-content">
-                    <h2>Welcome to E-Banking</h2>
-                    <p>Your financial partner, anywhere, anytime.</p>
-                    {/* Update the button to route to the Auth component */}
-                    <Link to="/auth" className="cta-button">Get Started</Link>
+                    <ul className="features-list">
+                        <li>✔️ Real-Time Account Monitoring</li>
+                        <li>✔️ AI-Powered Fraud Detection</li>
+                        <li>✔️ Personalized Financial Insights</li>
+                        <li>✔️ 24/7 Customer Support & Chatbot</li>
+                    </ul>
+
+                    <a href="/auth" className="cta-link">
+                        Open an Account
+                    </a>
                 </div>
-                <div className="hero-architecture">
-                    {/* Illustration of Bank Architecture */}
-                    <h3>Bank Architecture</h3>
-                    <video autoPlay muted loop>
-                        <source src={bankVideo} type="video/mp4" />
-                    </video>
-                    <p>This is how we structure our digital banking services for seamless customer experience.</p>
+
+                <div className="ebanking-image">
+                    <img 
+                        src={bankArchImg} 
+                        alt="Digital Banking Team" 
+                        
+                        loading="lazy"
+                    /> 
                 </div>
             </section>
-            
 
-            {/* Services Section */}
+            {/* SERVICES */}
             <section className="services-section">
                 <h3>Our Services</h3>
                 <div className="service-cards">
                     <div className="service-card">
                         <h4>Savings Accounts</h4>
-                        <p>Open a savings account and enjoy attractive interest rates and flexible access to your funds.</p>
+                        <p>Grow your savings with competitive rates and easy access anytime.</p>
                     </div>
                     <div className="service-card">
                         <h4>Loans</h4>
-                        <p>Get personal, home, and business loans at competitive interest rates with easy repayment options.</p>
+                        <p>Flexible personal, home, and business loans tailored for your needs.</p>
                     </div>
                     <div className="service-card">
                         <h4>Credit Cards</h4>
-                        <p>Choose from our range of credit cards that offer rewards, cashback, and more.</p>
+                        <p>Access exclusive benefits with our secure and rewarding credit cards.</p>
                     </div>
                     <div className="service-card">
                         <h4>Investments</h4>
-                        <p>Grow your wealth with our investment plans that are tailored to meet your financial goals.</p>
+                        <p>Secure your future with personalized investment plans.</p>
                     </div>
-                    
                 </div>
             </section>
-            <div>
-                < Footer/>
-            </div>
 
+            <Footer />
         </div>
     );
 };
