@@ -117,56 +117,73 @@ const Dashboard = () => {
 
     return (
         <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
-            <Header onLogout={handleLogout} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
-
-            <App />
-
-            <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
-
-
-            <div className="dashboard-buttons">
-                <button onClick={() => setModalOpen(true)}>
-                    <FaMoneyCheckAlt style={{ marginRight: '8px' }} />
+            <div>
+                <Header onLogout={handleLogout} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+            </div>
+            <div>
+               <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
+            </div>
+            <div className="dashboard-sidebar">
+            <div className="sidebar-buttons">
+                {/* Transfer Funds Button */}
+                <button 
+                    className="sidebar-button"
+                    onClick={() => setModalOpen(true)}
+                >
+                    <FaMoneyCheckAlt className="button-icon" />
                     Transfer Funds
                 </button>
 
                 {/* Check Balance Button */}
-                <button onClick={checkBalance}>
-                    <FaBalanceScale style={{ marginRight: '8px' }} />
+                <button 
+                    className="sidebar-button"
+                    onClick={checkBalance}
+                >
+                    <FaBalanceScale className="button-icon" />
                     Check Balance
                 </button>
-                <div className="dropdown">
-                    <button onClick={toggleDropdown}>
-                        <FaHistory style={{ marginRight: '8px' }} />
-                        {showTransactions ? 'Hide Transactions' : 'View Transaction History'}
+
+                {/* Transaction History Dropdown */}
+                <div className="dropdown-container">
+                    <button 
+                        className="sidebar-button dropdown-toggle"
+                        onClick={toggleDropdown}
+                    >
+                        <FaHistory className="button-icon" />
+                        {showDropdown ? 'Hide Transactions' : 'View Transaction History'}
                     </button>
+                    
                     {showDropdown && (
-                    <div className="dropdown-content">
-                        <h2>Recent Transactions</h2>
-                        <table className="transactions-table">
-                            <thead>
-                               <tr>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {transactions.map((transaction) => (
-                                    <tr key={transaction._id}>
-                                       <td>{transaction.description}</td>
-                                       <td>{transaction.amount}</td>
-                                       <td>{transaction.type}</td>
-                                       <td>{new Date(transaction.date).toLocaleString()}</td>
-                                    </tr>
-                               ))}
-                            </tbody>
-                        </table>
-                    </div>
+                        <div className="transaction-dropdown">
+                            <h3 className="dropdown-title">Recent Transactions</h3>
+                            <div className="table-container">
+                                <table className="transactions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Type</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {transactions.map((transaction) => (
+                                            <tr key={transaction._id}>
+                                                <td>{transaction.description}</td>
+                                                <td>${transaction.amount.toFixed(2)}</td>
+                                                <td className={`type-${transaction.type.toLowerCase()}`}>
+                                                    {transaction.type}
+                                                </td>
+                                                <td>{new Date(transaction.date).toLocaleString()}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     )}
                 </div>
-                
+            </div>
             </div>
             {error && <p className="error-message">{error}</p>}
 
