@@ -6,6 +6,7 @@ import CreditCard from '../components/CreditCard';
 import App from '../components/dark';
 import Header from '../components/header';
 import '../styles/dashboard.css';
+import axiosInstance from '../components/axiosInstance';
 import { FaMoneyCheckAlt, FaBalanceScale, FaHistory } from 'react-icons/fa';
 import User from '../components/user';
 
@@ -59,16 +60,16 @@ const Dashboard = () => {
                     navigate('/auth');
                     return;
                 }
-                const res = await axios.get('https://e-banking-tech.onrender.com/api/auth/dashboard', getAuthConfig());
+                const res = await axiosInstance.get('/auth/dashboard', getAuthConfig());
                 setUserData(res.data);
 
-                const transactionsRes = await axios.get('https://e-banking-tech.onrender.com/api/transaction/transactions', getAuthConfig());
+                const transactionsRes = await axiosInstance.get('/transaction/transactions', getAuthConfig());
                 setTransactions(transactionsRes.data);
                
             } catch (err) {
                 setError('Failed to fetch user data. Please log in again.');
                 removeToken();
-                navigate('/auth');
+                //navigate('/auth');
             }
         };
         fetchData();
