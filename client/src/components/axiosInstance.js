@@ -3,7 +3,7 @@ import axios from 'axios';
 const token = sessionStorage.getItem('userToken');
 
 const axiosInstance = axios.create({
-  baseURL: 'https://e-banking-tech.onrender.com/api', 
+  baseURL: "http://localhost:5000/api", //'https://e-banking-tech.onrender.com/api', 
   headers: {
     Authorization: `Bearer ${token}`,
   },

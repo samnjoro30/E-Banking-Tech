@@ -13,7 +13,7 @@ const Auth = () => {
     return (
         <div className="container">
             <div className={`panel ${isLoginActive ? 'panel-left' : 'panel-right'}`}>
-                {/* Left or Right Panel */}
+                {/* Info Panel */}
                 <div className="panel-info">
                     {isLoginActive ? (
                         <>
@@ -50,7 +50,7 @@ const Auth = () => {
                     {isLoginActive ? (
                         <>
                             <h1>E-BANKING TECH</h1>
-                            <h1>Welcome Back!</h1>
+                            <h2>Welcome Back!</h2>
                             <p>Login to manage your account and enjoy seamless banking services.</p>
                             <Login />
                         </>

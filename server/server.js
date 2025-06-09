@@ -74,15 +74,15 @@ const connectDB = async (retries = 5) => {
 };
 connectDB();
 
-app.use(session({
-  secret: 'your_secret_key', // Change this to a more secure secret
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    secure: false,
-    sameSite: 'Lax'
-   } // Set to true if using HTTPS
-}));
+// app.use(session({
+//   secret: 'your_secret_key', // Change this to a more secure secret
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { 
+//     secure: false,
+//     sameSite: 'Lax'
+//    } // Set to true if using HTTPS
+// }));
 
 const server = http.createServer(app);
 const io = socketIo(server,{

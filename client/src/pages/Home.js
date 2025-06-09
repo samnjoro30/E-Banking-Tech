@@ -19,24 +19,20 @@ const Home = () => {
                     <p className="description">
                        Our E-Banking platform is designed to keep your financial life seamless and secure. Enjoy 24/7 access, advanced fraud protection, and tools that empower smarter money management.
                     </p>
-
                     <ul className="features-list">
                         <li>✔️ Real-Time Account Monitoring</li>
                         <li>✔️ AI-Powered Fraud Detection</li>
                         <li>✔️ Personalized Financial Insights</li>
                         <li>✔️ 24/7 Customer Support & Chatbot</li>
                     </ul>
-
                     <a href="/auth" className="cta-link">
                         Open an Account
                     </a>
                 </div>
-
                 <div className="ebanking-image">
                     <img 
                         src={bankArchImg} 
                         alt="Digital Banking Team" 
-                        
                         loading="lazy"
                     /> 
                 </div>

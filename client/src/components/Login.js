@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
 import axiosInstance from './axiosInstance';
-import '../styles/Auth.css';
+//import '../styles/Auth.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -28,12 +28,12 @@ const Login = () => {
 
     // Handle login form submission
     const onSubmit = async (e) => {
-        e.preventDefault({email, password});
+        e.preventDefault();
         console.log()
         try {
             const res = await axiosInstance.post('/auth/login', { email, password });
-            const { token } = getToken();
-            localStorage.setItem('token', token);
+            //const { token } = getToken();
+            localStorage.setItem('token', res.data.token);
 
             //sessionStorage.setItem('userId', userId);
             setMessage('Login successful! Redirecting...');
