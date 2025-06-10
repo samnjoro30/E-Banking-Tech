@@ -1,6 +1,6 @@
 /* Header Container */
 .header-container {
-    background: linear-gradient(135deg, #8d9bb5 0%, #9053ad 100%);
+    background: linear-gradient(135deg, #e0f7fa 0%, #80deea 25%, #4db6ac 50%, #26a69a 75%, #009688 100%);
     color: white;
     height: 80px;
     display: flex;

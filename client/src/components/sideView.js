@@ -10,6 +10,7 @@ const Sidebar = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [transactions, setTransactions] = useState([]);
     const [showerror, setShowError] = useState('');
+    const [leftPanelContent, setLeftPanelContent] = useState(null);
     const [transferData, setTransferData] = useState({
         recipient: '',
         amount: '',
@@ -22,6 +23,9 @@ const Sidebar = () => {
     const getAuthConfig = () => ({
         headers: { 'Authorization': `Bearer ${getToken()}` }
     });
+    const showContent = (contentType) => {
+        setLeftPanelContent(contentType);
+      };
 
     useEffect(() => {
         const fetchData = async () => {

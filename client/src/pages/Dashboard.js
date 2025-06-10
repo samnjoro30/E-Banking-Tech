@@ -8,6 +8,7 @@ import '../styles/dashboard.css';
 import axiosInstance from '../components/axiosInstance';
 import { FaMoneyCheckAlt, FaBalanceScale, FaHistory } from 'react-icons/fa';
 import Sidebar from '../components/sideView';
+import User from '../components/user';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState({
@@ -47,9 +48,6 @@ const Dashboard = () => {
     const getAuthConfig = () => ({
         headers: { 'Authorization': `Bearer ${getToken()}` }
     });
-    const toggleDropdown = () => {
-        setShowDropdown((prev) => !prev);
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -87,6 +85,9 @@ const Dashboard = () => {
             <div>
                <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
             </div>
+            <div>
+                {/* <User />*/}
+            </div> 
             <div className="dashboard-sidebar">
                 < Sidebar/>
             </div>
