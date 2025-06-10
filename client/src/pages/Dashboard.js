@@ -3,12 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
 import CreditCard from '../components/CreditCard';
-import App from '../components/dark';
 import Header from '../components/header';
 import '../styles/dashboard.css';
 import axiosInstance from '../components/axiosInstance';
 import { FaMoneyCheckAlt, FaBalanceScale, FaHistory } from 'react-icons/fa';
-import User from '../components/user';
+import Sidebar from '../components/sideView';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState({
@@ -63,9 +62,6 @@ const Dashboard = () => {
                 const res = await axiosInstance.get('/auth/dashboard', getAuthConfig());
                 setUserData(res.data);
 
-                const transactionsRes = await axiosInstance.get('/transaction/transactions', getAuthConfig());
-                setTransactions(transactionsRes.data);
-               
             } catch (err) {
                 setError('Failed to fetch user data. Please log in again.');
                 removeToken();
@@ -74,38 +70,6 @@ const Dashboard = () => {
         };
         fetchData();
     }, [navigate]);
-
-    const transferFunds = async () => {
-        if (!transferData.recipient || !transferData.amount) {
-            setError('Recipient amount and pin are required.');
-            return;
-        }
-
-        const transferAmount = Number(transferData.amount);
-        if (isNaN(transferAmount) || transferAmount <= 0) {
-            setError('Invalid transfer amount.');
-            return;
-        }
-
-        setLoading(true);
-        try {
-            const token = getToken();
-            await axios.post('https://e-banking-tech.onrender.com/api/transaction/transfer',
-                { ...transferData, amount: transferAmount },
-                getAuthConfig()
-            );
-            setModalOpen(false);
-            alert('Transfer successful!');
-        } catch (error) {
-            setError('Transfer failed. Please try again.');
-        }finally {
-        setLoading(false); // Hide loading state
-       }
-    };
-
-    const checkBalance = () => {
-        alert(`Your current balance is ${userData.balance}`);
-    };
 
     const handleLogout = () => {
         removeToken();
@@ -124,93 +88,11 @@ const Dashboard = () => {
                <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
             </div>
             <div className="dashboard-sidebar">
-            <div className="sidebar-buttons">
-                {/* Transfer Funds Button */}
-                <button 
-                    className="sidebar-button"
-                    onClick={() => setModalOpen(true)}
-                >
-                    <FaMoneyCheckAlt className="button-icon" />
-                    Transfer Funds
-                </button>
-
-                {/* Check Balance Button */}
-                <button 
-                    className="sidebar-button"
-                    onClick={checkBalance}
-                >
-                    <FaBalanceScale className="button-icon" />
-                    Check Balance
-                </button>
-
-                {/* Transaction History Dropdown */}
-                <div className="dropdown-container">
-                    <button 
-                        className="sidebar-button dropdown-toggle"
-                        onClick={toggleDropdown}
-                    >
-                        <FaHistory className="button-icon" />
-                        {showDropdown ? 'Hide Transactions' : 'View Transaction History'}
-                    </button>
-                    
-                    {showDropdown && (
-                        <div className="transaction-dropdown">
-                            <h3 className="dropdown-title">Recent Transactions</h3>
-                            <div className="table-container">
-                                <table className="transactions-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Type</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {transactions.map((transaction) => (
-                                            <tr key={transaction._id}>
-                                                <td>{transaction.description}</td>
-                                                <td>${transaction.amount.toFixed(2)}</td>
-                                                <td className={`type-${transaction.type.toLowerCase()}`}>
-                                                    {transaction.type}
-                                                </td>
-                                                <td>{new Date(transaction.date).toLocaleString()}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
+                < Sidebar/>
             </div>
             {error && <p className="error-message">{error}</p>}
 
-            {modalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <h2>Transfer Funds</h2>
-                        <label>
-                            To Account:
-                            <input type="text" value={transferData.recipient} onChange={(e) => setTransferData({ ...transferData, recipient: e.target.value })} />
-                        </label>
-                        <label>
-                            Amount:
-                            <input type="number" value={transferData.amount} onChange={(e) => setTransferData({ ...transferData, amount: e.target.value })} />
-                        </label>
-                        <label>
-                            PIN:
-                            <input type="text" value={transferData.pin} onChange={(e) => setTransferData({ ...transferData, pin: e.target.value })} />
-                        </label>
-                        <button onClick={transferFunds} disabled={loading}>
-                            {loading ? 'Processing...' : 'Submit'}
-                        </button>
-                        <button onClick={() => setModalOpen(false)}>Cancel</button>
-                    </div>
-                </div>
-            )}
-
+            
             <div className="user-info-container">
                 <div className="user-info">
                     <p><span style={{ color: 'black' }}>Email:</span> <span style={{ color: '#007bff' }}>{userData.email}</span></p>

@@ -31,8 +31,8 @@ const Login = () => {
         e.preventDefault();
         console.log()
         try {
-            const res = await axiosInstance.post('/auth/login', { email, password });
-            //const { token } = getToken();
+            const res = await axiosInstance.post('/auth/login', { email, password }
+            );
             localStorage.setItem('token', res.data.token);
 
             //sessionStorage.setItem('userId', userId);
