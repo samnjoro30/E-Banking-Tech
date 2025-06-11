@@ -83,42 +83,12 @@ const Dashboard = () => {
                 <Header onLogout={handleLogout} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
                 
             </div>
-            <div className="outer-container">
-        <div className="user-info-container">
-          {/* <h1 className="welcome-title">Welcome, {userData.firstName} {userData.lastName}</h1> */}
-          <div className="user-info-card">
-          <h1 className="welcome-title">Welcome, {userData.firstName} {userData.lastName}</h1>
-            <div className="info-item">
-              <span className="info-label">Email:</span> 
-              <span className="info-value email">{userData.email}</span>
-            </div>
-            <div className="info-item">
-              <span className="info-label">Account Number:</span> 
-              <span className="info-value account">{userData.accountNumber}</span>
-            </div>
-            <div className="info-item">
-              <span className="info-label">Balance:</span> 
-              <span className="info-value balance">Ksh{userData.balance}</span>
-            </div>
-          </div>
-        </div>
-      </div>
             {/* <div>
                 <User />
             </div>  */}
             <div className="dashboard-sidebar">
                 < Sidebar/>
             </div>
-            {error && <p className="error-message">{error}</p>}
-
-            <h2>The upcoming features VISA for global payment</h2>
-            <h2>Your Credit Card</h2>
-            <CreditCard
-                cardNumber={userData.cardNumber}
-                cardHolder={userData.cardHolder}
-                expiryDate={userData.expiryDate}
-                cvv={userData.cvv}
-            />
         </div>
     );
 };

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
 import axiosInstance from './axiosInstance';
-//import '../styles/Auth.css';
+import '../styles/login.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({

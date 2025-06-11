@@ -3,7 +3,7 @@ import axios from 'axios';
 import axiosInstance from './axiosInstance';
 import zxcvbn from 'zxcvbn';  // For password strength checking
 import { useNavigate } from 'react-router-dom';
-import '../styles/Auth.css';
+import '../styles/login.css';
 
 
 const Register = () => {

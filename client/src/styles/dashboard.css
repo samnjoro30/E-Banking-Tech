@@ -1,141 +1,99 @@
-  
-  /* Main content area */
-  .outer-container {
-    flex: 1;
-    padding: 5rem;
-   /* margin-right: 300px; /* Space for sidebar */
-    transition: margin-right 0.3s ease;
-    background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, white 100%);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  }
-  
-  /* User info container */
-  .user-info-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  /* Welcome title */
-  .welcome-title {
-    color: #2c3e50;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 600;
-
-  }
-  
-  /* User info card */
-  .user-info-card {
-
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    padding: 2.5rem;
-    margin-right: 300px;
-    background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
-  }
-  
-  /* Info item styling */
-  .info-item {
+/* Base container */
+.dashboard-container {
     display: flex;
-    margin-bottom: 1.8rem;
-    font-size: 1.1rem;
-    align-items: center;
-  }
-  
-  .info-label {
-    font-weight: 600;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f7fa;
     color: #333;
-    width: 180px;
+}
+
+/* Header stays on top */
+.dashboard-container > div:first-child {
     flex-shrink: 0;
-  }
-  
-  .info-value {
-    font-weight: 500;
-  }
-  
-  /* Specific value colors */
-  .email {
-    color: #007bff;
-  }
-  
-  .account {
-    color: #28a745;
-  }
-  
-  .balance {
-    color: #dc3545;
-  }
-  
-  /* Sidebar styling */
-  .sidebar {
-    width: 280px;
-    background: #2c3e50;
-    color: white;
-    position: fixed;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 2rem 1.5rem;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1200px) {
-    .sidebar {
-      width: 250px;
-    }
+}
+
+/* Main content layout (user info and sidebar) */
+.outer-container {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    gap: 20px;
+    flex: 1;
+}
+
+/* User info section */
+.user-info-container {
+    flex: 3;
+}
+
+.user-info-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.welcome-title {
+    margin-bottom: 20px;
+    color: #4b6cb7;
+}
+
+.info-item {
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.info-value {
+    color: #333;
+}
+
+.balance {
+    color: green;
+}
+
+/* Sidebar styling */
+.dashboard-sidebar {
+    flex: 1;
+    background-color: #ffffff;
+    border-left: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive design */
+@media screen and (max-width: 900px) {
     .outer-container {
-      margin-right: 250px;
+        flex-direction: column-reverse;
     }
-  }
-  
-  @media (max-width: 992px) {
-    .sidebar {
-      width: 220px;
+
+    .dashboard-sidebar {
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 20px;
     }
-    .outer-container {
-      margin-right: 220px;
-    }
-    .info-item {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .info-label {
-      margin-bottom: 0.5rem;
-      width: 100%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .app-container {
-      flex-direction: column;
-    }
-    .sidebar {
-      position: static;
-      width: 100%;
-      order: -1; /* Move sidebar above content on mobile */
-    }
-    .outer-container {
-      margin-right: 0;
-      padding: 1.5rem;
-    }
-    .welcome-title {
-      font-size: 1.8rem;
-    }
-    .user-info-card {
-      padding: 1.5rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .welcome-title {
-      font-size: 1.5rem;
-    }
-    .info-item {
-      font-size: 1rem;
-    }
-    .user-info-card {
-      padding: 1.2rem;
-    }
-  }
+}
+
+/* Dark mode support */
+.dark-mode {
+    background-color: #1e1e2f;
+    color: #f1f1f1;
+}
+
+.dark-mode .user-info-card,
+.dark-mode .dashboard-sidebar {
+    background-color: #2a2a3f;
+    color: #f1f1f1;
+}
+
+.dark-mode .welcome-title {
+    color: #9dbdff;
+}
+
+.dark-mode .info-label {
+    color: #aaa;
+}

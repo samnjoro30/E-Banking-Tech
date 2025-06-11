@@ -26,11 +26,20 @@ const User = () => {
             
             try {
                 const res = await axiosInstance.get('/auth/dashboard');
-                setUserData(res.data.user);
-                console.log("data fetched:", res.data.user )
+
+                const data = res.data;
+                console.log("Fetched dashboard data:", data);
+                setUserData({
+                    firstName: data.firstName || '',
+                    lastName: data.lastName || '',
+                    email: data.email || '',
+                    accountNumber: data.accountNumber || '',
+                    balance: data.balance || 0,
+                });
             } catch (error) {
                 setError('Failed to fetch user data. Please log in again.');
                 console.error(error);
+                console.log("data error", error)
                 // setTimeout(() => navigate('/auth'), 2000);
             } finally {
                 setLoading(false);
