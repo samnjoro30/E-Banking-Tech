@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getToken } from '../utils/auth';
+import { getToken, isAuthenticated, removeToken } from '../utils/auth';
 import axiosInstance from './axiosInstance';
 import '../styles/user.css';
 import { FaUser, FaEnvelope, FaIdCard, FaCreditCard, FaCalendarAlt } from 'react-icons/fa';
@@ -11,9 +11,6 @@ const User = () => {
         lastName: '',
         email: '',
         accountNumber: '',
-        // accountType: '',
-        // createdAt: '',
-        balance: 0
     });
 
     const [loading, setLoading] = useState(true);
@@ -21,15 +18,16 @@ const User = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!isAuthenticated()) {
+            navigate('/auth');
+            return;
+        }
         const fetchData = async () => {
+            
             try {
-                const token = getToken();
-                const res = await axiosInstance.get('/auth/dashboard', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                const res = await axiosInstance.get('/auth/dashboard');
                 setUserData(res.data.user);
+                console.log("data fetched:", res.data.user )
             } catch (error) {
                 setError('Failed to fetch user data. Please log in again.');
                 console.error(error);
@@ -41,11 +39,6 @@ const User = () => {
         fetchData();
     }, [navigate]);
 
-    const formatDate = (dateString) => {
-        if (!dateString) return 'N/A';
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    };
 
     if (loading) {
         return (
@@ -67,6 +60,13 @@ const User = () => {
     return (
         <div className="user-overview">
             <div className="welcome-section">
+            <div className="user-info-container">
+                <div className="user-info">
+                    <p><span style={{ color: 'black' }}>Email:</span> <span style={{ color: '#007bff' }}>{userData.email}</span></p>
+                    <p><span style={{ color: 'black' }}>Account Number:</span> <span style={{ color: '#28a745' }}>{userData.accountNumber}</span></p>
+                    <p><span style={{ color: 'black' }}>Balance:</span> <span style={{ color: '#dc3545' }}>Ksh{userData.balance}</span></p>
+                </div>
+            </div>
                 <h1>Welcome back, {userData.firstName}!</h1>
                 <p className="subtitle">Here's your account overview</p>
             </div>
@@ -84,10 +84,6 @@ const User = () => {
                             <span className="info-label"><FaEnvelope /> Email:</span>
                             <span className="info-value">{userData.email}</span>
                         </div>
-                        {/* <div className="info-row">
-                            <span className="info-label"><FaIdCard /> Account Type:</span>
-                            <span className="info-value">{userData.accountType || 'Standard Checking'}</span>
-                        </div> */}
                     </div>
                 </div>
 
@@ -99,42 +95,10 @@ const User = () => {
                             <span className="info-label">Account Number:</span>
                             <span className="info-value">{userData.accountNumber}</span>
                         </div>
-                        <div className="info-row">
-                            <span className="info-label">Current Balance:</span>
-                            <span className="info-value">${userData.balance?.toFixed(2) || '0.00'}</span>
-                        </div>
-                        {/* <div className="info-row">
-                            <span className="info-label"><FaCalendarAlt /> Member Since:</span>
-                            <span className="info-value">{formatDate(userData.createdAt)}</span>
-                        </div> */}
                     </div>
                 </div>
 
-                {/* Quick Actions Card */}
-                <div className="dashboard-card actions-card">
-                    <h2>Quick Actions</h2>
-                    <div className="action-buttons">
-                        <button className="action-button transfer">
-                            Transfer Funds
-                        </button>
-                        <button className="action-button history">
-                            View Transactions
-                        </button>
-                        <button className="action-button settings">
-                            Account Settings
-                        </button>
-                    </div>
-                </div>
-
-                {/* Recent Activity Card */}
-                <div className="dashboard-card activity-card">
-                    <h2>Recent Activity</h2>
-                    <div className="activity-list">
-                        <p className="empty-activity">No recent transactions</p>
-                        {/* This would be replaced with actual transaction data */}
-                    </div>
-                    <button className="view-all">View All Activity</button>
-                </div>
+                
             </div>
         </div>
     );

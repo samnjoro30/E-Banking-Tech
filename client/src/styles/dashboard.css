@@ -1,0 +1,141 @@
+  
+  /* Main content area */
+  .outer-container {
+    flex: 1;
+    padding: 5rem;
+   /* margin-right: 300px; /* Space for sidebar */
+    transition: margin-right 0.3s ease;
+    background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, white 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* User info container */
+  .user-info-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Welcome title */
+  .welcome-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+
+  }
+  
+  /* User info card */
+  .user-info-card {
+
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-right: 300px;
+    background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
+  }
+  
+  /* Info item styling */
+  .info-item {
+    display: flex;
+    margin-bottom: 1.8rem;
+    font-size: 1.1rem;
+    align-items: center;
+  }
+  
+  .info-label {
+    font-weight: 600;
+    color: #333;
+    width: 180px;
+    flex-shrink: 0;
+  }
+  
+  .info-value {
+    font-weight: 500;
+  }
+  
+  /* Specific value colors */
+  .email {
+    color: #007bff;
+  }
+  
+  .account {
+    color: #28a745;
+  }
+  
+  .balance {
+    color: #dc3545;
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    width: 280px;
+    background: #2c3e50;
+    color: white;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 2rem 1.5rem;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .sidebar {
+      width: 250px;
+    }
+    .outer-container {
+      margin-right: 250px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .sidebar {
+      width: 220px;
+    }
+    .outer-container {
+      margin-right: 220px;
+    }
+    .info-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .info-label {
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .app-container {
+      flex-direction: column;
+    }
+    .sidebar {
+      position: static;
+      width: 100%;
+      order: -1; /* Move sidebar above content on mobile */
+    }
+    .outer-container {
+      margin-right: 0;
+      padding: 1.5rem;
+    }
+    .welcome-title {
+      font-size: 1.8rem;
+    }
+    .user-info-card {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .welcome-title {
+      font-size: 1.5rem;
+    }
+    .info-item {
+      font-size: 1rem;
+    }
+    .user-info-card {
+      padding: 1.2rem;
+    }
+  }

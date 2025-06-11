@@ -81,26 +81,35 @@ const Dashboard = () => {
         <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
             <div>
                 <Header onLogout={handleLogout} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+                
             </div>
-            <div>
-               <h1>Welcome, {userData.firstName} {userData.lastName}</h1>
+            <div className="outer-container">
+        <div className="user-info-container">
+          {/* <h1 className="welcome-title">Welcome, {userData.firstName} {userData.lastName}</h1> */}
+          <div className="user-info-card">
+          <h1 className="welcome-title">Welcome, {userData.firstName} {userData.lastName}</h1>
+            <div className="info-item">
+              <span className="info-label">Email:</span> 
+              <span className="info-value email">{userData.email}</span>
             </div>
-            <div>
-                {/* <User />*/}
-            </div> 
+            <div className="info-item">
+              <span className="info-label">Account Number:</span> 
+              <span className="info-value account">{userData.accountNumber}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Balance:</span> 
+              <span className="info-value balance">Ksh{userData.balance}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+            {/* <div>
+                <User />
+            </div>  */}
             <div className="dashboard-sidebar">
                 < Sidebar/>
             </div>
             {error && <p className="error-message">{error}</p>}
-
-            
-            <div className="user-info-container">
-                <div className="user-info">
-                    <p><span style={{ color: 'black' }}>Email:</span> <span style={{ color: '#007bff' }}>{userData.email}</span></p>
-                    <p><span style={{ color: 'black' }}>Account Number:</span> <span style={{ color: '#28a745' }}>{userData.accountNumber}</span></p>
-                    <p><span style={{ color: 'black' }}>Balance:</span> <span style={{ color: '#dc3545' }}>Ksh{userData.balance}</span></p>
-                </div>
-            </div>
 
             <h2>The upcoming features VISA for global payment</h2>
             <h2>Your Credit Card</h2>
