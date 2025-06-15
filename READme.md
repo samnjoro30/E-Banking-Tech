@@ -33,9 +33,49 @@ A secure, full‑featured **E‑Banking System** built with the MERN stack— em
 - **Tooling**: Git, render, firebase and Github 
 
 ## 🎯 Getting Started
+## project structure
+E‑Banking-Tech/
+├── client/           # React frontend
+│   ├── public/
+│   └── src/
+├── server/           # Node/Express backend
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   └── middleware/
+├── .github/          # CI/CD workflows
+├── docker.yml
+└── package.json
+
 
 1. **Clone the repo**  
    ```bash
    git clone https://github.com/samnjoro30/E-Banking-Tech.git
    cd E-Banking-Tech
    ```
+
+2. **Navigate and install dependencies**
+  navigate to the cloned folder and into client folder
+  ```bash
+     cd client
+  ```
+  install dependencies
+  ```bash
+    npm install
+  ```
+  navigate to server folder
+  ```bash 
+    cd server
+  ```
+3. **Run in development**
+ In the server folder run
+ ```bash 
+    npm start
+ ```
+
+
+
+ # Author 
+ Samuel Njoroge
+
+ Enjoy banking tech with confidence! 🚀
