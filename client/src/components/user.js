@@ -49,7 +49,6 @@ const User = () => {
         fetchData();
       }, [navigate]);
 
-
     if (loading) {
         return (
             <div className="user-overview loading">
@@ -68,40 +67,44 @@ const User = () => {
     }
 
     return (
-        <div className="user-overview">
-            <div className="welcome-section">
-                <h1>Welcome back, {userData.firstName}!</h1>
-                <p className="subtitle">Here's your account overview</p>
-            </div>
+        <div className="user-container">
+            <div className="user-overview">
+                <div className="welcome-section">
+                    <h1>Welcome back, {userData.firstName}!</h1>
+                    <p className="subtitle">Here's your account overview</p>
+                </div>
 
-            <div className="dashboard-grid">
-                {/* Account Summary Card */}
-                <div className="dashboard-card summary-card">
-                    <h2><FaUser className="card-icon" /> Account Summary</h2>
-                    <div className="card-content">
-                        <div className="info-row">
-                            <span className="info-label">Full Name:</span>
-                            <span className="info-value">{userData.firstName} {userData.lastName}</span>
+                <div className="dashboard-grid">
+                    {/* Account Summary Card */}
+                    <div className="dashboard-card summary-card">
+                        <h2><FaUser className="card-icon" /> Account Summary</h2>
+                        <div className="card-content">
+                            <div className="info-row">
+                                <span className="info-label">Full Name:</span>
+                                <span className="info-value">{userData.firstName} {userData.lastName}</span>
+                            </div>
+                            <div className="info-row">
+                                <span className="info-label"><FaEnvelope /> Email:</span>
+                                <span className="info-value">{userData.email}</span>
+                            </div>
                         </div>
-                        <div className="info-row">
-                            <span className="info-label"><FaEnvelope /> Email:</span>
-                            <span className="info-value">{userData.email}</span>
+                    </div>
+
+                    {/* Account Details Card */}
+                    <div className="dashboard-card details-card">
+                        <h2><FaCreditCard className="card-icon" /> Account Details</h2>
+                        <div className="card-content">
+                            <div className="info-row">
+                                <span className="info-label">Account Number:</span>
+                                <span className="info-value">{userData.accountNumber}</span>
+                            </div>
+                            <div className="info-row">
+                                <span className="info-label">Account Balance:</span>
+                                <span className="info-value">Ksh {userData.balance}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                {/* Account Details Card */}
-                <div className="dashboard-card details-card">
-                    <h2><FaCreditCard className="card-icon" /> Account Details</h2>
-                    <div className="card-content">
-                        <div className="info-row">
-                            <span className="info-label">Account Number:</span>
-                            <span className="info-value">{userData.accountNumber}</span>
-                        </div>
-                    </div>
-                </div>
-
-                
             </div>
         </div>
     );
