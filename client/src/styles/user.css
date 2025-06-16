@@ -1,7 +1,7 @@
 /* Main container styling */
 .user-container {
     max-width: 1200px;
-    margin-right: 25rem;
+    margin-right: 23rem;
     padding: 0 1.5rem;
 }
 
@@ -120,4 +120,66 @@
     color: #e74c3c;
     font-weight: 500;
     font-size: 1.1rem;
+}
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .user-container {
+        margin-right: 5rem;
+    }
+
+    .user-overview {
+        padding: 2rem;
+        margin-right: 0;
+    }
+
+    .dashboard-card h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-container {
+        margin-right: 1rem;
+        padding: 0 1rem;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-section .subtitle {
+        font-size: 1rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        padding: 1.25rem;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+    .info-label, .info-value {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-overview {
+        padding: 1.25rem;
+    }
+
+    .dashboard-card {
+        padding: 1rem;
+    }
+
+    .card-icon {
+        margin-right: 6px;
+    }
 }
