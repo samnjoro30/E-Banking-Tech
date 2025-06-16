@@ -1,7 +1,7 @@
 // utils/auth.js
 export const getToken = () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       if (!token) return null;
       
       // Optional: Verify token structure before returning
@@ -20,7 +20,7 @@ export const getToken = () => {
   
   export const removeToken = () => {
     try {
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
       sessionStorage.removeItem('token'); // Clear both for safety
     } catch (error) {
       console.error('Error removing token:', error);
@@ -44,7 +44,7 @@ export const getToken = () => {
   export const setToken = (token, remember = true) => {
     try {
       if (remember) {
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
       } else {
         sessionStorage.setItem('token', token);
       }

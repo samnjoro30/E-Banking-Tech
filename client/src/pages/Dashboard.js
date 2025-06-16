@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
-import CreditCard from '../components/CreditCard';
 import Header from '../components/header';
 import '../styles/dashboard.css';
 import axiosInstance from '../components/axiosInstance';
-import { FaMoneyCheckAlt, FaBalanceScale, FaHistory } from 'react-icons/fa';
 import Sidebar from '../components/sideView';
 import User from '../components/user';
 
@@ -26,12 +24,7 @@ const Dashboard = () => {
 
     
     const [loading, setLoading] = useState('');
-    const [showDropdown, setShowDropdown] = useState(false);
     const [error, setError] = useState('');
-    const [transactions, setTransactions] = useState([]);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [transferData, setTransferData] = useState({ recipient: '', amount: '', pin: ''});
-    const [showTransactions, setShowTransactions] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
     const navigate = useNavigate();
 
@@ -83,9 +76,9 @@ const Dashboard = () => {
                 <Header onLogout={handleLogout} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
                 
             </div>
-            {/* <div>
+            <div>
                 <User />
-            </div>  */}
+            </div> 
             <div className="dashboard-sidebar">
                 < Sidebar/>
             </div>

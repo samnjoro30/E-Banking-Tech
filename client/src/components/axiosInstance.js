@@ -1,27 +1,33 @@
 import axios from 'axios';
 
-const token = sessionStorage.getItem('userToken');
-
 const axiosInstance = axios.create({
-  baseURL:  "http://localhost:5000/api", //'https://e-banking-tech.onrender.com/api', //"http://localhost:5000/api",
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
+  baseURL: "http://localhost:5000/api",
 });
 
-axiosInstance.interceptors.response.use(
-  response => response,
-  error => {
-    // Log the error message and any available response
-    console.error('Axios Error:', error.message);
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
+// Request interceptor to attach token dynamically
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = sessionStorage.getItem('token'); // Changed from 'userToken' to 'token'
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => {
     return Promise.reject(error);
   }
 );
 
+// Enhanced response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      sessionStorage.removeItem('token');
+      window.location.href = '/auth'; // Force full page reload to clear state
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;

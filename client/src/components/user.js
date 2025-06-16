@@ -18,35 +18,36 @@ const User = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated()) {
+        const fetchData = async () => {
+          if (!isAuthenticated()) {
             navigate('/auth');
             return;
-        }
-        const fetchData = async () => {
-            
-            try {
-                const res = await axiosInstance.get('/auth/dashboard');
-
-                const data = res.data;
-                console.log("Fetched dashboard data:", data);
-                setUserData({
-                    firstName: data.firstName || '',
-                    lastName: data.lastName || '',
-                    email: data.email || '',
-                    accountNumber: data.accountNumber || '',
-                    balance: data.balance || 0,
-                });
-            } catch (error) {
-                setError('Failed to fetch user data. Please log in again.');
-                console.error(error);
-                console.log("data error", error)
-                // setTimeout(() => navigate('/auth'), 2000);
-            } finally {
-                setLoading(false);
+          }
+          
+          try {
+            const res = await axiosInstance.get('/auth/dashboard');
+            setUserData({
+              firstName: res.data.firstName || '',
+              lastName: res.data.lastName || '',
+              email: res.data.email || '',
+              accountNumber: res.data.accountNumber || '',
+              balance: res.data.balance || 0,
+            });
+          } catch (error) {
+            if (error.response?.status === 401) {
+              removeToken();
+              setError('Session expired. Please log in again.');
+              navigate('/auth');
+            } else {
+              setError('Failed to fetch user data. Please try again later.');
             }
+          } finally {
+            setLoading(false);
+          }
         };
+      
         fetchData();
-    }, [navigate]);
+      }, [navigate]);
 
 
     if (loading) {
@@ -69,13 +70,6 @@ const User = () => {
     return (
         <div className="user-overview">
             <div className="welcome-section">
-            <div className="user-info-container">
-                <div className="user-info">
-                    <p><span style={{ color: 'black' }}>Email:</span> <span style={{ color: '#007bff' }}>{userData.email}</span></p>
-                    <p><span style={{ color: 'black' }}>Account Number:</span> <span style={{ color: '#28a745' }}>{userData.accountNumber}</span></p>
-                    <p><span style={{ color: 'black' }}>Balance:</span> <span style={{ color: '#dc3545' }}>Ksh{userData.balance}</span></p>
-                </div>
-            </div>
                 <h1>Welcome back, {userData.firstName}!</h1>
                 <p className="subtitle">Here's your account overview</p>
             </div>

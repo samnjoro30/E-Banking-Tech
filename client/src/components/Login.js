@@ -33,7 +33,7 @@ const Login = () => {
         try {
             const res = await axiosInstance.post('/auth/login', { email, password }
             );
-            localStorage.setItem('token', res.data.token);
+            sessionStorage.setItem('token', res.data.token);
 
             //sessionStorage.setItem('userId', userId);
             setMessage('Login successful! Redirecting...');
