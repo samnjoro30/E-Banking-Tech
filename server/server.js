@@ -57,7 +57,7 @@ app.use(limiter);
 const connectDB = async (retries = 5) => {
   while (retries) {
       try {
-          await mongoose.connect(process.env.MONGO_LOCAL );
+          await mongoose.connect(process.env.MONGO_LOCAL || MONGO_URI );
           console.log('MongoDB connected!');
           break;
       } catch (err) {
@@ -74,15 +74,15 @@ const connectDB = async (retries = 5) => {
 };
 connectDB();
 
-// app.use(session({
-//   secret: 'your_secret_key', // Change this to a more secure secret
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { 
-//     secure: false,
-//     sameSite: 'Lax'
-//    } // Set to true if using HTTPS
-// }));
+app.use(session({
+  secret: process.env.SECRET_KEY, // Change this to a more secure secret
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    secure: false,
+    sameSite: 'Lax'
+   } // Set to true if using HTTPS
+}));
 
 const server = http.createServer(app);
 const io = socketIo(server,{
