@@ -1,10 +1,11 @@
-/* Sidebar container */
+
 .sidebar-container {
-  position: fixed;
-  top: 80px; /* Adjust based on your header height */
+  position: absolute;
+  top: 80px; 
   right: 0;
-  width: 400px; /* Adjust width as needed */
-  height: 80%;
+  margin-top: 27px;
+  width: 400px; 
+  height: 77%;
   margin-right: 10px;
   background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
   box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -13,7 +14,7 @@
   transition: all 0.3s ease;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  color: white; /* Added for better text contrast */
+  color: white; 
 }
 
 /* Sidebar sections */
@@ -32,7 +33,7 @@
 .sidebar-button {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 10px 15px;
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #ddd;

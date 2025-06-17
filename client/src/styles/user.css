@@ -2,7 +2,7 @@
 .user-container {
     max-width: 1200px;
     margin-right: 23rem;
-    padding: 0 1.5rem;
+    padding: 0 0rem;
 }
 
 .user-overview {
@@ -11,6 +11,7 @@
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.08);
     padding: 2.5rem;
     margin-right: 1rem;
+    min-height: 65vh;
 }
 
 /* Welcome section */
