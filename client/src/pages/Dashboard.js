@@ -11,6 +11,7 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
+    const [sideBarVisible, setSidebarVisible] = useState(false);
     const navigate = useNavigate();
 
     const toggleDarkMode = () => {
@@ -37,12 +38,12 @@ const Dashboard = () => {
             <Header 
                 onLogout={handleLogout} 
                 toggleDarkMode={toggleDarkMode} 
-                isDarkMode={isDarkMode} 
+                isDarkMode ={isDarkMode} 
             />
-            
+
             <div className="dashboard-layout">
                 <div className="sidebar-container">
-                    <Sidebar />
+                    <Sidebar  />
                 </div>
                 
                 <div className="main-content">
