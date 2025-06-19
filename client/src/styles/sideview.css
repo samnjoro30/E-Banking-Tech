@@ -1,221 +1,197 @@
-
+/* Sidebar Container */
 .sidebar-container {
-  position: absolute;
-  top: 80px; 
-  right: 0;
-  margin-top: 27px;
-  width: 400px; 
-  height: 77%;
+  margin-top: 101px;
   margin-right: 10px;
+  width: 390px;
+  height: 71vh;
   background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
-  box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  color: #ffffff;
+  padding: 20px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
   overflow-y: auto;
   transition: all 0.3s ease;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  color: white; 
+  border-radius: 10px;
 }
 
-/* Sidebar sections */
 .sidebar-Sections {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Buttons container */
+/* Section Titles */
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1acb81;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+/* Buttons Container */
 .buttons-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
+  padding: 0 15px;
 }
 
-/* Sidebar buttons */
+/* Sidebar Buttons */
 .sidebar-button {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  gap: 12px;
+  padding: 12px 15px;
+  background: transparent;
+  color: #070808;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
-  color: #2c3e50; /* Darker text for better readability */
-  width: 100%;
-  font-weight: 500;
 }
 
 .sidebar-button:hover {
-  background-color: white;
-  border-color: #adb5bd;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: rgba(98, 185, 107, 0.1);
+  color: #ffffff;
+}
+
+.sidebar-button:active {
+  transform: scale(0.98);
 }
 
 .button-icon {
-  font-size: 1.2rem;
-  color: #58d19e; /* Matching the gradient */
+  font-size: 16px;
+  color: #67a680;
 }
 
-/* Modal styles */
+/* Modal Styles */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 2000;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .modal-content {
-  background-color: white;
+  background: white;
   padding: 25px;
   border-radius: 8px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  color: #2d3748;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .modal-content label {
   display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #4a5568;
 }
 
 .modal-content input {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #e2e8f0;
   border-radius: 4px;
   font-size: 14px;
+  transition: border 0.2s;
 }
 
-.modal-content button {
-  margin-top: 15px;
-  margin-right: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
+.modal-content input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
 }
 
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Button Styles */
 .primary-button {
-  background-color: #58d19e;
+  background: #4299e1;
   color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .primary-button:hover {
-  background-color: #4db6ac;
+  background: #3182ce;
+}
+
+.primary-button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
 }
 
 .secondary-button {
-  background-color: #f5f5f5;
-  color: #2c3e50;
+  background: #e2e8f0;
+  color: #4a5568;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .secondary-button:hover {
-  background-color: #e9ecef;
-}
-
-/* Transactions list */
-.transactions-list {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-}
-
-.transactions-list h3 {
-  margin-top: 0;
-  color: #2c3e50;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-}
-
-.transactions-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.transactions-list li {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-  color: #2c3e50;
+  background: #cbd5e0;
 }
 
 .error-message {
-  color: #e74c3c;
+  color: #e53e3e;
+  font-size: 13px;
   margin-bottom: 15px;
-  padding: 10px;
-  background-color: #fdecea;
+  padding: 8px;
+  background: #fff5f5;
   border-radius: 4px;
-  font-size: 14px;
 }
-@media (max-width: 1024px) {
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .sidebar-container {
-    position: relative;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    border-radius: 0;
-    top: 0;
-    box-shadow: none;
+    width: 240px;
+    padding: 15px 0;
   }
-
-  .sidebar-Sections {
-    padding: 15px;
-  }
-
-  .buttons-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-
+  
   .sidebar-button {
-    font-size: 0.95rem;
-    padding: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
   }
-
-  .modal-content {
-    width: 90%;
-    max-width: 90%;
-  }
-}
-
-@media (max-width: 600px) {
-  .sidebar-button {
-    font-size: 0.9rem;
-    padding: 8px 10px;
-  }
-
+  
   .button-icon {
-    font-size: 1rem;
-  }
-
-  .transactions-list {
-    padding: 10px;
-  }
-
-  .transactions-list li {
-    font-size: 0.9rem;
-  }
-
-  .modal-content label {
-    font-size: 0.9rem;
-  }
-
-  .modal-content input {
-    font-size: 0.9rem;
-    padding: 8px;
+    font-size: 14px;
   }
 }

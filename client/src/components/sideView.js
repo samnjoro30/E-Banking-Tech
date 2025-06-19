@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from './axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
-import { FaMoneyCheckAlt, FaBalanceScale, FaHistory } from 'react-icons/fa';
+import { FaMoneyCheckAlt, FaBalanceScale, FaHistory, FaFileInvoice, FaKey, FaFileAlt, FaUserCog, FaUniversity, FaExchangeAlt, FaTachometerAlt } from 'react-icons/fa';
 import '../styles/sideview.css';
 
 const Sidebar = () => {
@@ -10,6 +10,7 @@ const Sidebar = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [transactions, setTransactions] = useState([]);
     const [showerror, setShowError] = useState('');
+    const [setTest, setShowTest] = useState(false)
     const [leftPanelContent, setLeftPanelContent] = useState(null);
     const [transferData, setTransferData] = useState({
         recipient: '',
@@ -69,54 +70,68 @@ const Sidebar = () => {
         }
     };
 
-    const checkBalance = () => {
-        // Implement balance check functionality
-        alert('Balance check functionality to be implemented');
-    };
-
     return (
         <div className="sidebar-container">
             <div className="sidebar-Sections">
-                <div className="buttons-container">
-                    <button 
-                        className="sidebar-button"
-                        onClick={() => setModalOpen(true)}
-                    >
-                        <FaMoneyCheckAlt className="button-icon" />
-                        Transfer Funds
-                    </button>
-                    <button 
-                        className="sidebar-button"
-                        onClick={checkBalance}
-                    >
-                        <FaBalanceScale className="button-icon" />
-                        Check Balance
-                    </button>
-                    <button 
-                        className="sidebar-button"
-                        onClick={() => setShowTransactions(!showTransactions)}
-                    >
-                        <FaHistory className="button-icon" />
-                        Transaction History
-                    </button>
-                </div>
-
-                {showTransactions && (
-                    <div className="transactions-list">
-                        <h3>Recent Transactions</h3>
-                        {transactions.length > 0 ? (
-                            <ul>
-                                {transactions.map((txn, index) => (
-                                    <li key={index}>
-                                        {txn.amount} to {txn.recipient} on {new Date(txn.createdAt).toLocaleString()}
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>No transactions found</p>
-                        )}
+               
+                    <h3 className="section-title">Dashboard</h3>
+                    <div className='buttons-container' >
+                        <button
+                           className="sidebar-button"
+                           onClick={() => setShowTest(true)}
+                        >
+                            <FaTachometerAlt className="button-icon" />
+                            Overview
+                        </button>
+                        <button
+                            className="sidebar-button"
+                            onClick={() => setShowTest(true)}
+                        >
+                           <FaUserCog className="button-icon"/>
+                            User Profile
+                        </button>
                     </div>
-                )}
+                    <h3 className="section-title">Transactions</h3>
+                    <div className="buttons-container">
+                        <button 
+                           className="sidebar-button"
+                           onClick={() => setModalOpen(true)}
+                        >
+                            <FaMoneyCheckAlt className="button-icon" />
+                            Transfer Funds
+                        </button>
+                        <button
+                            className="sidebar-button"
+                            onClick={() => setShowTest(true)} 
+                        >
+                           <FaFileAlt className="button-icon" />
+                           Pay Bills
+                        </button>
+                        <button 
+                           className="sidebar-button"
+                            onClick={() => setModalOpen(true)}
+                        >
+                            <FaBalanceScale className="button-icon" />
+                            Check Balance
+                        </button>
+                        <button 
+                            className="sidebar-button"
+                             onClick={() => setShowTransactions(!showTransactions)}
+                        >
+                           <FaHistory className="button-icon" />
+                            Transaction History
+                        </button>
+                        <button
+                           className="sidebar-button"
+                           onClick={() => setShowTest(true)} 
+                        >
+                            <FaExchangeAlt className="button-icon"/>
+                            Global Pay
+
+                        </button>
+                    </div>
+              
+
 
                 {modalOpen && (
                     <div className="modal">

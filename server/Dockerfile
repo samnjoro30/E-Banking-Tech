@@ -8,6 +8,5 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5000  # or whatever port your server uses
-
+EXPOSE 5000 
 CMD ["npm", "start"]
