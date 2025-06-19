@@ -4,6 +4,7 @@ import { getToken, removeToken } from '../utils/auth';
 import Header from '../components/header';
 import Sidebar from '../components/sideView';
 import User from '../components/user';
+import FooterDash from '../components/footerdash';
 import '../styles/dashboard.css'; 
 
 const Dashboard = () => {
@@ -45,8 +46,12 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="main-content">
-                    <User />
+                   <User />
+                 </div> 
+                <div className="footer">
+                   <FooterDash />
                 </div>
+                
             </div>
         </div>
     );
