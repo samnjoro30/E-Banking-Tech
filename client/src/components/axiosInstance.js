@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://e-banking-tech.onrender.com/api",
 });
 
 // Request interceptor to attach token dynamically
