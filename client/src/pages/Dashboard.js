@@ -4,6 +4,7 @@ import { getToken, removeToken } from '../utils/auth';
 import Header from '../components/header';
 import Sidebar from '../components/sideView';
 import User from '../components/user';
+import Transfer from '../components/Transfer';
 import FooterDash from '../components/footerdash';
 import '../styles/dashboard.css'; 
 
@@ -12,6 +13,7 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
     const [sideBarVisible, setSidebarVisible] = useState(false);
+    const [activePanel, setActivePanel] = useState(null);
     const navigate = useNavigate();
 
     const toggleDarkMode = () => {
@@ -33,6 +35,17 @@ const Dashboard = () => {
     if (loading) return <div className="loading-spinner">Loading...</div>;
     if (error) return <div className="error-message">{error}</div>;
 
+    const renderLeftPanelContent = () => {
+        switch (activePanel) {
+          case 'user':
+            return <User onClose={() => setActivePanel(null)} />;
+          case 'transfer':
+            return <Transfer onClose={() => setActivePanel(null)} />;
+          default:
+            return null;
+        }
+      };
+
     return (
         <div className={`dashboard-app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             <Header 
@@ -42,13 +55,16 @@ const Dashboard = () => {
             />
 
             <div className="dashboard-layout">
+                <div className={`left-panel ${activePanel ? 'open' : ''}`}>
+                    {renderLeftPanelContent()}
+                </div>
                 <div className="sidebar-container">
-                    <Sidebar  />
+                    <Sidebar setActivePanel={setActivePanel}  />
                 </div>
                 
-                <div className="main-content">
+                {/* <div className="main-content">
                    <User />
-                 </div> 
+                 </div>  */}
                 <div className="footer">
                    <FooterDash />
                 </div>

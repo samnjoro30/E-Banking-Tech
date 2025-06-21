@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import axiosInstance from './axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { getToken, removeToken } from '../utils/auth';
+import DashboardSectionWrapper from './dashbordwrapper';
+import '../styles/transfer.css';
 
 
-const Transfer = async() => {
+const Transfer = ({ onClose })=> {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [transferData, setTransferData] = useState({
@@ -39,6 +41,7 @@ const Transfer = async() => {
             // setModalOpen(false);
             alert('Transfer successful!');
             setTransferData({ recipient: '', amount: '', pin: '' });
+            onClose();
         } catch (error) {
             setError(error.response?.data?.message || 'Transfer failed. Please try again.');
         } finally {
@@ -48,6 +51,7 @@ const Transfer = async() => {
 
 
     return(
+        <DashboardSectionWrapper>
         <div className="modal">
         <div className="modal-content">
             <h2>Transfer Funds</h2>
@@ -96,6 +100,7 @@ const Transfer = async() => {
             </div>
         </div>
     </div>
+    </DashboardSectionWrapper>
     )
 }
 export default Transfer;

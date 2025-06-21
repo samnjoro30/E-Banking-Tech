@@ -1,10 +1,9 @@
 /* Main container styling */
 .user-container {
-    max-width: 1300px;
-    margin-right: 23rem;
-    padding: 0 0rem;
+  max-width: 1200px;
+  margin: 23rem;
+  padding: 0rem;
 }
-
 .user-overview {
     background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
     border-radius: 12px;
