@@ -7,7 +7,7 @@ const pool = new Pool({
     database: process.env.SUPABASE_DB,
     password: process.env.POSTGRE_PASS,
     ssl: {
-        rejectUnauthorized: false // Required for Supabase connection
+        rejectUnauthorized: false 
       }
     });
     
