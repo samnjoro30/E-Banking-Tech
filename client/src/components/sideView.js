@@ -33,7 +33,6 @@ const Sidebar = () => {
             try {
                 const transactionsRes = await axiosInstance.get('/transaction/transactions', getAuthConfig());
                 setTransactions(transactionsRes.data);
-                //console.log("data fetched:", transactionsRes);
             } catch (error) {
                 setShowError('Failed to fetch user data. Please log in again.');
             }

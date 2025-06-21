@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Header1.css';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-const Header = () => {
+const Header1 = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect (() =>{
@@ -34,4 +34,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Header1;

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import bankArchImg from '../images/bank.jpeg'; // new image
 import Footer from '../components/footer';
-import Header from '../components/header1';
+import Header1 from '../components/header1';
 
 const Home = () => {
     return (
         <div className="home-page">
             <div className="header">
-                <Header />
+                <Header1 />
             </div>
             <section className="ebanking-section">
                 <div className="ebanking-content">

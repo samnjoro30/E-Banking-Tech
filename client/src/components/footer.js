@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '../styles/footer.css';
 
 const Footer = () => {
     const [year, setYear] = useState(new Date().getFullYear());
@@ -41,10 +42,10 @@ const Footer = () => {
     ];
 
     return (
-        <footer style={styles.footerContainer}>
-            <div style={styles.footerContent}>
+        <footer className="footerContainer">
+            <div className='footerContent'>
                 {/* Section 1: Company Information */}
-                <div style={styles.section}>
+                <div className='section'>
                     <h4>About Us</h4>
                     <p>E-Banking Tech, Nairobi</p>
                     <p>Email: info@ebanking.com</p>
@@ -52,7 +53,7 @@ const Footer = () => {
                 </div>
 
                 {/* Section 2: Navigation Links */}
-                <div style={styles.section}>
+                <div className='section'>
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="/home">Home</a></li>
@@ -63,7 +64,7 @@ const Footer = () => {
                 </div>
 
                 {/* Section 3: Social Media Links */}
-                <div style={styles.section}>
+                <div className='section'>
                     <h4>Follow Us</h4>
                     <ul>
                         {socialLinks.map((link, index) => (
@@ -77,46 +78,18 @@ const Footer = () => {
                 </div>
 
                
-                <div style={styles.section}>
+                <div className='section'>
                     <h4>Newsletter</h4>
                     {renderSubscriptionMessage()}
                 </div>
             </div>
 
             {/* Footer Bottom Section */}
-            <div style={styles.footerBottom}>
+            <div className='footerBottom'>
                 <p>&copy; {year} E-Banking Tech Inc. All Rights Reserved.</p>
             </div>
         </footer>
     );
 };
-
-// Inline CSS styles for simple styling
-const styles = {
-    footerContainer: {
-        backgroundColor: 'black',
-        color: 'white',
-        padding: '40px 20px',
-        textAlign: 'center',
-    },
-    footerContent: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        flexWrap: 'wrap',
-    },
-    section: {
-        flex: '1 1 200px',
-        margin: '10px',
-        color: 'white',
-    },
-    footerBottom: {
-        marginTop: '20px',
-        borderTop: '1px solid #444',
-        paddingTop: '10px',
-    },
-};
-
 
 export default Footer;
