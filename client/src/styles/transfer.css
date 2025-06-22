@@ -1,115 +1,69 @@
-/* Modal wrapper inside dashboard (not fullscreen overlay) */
-.modal {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 2rem 1rem;
-    box-sizing: border-box;
-}
-
-/* Modal box */
-.modal-content {
-    width: 100%;
+.transfer-form {
     max-width: 500px;
-    background: #ffffff;
-    border-radius: 12px;
+    margin: 0 auto;
+    background-color: #ffffffee;
     padding: 2rem;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Headline */
-.modal-content h2 {
-    font-size: 1.6rem;
+.transfer-form h2 {
+    font-size: 1.75rem;
     margin-bottom: 1.5rem;
-    color: #2c3e50;
     text-align: center;
+    color: #333;
 }
 
-/* Label + input */
-.modal-content label {
+.transfer-form label {
     display: block;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     font-weight: 500;
-    color: #34495e;
+    color: #333;
 }
 
-.modal-content input {
+.transfer-form input {
     width: 100%;
-    padding: 0.75rem 1rem;
-    margin-top: 0.5rem;
-    font-size: 1rem;
+    padding: 0.6rem;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: border 0.2s ease;
-    box-sizing: border-box;
-}
-
-.modal-content input:focus {
-    border-color: #3498db;
-    outline: none;
-}
-
-/* Action buttons */
-.modal-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.primary-button {
-    flex: 1;
-    padding: 0.75rem;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.primary-button:disabled {
-    background-color: #95a5a6;
-    cursor: not-allowed;
-}
-
-.secondary-button {
-    flex: 1;
-    padding: 0.75rem;
-    background-color: #ecf0f1;
-    color: #2c3e50;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.secondary-button:hover {
-    background-color: #d0d7de;
+    margin-top: 0.3rem;
+    font-size: 1rem;
 }
 
 .error-message {
-    color: #e74c3c;
-    text-align: center;
-    font-size: 0.95rem;
+    color: red;
     margin-bottom: 1rem;
+    font-weight: 500;
 }
 
-/* Responsive Fix */
-@media (max-width: 480px) {
-    .modal-content {
-        padding: 1.5rem;
-    }
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
 
-    .modal-actions {
-        flex-direction: column;
-    }
+.primary-button,
+.secondary-button {
+    flex: 1;
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-    .primary-button,
-    .secondary-button {
-        width: 100%;
-    }
+.primary-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.secondary-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.primary-button:disabled {
+    background-color: #9ccc9c;
+    cursor: not-allowed;
 }

@@ -1,13 +1,13 @@
 .contain {
-    max-width: 1200px;
-    width: 90%;
+    max-width: 1000px;
+    width: 105%;
     margin-right:  22rem;
     /* box-sizing: border-box; */
     padding: 0 0rem;
 }
 
 .overview {
-    width: 100%;
+    width: 90%;
     height: 400px;
     background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
     border-radius: 12px;

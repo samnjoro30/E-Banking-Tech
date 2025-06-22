@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from './axiosInstance'; // Ensure this is correctly set up
-import { getToken, isAuthenticated } from '../utils/auth'; // Auth header function
+import axiosInstance from './axiosInstance';
+import { isAuthenticated } from '../utils/auth';
+import DashboardSectionWrapper from './dashbordwrapper';
+import '../styles/transaction.css';
 
 const Transaction = () => {
   const [error, setError] = useState('');
@@ -39,71 +41,68 @@ const Transaction = () => {
   };
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">Transaction History</h2>
+    <DashboardSectionWrapper>
+      <div className="transaction-container">
+        <h2 className="transaction-title">Transaction History</h2>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="transaction-error">{error}</p>}
 
-      <div className="mb-4">
-        <strong>Balance:</strong> ${balance.toFixed(2)}
-      </div>
+        <div className="transaction-balance">
+          <strong>Balance:</strong> ${balance.toFixed(2)}
+        </div>
 
-      {loading ? (
-        <p>Loading transactions...</p>
-      ) : (
-        <table className="w-full table-auto border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2">Date</th>
-              <th className="border p-2">Type</th>
-              <th className="border p-2">Amount</th>
-              <th className="border p-2">Recipient</th>
-              <th className="border p-2">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="text-center p-4">
-                  No transactions found.
-                </td>
-              </tr>
-            ) : (
-              transactions.map((txn, index) => (
-                <tr key={index}>
-                  <td className="border p-2">{new Date(txn.date).toLocaleDateString()}</td>
-                  <td className="border p-2">{txn.type}</td>
-                  <td className="border p-2">${txn.amount.toFixed(2)}</td>
-                  <td className="border p-2">{txn.recipientName}</td>
-                  <td className="border p-2">{txn.description}</td>
+        {loading ? (
+          <p className="loading-text">Loading transactions...</p>
+        ) : (
+          <div className="table-wrapper">
+            <table className="transaction-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Recipient</th>
+                  <th>Description</th>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      )}
+              </thead>
+              <tbody>
+                {transactions.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="no-data">No transactions found.</td>
+                  </tr>
+                ) : (
+                  transactions.map((txn, index) => (
+                    <tr key={index}>
+                      <td>{new Date(txn.date).toLocaleDateString()}</td>
+                      <td>{txn.type}</td>
+                      <td>KSh{txn.amount.toFixed(2)}</td>
+                      <td>{txn.recipientName}</td>
+                      <td>{txn.description}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      {/* Pagination */}
-      <div className="flex justify-between items-center mt-4">
-        <button
-          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage <= 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage >= totalPages}
-        >
-          Next
-        </button>
+        <div className="pagination">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage <= 1}
+          >
+            Previous
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage >= totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
-    </div>
+    </DashboardSectionWrapper>
   );
 };
 

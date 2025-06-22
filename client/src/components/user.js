@@ -12,10 +12,12 @@ const User = () => {
         lastName: '',
         email: '',
         accountNumber: '',
+        balance: 500
     });
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [balance, setBalance] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,6 +36,7 @@ const User = () => {
               accountNumber: res.data.accountNumber || '',
               balance: res.data.balance || 0,
             });
+            console.log('data from backend', res);
           } catch (error) {
             if (error.response?.status === 401) {
               removeToken();
@@ -100,7 +103,7 @@ const User = () => {
                         </div>
                         <div className="info-row">
                             <span className="info-label">Account Balance:</span>
-                            <span className="info-value">Ksh {userData.balance}</span>
+                            <span className="info-value">Ksh {balance.toFixed(2)}</span> 
                         </div>
                     </div>
                 </div>

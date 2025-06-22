@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import axiosInstance from './axiosInstance';
-import { useNavigate } from 'react-router-dom';
-import { getToken, removeToken } from '../utils/auth';
+import { getToken } from '../utils/auth';
 import DashboardSectionWrapper from './dashbordwrapper';
 import '../styles/transfer.css';
 
-
-const Transfer = ({ onClose })=> {
+const Transfer = ({ onClose }) => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [transferData, setTransferData] = useState({
@@ -21,7 +19,7 @@ const Transfer = ({ onClose })=> {
 
     const transferFunds = async () => {
         if (!transferData.recipient || !transferData.amount) {
-            setError('Recipient amount and pin are required.');
+            setError('Recipient, amount, and pin are required.');
             return;
         }
 
@@ -38,7 +36,6 @@ const Transfer = ({ onClose })=> {
                 { ...transferData, amount: transferAmount },
                 getAuthConfig()
             );
-            // setModalOpen(false);
             alert('Transfer successful!');
             setTransferData({ recipient: '', amount: '', pin: '' });
             onClose();
@@ -49,58 +46,60 @@ const Transfer = ({ onClose })=> {
         }
     };
 
-
-    return(
+    return (
         <DashboardSectionWrapper>
-        <div className="modal">
-        <div className="modal-content">
-            <h2>Transfer Funds</h2>
-            {error && <p className="error-message">{error}</p>}
-            <label>
-                To Account:
-                <input 
-                    type="text" 
-                    value={transferData.recipient} 
-                    onChange={(e) => setTransferData({ ...transferData, recipient: e.target.value })} 
-                />
-            </label>
-            <label>
-                Amount:
-                <input 
-                    type="number" 
-                    value={transferData.amount} 
-                    onChange={(e) => setTransferData({ ...transferData, amount: e.target.value })} 
-                />
-            </label>
-            <label>
-                PIN:
-                <input 
-                    type="password" 
-                    value={transferData.pin} 
-                    onChange={(e) => setTransferData({ ...transferData, pin: e.target.value })} 
-                />
-            </label>
-            <div className="modal-actions">
-                <button 
-                    onClick={transferFunds} 
-                    disabled={loading}
-                    className="primary-button"
-                >
-                    {loading ? 'Processing...' : 'Submit'}
-                </button>
-                <button 
-                    onClick={() => {
-                        // setModalOpen(false);
-                        setError('');
-                    }}
-                    className="secondary-button"
-                >
-                    Cancel
-                </button>
+            <div className="transfer-form">
+                <h2>Transfer Funds</h2>
+                {error && <p className="error-message">{error}</p>}
+
+                <label>
+                    To Account:
+                    <input
+                        type="text"
+                        value={transferData.recipient}
+                        onChange={(e) => setTransferData({ ...transferData, recipient: e.target.value })}
+                    />
+                </label>
+
+                <label>
+                    Amount:
+                    <input
+                        type="number"
+                        value={transferData.amount}
+                        onChange={(e) => setTransferData({ ...transferData, amount: e.target.value })}
+                    />
+                </label>
+
+                <label>
+                    PIN:
+                    <input
+                        type="password"
+                        value={transferData.pin}
+                        onChange={(e) => setTransferData({ ...transferData, pin: e.target.value })}
+                    />
+                </label>
+
+                <div className="form-actions">
+                    <button
+                        onClick={transferFunds}
+                        disabled={loading}
+                        className="primary-button"
+                    >
+                        {loading ? 'Processing...' : 'Submit'}
+                    </button>
+                    <button
+                        onClick={() => {
+                            setError('');
+                            onClose();
+                        }}
+                        className="secondary-button"
+                    >
+                        Cancel
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
-    </DashboardSectionWrapper>
-    )
-}
+        </DashboardSectionWrapper>
+    );
+};
+
 export default Transfer;
