@@ -53,7 +53,7 @@ const Sidebar = ({ setActivePanel }) => {
                         </button>
                         <button
                             className="sidebar-button"
-                            onClick={() => setShowTest(true)} 
+                            onClick={() => setActivePanel('transaction')} 
                         >
                            <FaFileAlt className="button-icon" />
                            Pay Bills
@@ -67,7 +67,7 @@ const Sidebar = ({ setActivePanel }) => {
                         </button>
                         <button 
                             className="sidebar-button"
-                             onClick={() => setShowTransactions(!showTransactions)}
+                            onClick={() => setActivePanel('transaction')}
                         >
                            <FaHistory className="button-icon" />
                             Transaction History

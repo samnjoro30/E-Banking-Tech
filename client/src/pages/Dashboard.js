@@ -7,6 +7,7 @@ import User from '../components/user';
 import Transfer from '../components/Transfer';
 import FooterDash from '../components/footerdash';
 import '../styles/dashboard.css'; 
+import Transaction from '../components/Transaction';
 
 const Dashboard = () => {
     const [loading, setLoading] = useState(false);
@@ -37,10 +38,12 @@ const Dashboard = () => {
 
     const renderLeftPanelContent = () => {
         switch (activePanel) {
-          case 'user':
-            return <User onClose={() => setActivePanel(null)} />;
-          case 'transfer':
-            return <Transfer onClose={() => setActivePanel(null)} />;
+            case 'user':
+                return <User onClose={() => setActivePanel(null)} />;
+            case 'transfer':
+                return <Transfer onClose={() => setActivePanel(null)} />;
+            case 'transaction':
+                return <Transaction onClose={() => setActivePanel(null)} />;
           default:
             return null;
         }
