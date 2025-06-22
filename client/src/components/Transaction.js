@@ -48,7 +48,7 @@ const Transaction = () => {
         {error && <p className="transaction-error">{error}</p>}
 
         <div className="transaction-balance">
-          <strong>Balance:</strong> ${balance.toFixed(2)}
+          <strong>Balance:</strong> Ksh {balance.toFixed(2)}
         </div>
 
         {loading ? (
@@ -75,7 +75,7 @@ const Transaction = () => {
                     <tr key={index}>
                       <td>{new Date(txn.date).toLocaleDateString()}</td>
                       <td>{txn.type}</td>
-                      <td>KSh{txn.amount.toFixed(2)}</td>
+                      <td>${txn.amount.toFixed(2)}</td>
                       <td>{txn.recipientName}</td>
                       <td>{txn.description}</td>
                     </tr>
