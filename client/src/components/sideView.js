@@ -53,7 +53,7 @@ const Sidebar = ({ setActivePanel }) => {
                         </button>
                         <button
                             className="sidebar-button"
-                            onClick={() => setActivePanel('transaction')} 
+                            onClick={() => setActivePanel('pay bills')} 
                         >
                            <FaFileAlt className="button-icon" />
                            Pay Bills

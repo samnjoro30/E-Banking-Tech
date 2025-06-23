@@ -1,5 +1,6 @@
 .contain {
-    max-width: 1000px;
+    min-width: 600px;
+    max-width: 850px;
     width: 105%;
     margin-right:  22rem;
     /* box-sizing: border-box; */

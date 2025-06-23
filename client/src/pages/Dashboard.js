@@ -9,6 +9,7 @@ import FooterDash from '../components/footerdash';
 import '../styles/dashboard.css'; 
 import Transaction from '../components/Transaction';
 import Balance from '../components/balance';
+import PayBill from '../components/pay_bill';
 
 const Dashboard = () => {
     const [loading, setLoading] = useState(false);
@@ -47,6 +48,8 @@ const Dashboard = () => {
                 return <Transaction onClose={() => setActivePanel(null)} />;
             case 'balance':
                 return <Balance onClose={ () => setActivePanel(null)} />
+            case 'pay bills':
+                return <PayBill onClose={ () => setActivePanel(null)} />
           default:
             return null;
         }
