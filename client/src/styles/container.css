@@ -1,9 +1,9 @@
 .contain {
     min-width: 600px;
     max-width: 850px;
-    width: 105%;
+    width: 100%;
     margin-right:  22rem;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     padding: 0 0rem;
 }
 
@@ -16,4 +16,37 @@
     padding: 2.5rem;
     margin-right: 1rem;
     min-height: 65vh;
+}
+@media (max-width: 1024px) {
+    .contain {
+        margin-right: 5rem;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .contain {
+        margin-right: 1rem;
+        padding: 0 1rem;
+        min-width: 90%;
+    }
+
+    .overview {
+        width: 100%;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contain {
+        margin-right: 20rem;
+        padding: 0 0.75rem;
+        min-width: 50%;
+        max-width: 50%;
+    }
+
+    .overview {
+        padding: 1rem;
+        width: 100%;
+    }
 }

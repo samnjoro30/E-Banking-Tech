@@ -51,7 +51,7 @@ const Dashboard = () => {
             case 'pay bills':
                 return <PayBill onClose={ () => setActivePanel(null)} />
           default:
-            return null;
+            return <User />;
         }
       };
 

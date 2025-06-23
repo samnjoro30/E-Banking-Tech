@@ -72,6 +72,7 @@ const User = () => {
 
     return (
         <DashboardSectionWrapper>
+            
             <div className="welcome-section">
                 <h1>Welcome back, {userData.firstName}!</h1>
                 <p className="subtitle">Here's your account overview</p>
@@ -108,6 +109,7 @@ const User = () => {
                     </div>
                 </div>
             </div>
+          
         </DashboardSectionWrapper>
        
     );

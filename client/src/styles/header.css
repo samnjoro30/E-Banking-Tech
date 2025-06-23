@@ -14,6 +14,8 @@
 
 /* Header Content */
 .header-content {
+    flex-wrap: wrap;
+    row-gap: 10px;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -112,5 +114,22 @@
     
     .mode-toggle {
         display: none; /* Hide mode toggle on smallest screens */
+    }
+}
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .header-title {
+        padding-left: 0;
+        text-align: left;
+        width: 100%;
     }
 }
