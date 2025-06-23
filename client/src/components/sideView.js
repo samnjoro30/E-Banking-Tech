@@ -60,7 +60,7 @@ const Sidebar = ({ setActivePanel }) => {
                         </button>
                         <button 
                            className="sidebar-button"
-                            onClick={() =>  setShowTest(true)} 
+                            onClick={() =>  setActivePanel('balance')} 
                         >
                             <FaBalanceScale className="button-icon" />
                             Check Balance
