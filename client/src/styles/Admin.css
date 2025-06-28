@@ -55,7 +55,7 @@ nav button.active {
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     nav {
         flex-direction: column;
         align-items: center;
@@ -70,4 +70,4 @@ nav button.active {
         margin: 10px;
         padding: 15px;
     }
-}
+} */

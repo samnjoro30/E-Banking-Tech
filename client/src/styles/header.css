@@ -78,7 +78,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .header-container {
         height: 70px;
     }
@@ -113,8 +113,8 @@
     }
     
     .mode-toggle {
-        display: none; /* Hide mode toggle on smallest screens */
-    }
+        display: none; Hide mode toggle on smallest screens */
+    /* }
 }
 @media (max-width: 480px) {
     .header-content {
@@ -132,4 +132,4 @@
         text-align: left;
         width: 100%;
     }
-}
+} */
