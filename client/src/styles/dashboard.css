@@ -36,17 +36,4 @@
 }
 
 /* Responsive styles */
-@media (max-width: 1024px) {
-    .dashboard-layout {
-        flex-direction: column;
-        padding: 1rem;
-    }
 
-    .sidebar-container {
-        width: 100%;
-    }
-
-    .main-content {
-        width: 100%;
-    }
-}
