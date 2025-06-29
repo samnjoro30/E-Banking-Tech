@@ -16,10 +16,12 @@ jobs:
         with:
           node-version: 18.x
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install and build client
         working-directory: ./client
         run: |
-          npm ci
+          npm ci --legacy-peer-deps
           npm ls react-scripts
           npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
