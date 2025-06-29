@@ -14,7 +14,9 @@ jobs:
         with:
           node-version: 18.x
       - uses: actions/checkout@v4
-      - run:  | 
+      - name: Install and build client
+        working-directory: ./client
+        run:  | 
           npm ci 
           npm ls react-scripts
           npm run build
