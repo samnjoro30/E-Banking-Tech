@@ -12,8 +12,10 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
       - uses: actions/checkout@v4
-      - run: ls -la
       - run: npm ci
       - run: npm ls react-scripts
       - run:  npm run build
