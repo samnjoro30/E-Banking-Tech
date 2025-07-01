@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20.x
+          cache: 'npm'
       - uses: actions/checkout@v4
         with:
           fetch=depth: 0
@@ -22,6 +23,7 @@ jobs:
           npm ci --legacy-peer-deps
           npm ls react-scripts
           npm run build
+      
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.ACESS_TOKEN }}
@@ -29,3 +31,11 @@ jobs:
           channelId: live
           projectId: e-banking-tech-61d82
           entryPoint: client
+        # running backend render 
+      - name: Deploy backend to render
+        working-directory: ./server
+        run: |
+          if git diff --quiet HEAD^ HEAD -- ./server; then
+            echo "No changes in backend, skipping deployment"
+          else
+            curl -X POST "https://e-banking-tech.onrender.com/deploy?key=${{ secrets.RENDER_DEPLOY_KEY }}"

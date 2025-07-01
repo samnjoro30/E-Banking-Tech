@@ -15,6 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20.x
+          cache: 'npm'
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -30,3 +31,13 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
           projectId: e-banking-tech-61d82
           entryPoint: client
+          
+          #running backend to render
+      - name: Deploy backend to render
+        working-directory: ./server
+        run: |
+          if git diff --quiet HEAD^ HEAD -- ./server; then
+            echo "NO changes in backend, skipping deployment"
+          else
+            curl -X POST "https://e-banking-tech.onrender.com/deploy?key=${{ secrets.RENDER_DEPLOY_KEY }}"
+  
