@@ -29,3 +29,4 @@ jobs:
           repoToken: ${{ secrets.ACESS_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
           projectId: e-banking-tech-61d82
+          entryPoint: client
