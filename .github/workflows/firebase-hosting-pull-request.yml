@@ -33,11 +33,11 @@ jobs:
           entryPoint: client
           
           #running backend to render
-      - name: Deploy backend to render
-        working-directory: ./server
-        run: |
-          if git diff --quiet HEAD^ HEAD -- ./server; then
-            echo "NO changes in backend, skipping deployment"
-          else
-            curl -X POST "https://e-banking-tech.onrender.com/deploy?key=${{ secrets.RENDER_DEPLOY_KEY }}"
+      # - name: Deploy backend to render
+      #   working-directory: ./server
+      #   run: |
+      #     if git diff --quiet HEAD^ HEAD -- ./server; then
+      #       echo "NO changes in backend, skipping deployment"
+      #     else
+      #       curl -X POST "https://e-banking-tech.onrender.com/deploy?key=${{ secrets.RENDER_DEPLOY_KEY }}"
   
