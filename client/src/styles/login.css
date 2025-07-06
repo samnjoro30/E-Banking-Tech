@@ -35,7 +35,7 @@ form button[type="button"] {
     align-self: flex-start;
     background-color: transparent;
     border: none;
-    color: #4b6cb7;
+    color: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
     font-weight: bold;
     cursor: pointer;
     padding: 0;
@@ -47,7 +47,7 @@ form button[type="button"]:hover {
 
 /* Submit button */
 form button[type="submit"] {
-    background-color: #4b6cb7;
+    background-color: #73b2b9;
     color: #fff;
     border: none;
     padding: 10px;

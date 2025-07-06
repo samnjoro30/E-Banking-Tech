@@ -5,6 +5,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Header1 = () => {
     const [isMobile, setIsMobile] = useState(false);
+    
 
     useEffect (() =>{
         document.body.style.overflow = isMobile ? 'hidden' : 'auto';

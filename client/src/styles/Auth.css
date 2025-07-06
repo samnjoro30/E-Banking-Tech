@@ -14,6 +14,7 @@ body, html {
     align-items: center;
     height: 100vh;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Main panel styling */
@@ -22,7 +23,7 @@ body, html {
     flex-direction: row;
     width: 90%;
     max-width: 1000px;
-    background-color: #fff;
+    background-color:linear-gradient(to bottom, #95d4c0 0%, #c3cfe2 50%, #a1c4b0 100%);
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -40,7 +41,7 @@ body, html {
 
 /* Info panel styles */
 .panel-info {
-    background: linear-gradient(135deg, #4b6cb7, #182848);
+    background: linear-gradient(to bottom, #d0e3da 0%, #7ca694 50%, #a1c4b0 100%);
     color: #fff;
 }
 
@@ -59,7 +60,7 @@ body, html {
 }
 
 .switch-btn {
-    background-color: #fff;
+    background-color:linear-gradient(to bottom, #77b8af 0%, #98bdb3 50%, #8caca8 100%);
     color: #4b6cb7;
     border: none;
     padding: 10px 20px;
@@ -95,3 +96,37 @@ body, html {
 
 /* Responsive handling */
 
+@media screen and (max-width: 768px) {
+    .panel {
+        flex-direction: column;
+        height: auto;
+        max-height: 100%;
+        overflow-y: auto;
+    }
+
+    .panel-info, .panel-content {
+        padding: 20px;
+    }
+
+    .panel-info h1, .panel-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .panel-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .switch-btn {
+        align-self: stretch;
+        text-align: center;
+    }
+
+    form button[type="submit"],
+    form button[type="button"] {
+        width: 100%;
+    }
+
+    input {
+        font-size: 0.95rem;
+    }
+}

@@ -1,6 +1,6 @@
 /* General Styles */
 .eb-header {
-  background-color: #fff;
+  background-color: linear-gradient(135deg, #e0f7fa 0%, #80deea 25%, #4db6ac 50%, #26a69a 75%, #009688 100%);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem 2rem;
   position: sticky;

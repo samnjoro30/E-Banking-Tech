@@ -10,6 +10,7 @@ const Home = () => {
         <div className="home-page">
             <div className="header">
                 <Header1 />
+                
             </div>
             <section className="ebanking-section">
                 <div className="ebanking-content">
