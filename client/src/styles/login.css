@@ -18,14 +18,14 @@ label {
 
 input {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #28c9bc;
     border-radius: 6px;
     font-size: 1rem;
     outline: none;
 }
 
 input:focus {
-    border-color: #4b6cb7;
+    border-color: #40b99b;
     box-shadow: 0 0 0 2px rgba(75, 108, 183, 0.2);
 }
 
@@ -34,10 +34,13 @@ form button[type="button"] {
     margin-top: 5px;
     align-self: flex-start;
     background-color: transparent;
-    border: none;
-    color: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
+    border: 1px;
+    color: white;
+    height: 50%;
+    width: 20%;
     font-weight: bold;
     cursor: pointer;
+    background-color: rgb(49, 165, 138);
     padding: 0;
 }
 
@@ -59,7 +62,7 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #3a5199;
+    background-color: #46d9cb;
 }
 
 /* Message styles */
