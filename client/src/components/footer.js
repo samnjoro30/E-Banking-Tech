@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../styles/footer.css';
 
 const Footer = () => {
-    const [year, setYear] = useState(new Date().getFullYear());
+    const [year] = useState(new Date().getFullYear());
     const [subscribed, setSubscribed] = useState(false);
     const [email, setEmail] = useState('');
-    
+
     const handleSubscription = (e) => {
         e.preventDefault();
         if (email) {
@@ -13,9 +13,11 @@ const Footer = () => {
             console.log(`Subscribed with email: ${email}`);
         }
     };
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
+
     const renderSubscriptionMessage = () => {
         return subscribed ? (
             <p>Thank you for subscribing!</p>
@@ -33,7 +35,6 @@ const Footer = () => {
         );
     };
 
-    // Social media icons (you would typically add links/icons for these)
     const socialLinks = [
         { name: 'Facebook', url: 'https://facebook.com' },
         { name: 'Twitter', url: 'https://twitter.com' },
@@ -44,7 +45,6 @@ const Footer = () => {
     return (
         <footer className="footerContainer">
             <div className='footerContent'>
-                {/* Section 1: Company Information */}
                 <div className='section'>
                     <h4>About Us</h4>
                     <p>E-Banking Tech, Nairobi</p>
@@ -52,7 +52,6 @@ const Footer = () => {
                     <p>Phone: +254 799169720</p>
                 </div>
 
-                {/* Section 2: Navigation Links */}
                 <div className='section'>
                     <h4>Quick Links</h4>
                     <ul>
@@ -63,7 +62,6 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                {/* Section 3: Social Media Links */}
                 <div className='section'>
                     <h4>Follow Us</h4>
                     <ul>
@@ -77,14 +75,12 @@ const Footer = () => {
                     </ul>
                 </div>
 
-               
                 <div className='section'>
                     <h4>Newsletter</h4>
                     {renderSubscriptionMessage()}
                 </div>
             </div>
 
-            {/* Footer Bottom Section */}
             <div className='footerBottom'>
                 <p>&copy; {year} E-Banking Tech Inc. All Rights Reserved.</p>
             </div>

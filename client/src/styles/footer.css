@@ -1,41 +1,104 @@
-/* Footer Container */
 .footerContainer {
-    background-color: linear-gradient(to bottom, #8ab3a9 0%, #87c2bc 50%, #a1c4b0 100%);
+    background: linear-gradient(to bottom, #7abda8 0%, #7bb5ca 50%, #5c9b77 100%);
     color: black;
     text-align: center;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    padding: 20px 0;
+    padding: 30px 0 10px;
 }
 
 .footerContent {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: wrap;
-    gap: 20px;
     padding: 0 20px;
-}
-
-.section {
-    flex: 1 1 200px; 
-    margin: 10px;
-    color: white;
     text-align: left;
 }
 
+.section {
+    flex: 1 1 200px;
+    min-width: 220px;
+    color: white;
+}
+
+.section h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid white;
+    padding-bottom: 4px;
+}
+
+.section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.section ul li {
+    margin-bottom: 8px;
+}
+
+.section ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.section ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Newsletter input & button */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form input[type="email"] {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    width: 100%;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+form button {
+    background-color: #357ba1;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #285a7b;
+}
+
+/* Subscription thank-you */
+.section p {
+    font-size: 0.95rem;
+}
+
+/* Bottom section */
 .footerBottom {
     margin-top: 20px;
     padding-top: 10px;
-    position: relative;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     padding: 10px 20px 0;
+    font-size: 0.85rem;
+    position: relative;
+    color: #222;
 }
 
-/* Border that doesn't touch edges */
 .footerBottom::before {
     content: "";
     position: absolute;
@@ -46,6 +109,19 @@
     background-color: #444;
 }
 
-.footerContainer a:hover {
-    text-decoration: underline;
+/* Responsive */
+@media (max-width: 768px) {
+    .footerContent {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .section {
+        width: 100%;
+    }
+
+    form input,
+    form button {
+        width: 100%;
+    }
 }
