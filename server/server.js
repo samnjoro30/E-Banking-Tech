@@ -14,6 +14,7 @@ const data = require('express');
 const router = data.Router();
 
 const  app = express();
+app.use(express.json());
 
 const allowedOrigins = ['https://e-banking-tech-61d82.web.app', 'http://localhost:3000'];
 const corsOptions = {
@@ -26,13 +27,11 @@ const corsOptions = {
       }
       return callback(null, true);
     },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',  // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
-    credentials: true,  // Allow sending cookies from client
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: ['Content-Type', 'Authorization'], 
+    credentials: true,  
   };
 
-  
-app.use(express.json());
 //helmet for securing header
 app.use(helmet({
   contentSecurityPolicy: false,  // Disable this if you're using inline scripts or styles
@@ -44,7 +43,7 @@ app.use(helmet({
   hidePoweredBy: true,  // Hides 'X-Powered-By' header
   hsts: { maxAge: 31536000, includeSubDomains: true },  // Enforce HTTPS
   noSniff: true,  // Prevent MIME-type sniffing
-  xssFilter: true,  // Basic XSS protection
+  xssFilter: true, 
 })); 
 app.use(cors(corsOptions));
 app.use(morgan('dev')); //log http request
@@ -77,6 +76,7 @@ const connectDB = async (retries = 5) => {
   }
 };
 connectDB();
+
 app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET_KEY, // Change this to a more secure secret
@@ -85,7 +85,7 @@ app.use(session({
   cookie: { 
     secure: true,
     sameSite: 'Lax'
-   } // Set to true if using HTTPS
+   } 
 }));
 
 const server = http.createServer(app);
@@ -107,7 +107,6 @@ io.on('connection', (socket) => {
     socket.emit('message', 'Welcome to E-Banking Tech!');
     socket.on('transaction', (data) => {
         console.log(`New Transaction from ${socket.id}:`, data);
-        // Broadcast transaction updates to all clients
         io.emit('transactionUpdate', data);
 
         socket.emit('notification', {
@@ -125,24 +124,24 @@ io.on('connection', (socket) => {
       });
 });
 
-router.post('/refresh', (req, res) => {
-  const token = req.cookies.refreshToken;
+// router.post('/refresh', (req, res) => {
+//   const token = req.cookies.refreshToken;
 
-  if (!token) return res.sendStatus(401);
+//   if (!token) return res.sendStatus(401);
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const newAccessToken = jwt.sign(
-      { userId: decoded.userId },
-      process.env.JWT_SECRET,
-      { expiresIn: '15m' }
-    );
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     const newAccessToken = jwt.sign(
+//       { userId: decoded.userId },
+//       process.env.JWT_SECRET,
+//       { expiresIn: '15m' }
+//     );
 
-    res.status(200).json({ accessToken: newAccessToken });
-  } catch (err) {
-    return res.sendStatus(403); // Invalid refresh token
-  }
-});
+//     res.status(200).json({ accessToken: newAccessToken });
+//   } catch (err) {
+//     return res.sendStatus(403); // Invalid refresh token
+//   }
+// });
 
 const shutdown = () => {
   server.close(() => {
