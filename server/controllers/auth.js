@@ -183,18 +183,34 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
         
-        const token = jwtr.sign(
-            { userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber, cardNumber: user.cardNumber, expiryDate: user.expiryDate, cvv: user.cvv },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN } // '1h', '7d', etc.
-        );
+        // const token = jwtr.sign(
+        //     { userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber },
+        //     process.env.JWT_SECRET,
+        //     { expiresIn: process.env.JWT_EXPIRES_IN } // '1h', '7d', etc.
+        // );
+
+        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+            maxAge: 1 * 24 * 60 * 60 * 1000 
+          });
+          
 
         // Return token and user info
-        res.status(200).json({
+        res.json({
             message: 'Login successful',
-            token,
-            user: { firstName: user.firstName, lastName: user.lastName, accountNumber: user.accountNumber, cardNumber: user.cardNumber, expiryDate: user.expiryDate, cvv: user.cvv}
-        });
+            accessToken,
+            user: {
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              accountNumber: user.accountNumber
+            }
+          });
 
     } catch (err) {
         console.error(err.message);
