@@ -10,8 +10,8 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
-const express = require('express');
-const router = express.Router();
+const data = require('express');
+const router = data.Router();
 
 const  app = express();
 
