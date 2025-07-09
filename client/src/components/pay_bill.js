@@ -8,7 +8,7 @@ const PayBill = () => {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        // Example API call (adjust endpoint as needed)
+        
         const fetchBills = async () => {
             try {
                 const response = await axiosInstance.get('/bills');
