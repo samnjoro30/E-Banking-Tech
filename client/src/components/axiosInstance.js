@@ -2,28 +2,29 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: "https://e-banking-tech.onrender.com/api",
-  withCredentials:true,
 });
 
+// Request interceptor to attach token dynamically
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('accessToken'); // or localStorage
+    const token = sessionStorage.getItem('token'); // Changed from 'userToken' to 'token'
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
-// Handle 401 errors without refresh logic
+// Enhanced response interceptor
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Optional: redirect user to login
-      sessionStorage.removeItem('accessToken');
-      window.location.href = '/';
+      sessionStorage.removeItem('token');
+      window.location.href = '/auth'; // Force full page reload to clear state
     }
     return Promise.reject(error);
   }

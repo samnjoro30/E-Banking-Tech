@@ -35,12 +35,17 @@ const Login = () => {
             );
 
             const accessToken = res.data.accessToken;
-            sessionStorage.setItem('accessToken', accessToken);
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             
             setMessage('Login successful! Redirecting...');
             console.log(res.data);
 
             if (accessToken) {
+                sessionStorage.setItem('token', accessToken); 
+            
+                axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+            
+                setMessage('Login successful! Redirecting...');
                 setTimeout(() => {
                     navigate('/dashboard');
                 }, 2000);
