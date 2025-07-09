@@ -7,7 +7,11 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const socketIo = require('socket.io');
 const http = require('http');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const jwt = require('jsonwebtoken');
+const express = require('express');
+const router = express.Router();
 
 const  app = express();
 
@@ -73,13 +77,13 @@ const connectDB = async (retries = 5) => {
   }
 };
 connectDB();
-
+app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET_KEY, // Change this to a more secure secret
   resave: false,
   saveUninitialized: true,
   cookie: { 
-    secure: false,
+    secure: true,
     sameSite: 'Lax'
    } // Set to true if using HTTPS
 }));
@@ -119,6 +123,19 @@ io.on('connection', (socket) => {
           console.log('Client manually closed the connection.');
         }
       });
+});
+
+app.post('/auth/refresh', (req, res) => {
+  const token = req.cookies.refreshToken;
+  if (!token) return res.sendStatus(401);
+
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const newAccessToken = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    res.json({ accessToken: newAccessToken });
+  } catch (err) {
+    res.sendStatus(403);
+  }
 });
 
 const shutdown = () => {
