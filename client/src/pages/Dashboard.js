@@ -9,6 +9,7 @@ import FooterDash from '../components/footerdash';
 import '../styles/dashboard.css'; 
 import Transaction from '../components/Transaction';
 import Balance from '../components/balance';
+import Tbutton from '../components/Tbuttons';
 import PayBill from '../components/pay_bill';
 
 const Dashboard = () => {
@@ -43,7 +44,7 @@ const Dashboard = () => {
             case 'user':
                 return <User onClose={() => setActivePanel(null)} />;
             case 'transfer':
-                return <Transfer onClose={() => setActivePanel(null)} />;
+                return <Tbutton onClose={() => setActivePanel(null)} />;
             case 'transaction':
                 return <Transaction onClose={() => setActivePanel(null)} />;
             case 'balance':

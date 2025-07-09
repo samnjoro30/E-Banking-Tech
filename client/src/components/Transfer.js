@@ -47,7 +47,7 @@ const Transfer = ({ onClose }) => {
     };
 
     return (
-        <DashboardSectionWrapper>
+       
             <div className="transfer-form">
                 <h2>Transfer Funds</h2>
                 {error && <p className="error-message">{error}</p>}
@@ -98,7 +98,7 @@ const Transfer = ({ onClose }) => {
                     </button>
                 </div>
             </div>
-        </DashboardSectionWrapper>
+        
     );
 };
 
