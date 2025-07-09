@@ -81,3 +81,13 @@
   background: #fff5f5;
   border-radius: 4px;
 }
+@media (max-width: 768px) { 
+  .sidebar-container {
+    position: relative !important;
+    width: 104% !important;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+  }
+}

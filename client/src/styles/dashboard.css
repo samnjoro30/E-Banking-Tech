@@ -23,17 +23,24 @@
     display: flex;
     gap: 2rem;
     padding: 1.5rem;
+    flex-direction: row;
+    justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .dashboard-layout  {
+    flex-direction: column;
+  }
 }
 
 /* Sidebar and content */
-.sidebar-container {
+/* .sidebar-container {
     flex: 0 0 250px;
 }
 
 .main-content {
     flex: 1;
     min-width: 0;
-}
+} */
 
 /* Responsive styles */
 
