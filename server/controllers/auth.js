@@ -195,9 +195,16 @@ const loginUser = async (req, res) => {
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite: 'Strict',
+            sameSite: 'none',
             maxAge: 1 * 24 * 60 * 60 * 1000 
           });
+
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 1  * 24 * 60 * 1000 
+        });
           
 
         // Return token and user info
