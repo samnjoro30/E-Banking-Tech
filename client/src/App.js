@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Auth from './pages/Auth';
+import LoginAdmin from './Admin/admin_login';
 import AdminDashboard from './pages/admin';  // Import the admin dashboard
 import AuditLogs from './components/AuditLogs';  // Import audit logs component
 import Reports from './components/Reports';  // Import reports component
@@ -88,6 +89,7 @@ const App = () => {
                         </ProtectedRoute>
                     } 
                 />
+                <Route path="/admin/login" element={<LoginAdmin />} />
             </Routes>    
         </Router>
     );
