@@ -125,16 +125,22 @@ io.on('connection', (socket) => {
       });
 });
 
-app.post('/auth/refresh', (req, res) => {
+router.post('/refresh', (req, res) => {
   const token = req.cookies.refreshToken;
+
   if (!token) return res.sendStatus(401);
 
   try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    const newAccessToken = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '15m' });
-    res.json({ accessToken: newAccessToken });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const newAccessToken = jwt.sign(
+      { userId: decoded.userId },
+      process.env.JWT_SECRET,
+      { expiresIn: '15m' }
+    );
+
+    res.status(200).json({ accessToken: newAccessToken });
   } catch (err) {
-    res.sendStatus(403);
+    return res.sendStatus(403); // Invalid refresh token
   }
 });
 
