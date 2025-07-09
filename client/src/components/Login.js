@@ -33,15 +33,20 @@ const Login = () => {
         try {
             const res = await axiosInstance.post('/auth/login', { email, password }
             );
-            sessionStorage.setItem('token', res.data.token);
 
-            //sessionStorage.setItem('userId', userId);
+            const accessToken = res.data.accessToken;
+            sessionStorage.setItem('accessToken', accessToken);
+            
             setMessage('Login successful! Redirecting...');
             console.log(res.data);
 
-            setTimeout(() => {
-                navigate('/dashboard'); // Redirect to the dashboard after successful login
-            }, 2000);
+            if (accessToken) {
+                setTimeout(() => {
+                    navigate('/dashboard');
+                }, 2000);
+            } else {
+                setError('Login failed - no token received');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
             console.error(err.response?.data);
