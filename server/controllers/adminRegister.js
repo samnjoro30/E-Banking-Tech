@@ -1,6 +1,8 @@
 const Admin = require('../models/admin_reg');
 const bcrypt = require('bcrypt');
 const { generateOTP, sendOTPEmail } = require('../utils/otp');
+const User = require('../models/User');
+const jwtr = require('jsonwebtoken');
 
 const RegisterAdmin = async (req, res) =>{
     const { FirstName, LastName, email, PhoneNumber, Password} = req.body;
@@ -45,16 +47,22 @@ const LoginAdmin = async (req, res) => {
                 message: "Incorrect Password"
             });
         }
+        const accessToken = jwt.sign({
+            userId: User._id,
+        }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRES_IN
+        });
 
-        const token = jwt.sign(
-            {
-
-            }
-        )
+        res.cookie('accessToken', accessToken, {
+            httpOnly:true,
+            secure: true,
+            sameSite: 'none',
+            maxAge:  60 * 60 * 1000
+        })
 
         res.status(200).json({
             message: 'login successful',
-            token,
+            accessToken,
             admin: { FirstName, LastName, email, PhoneNumber}
         })
 
