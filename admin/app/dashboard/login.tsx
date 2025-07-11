@@ -2,15 +2,23 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
+interface FormData  {
+   Username: string;
+   Password: string;
+}
 
 export default function LoginAdmin(){
 
-    const [ loading, setLoading ] = useState(false);
-    const [ message, setMessage ] = useState('');
-    const [ formData, setFormData] = useState({
+    const [ loading, setLoading ] = useState<boolean>(false);
+    const [ message, setMessage ] = useState<string>('');
+    const [ error, setError ] = useState<string>('')
+    const [ formData, setFormData] = useState<FormData>({
         Username: '',
         Password: '',
     })
+    const navigate = useRouter();
 
     const {Username, Password} = formData;
 
@@ -20,15 +28,21 @@ export default function LoginAdmin(){
     };
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        setMessage('');
+        setError('');
 
         try{
             const response = await axios.post("/admin/login", formData )
 
             setMessage("Login successful")
-        }catch(err){
+        }catch(err: any){
+            setError(err.response?.data?.message ||  'login failed try again')
 
-
+        }finally{
+            setLoading(false);
         }
     }
     return(
@@ -40,7 +54,7 @@ export default function LoginAdmin(){
                         <label> Username | Bank Email</label>
                         <input 
                           type = "text"
-                          name="username"
+                          name="Username"
                           value = {Username}
                           onChange = { onChange }
                           required
@@ -64,6 +78,7 @@ export default function LoginAdmin(){
                         { loading ? 'Logging ...' : 'Login'}
                     </button>
                     {message && <p style={{ color: 'green' }}> {message} </p>}
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                 </form>
             </div>
         </div>
