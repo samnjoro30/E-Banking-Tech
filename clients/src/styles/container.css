@@ -1,0 +1,32 @@
+.contain {
+    /* min-width: 600px; */
+    max-width: 850px;
+    width: 100%;
+    margin-right:  22rem;
+    box-sizing: border-box;
+    padding: 0 0rem;
+}
+
+.overview {
+    width: 90%;
+    height: 400px;
+    background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
+    border-radius: 12px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-right: 1rem;
+    min-height: 65vh;
+}
+
+@media (max-width: 768px) {
+    .contain {
+        width: 95% !important;
+        margin: 0px !important;
+        padding: 0 1rem !important;
+      }
+    
+      .overview {
+        width: 102% !important;
+        padding: 1.5rem !important;
+      }
+}
