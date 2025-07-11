@@ -173,7 +173,8 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/transaction', require('./routes/transaction'));
-app.use('api/admin', require('./routes/adminRoutes'))
+app.use('api/admin', require('./routes/adminRoutes'));
+app.use('api/authadmin', require('./routes/adminAuth'));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
