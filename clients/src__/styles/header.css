@@ -1,0 +1,135 @@
+/* Header Container */
+.header-container {
+    background: linear-gradient(135deg, #e0f7fa 0%, #80deea 25%, #4db6ac 50%, #26a69a 75%, #009688 100%);
+    color: white;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 100;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Header Content */
+.header-content {
+    flex-wrap: wrap;
+    row-gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Title Styling */
+.header-title {
+    color: white;
+    margin: 0;
+    padding-right: 50px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Action Buttons */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mode-toggle {
+    padding: 8px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.logout-button {
+    padding: 8px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #41ca61;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.logout-button:hover {
+    background-color: #3ab955;
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+/* @media (max-width: 768px) {
+    .header-container {
+        height: 70px;
+    }
+    
+    .header-content {
+        padding: 0 15px;
+    }
+    
+    .header-title {
+        font-size: 1.4rem;
+        padding-left: 5px;
+    }
+    
+    .header-actions {
+        gap: 10px;
+    }
+    
+    .mode-toggle,
+    .logout-button {
+        padding: 6px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 1.2rem;
+    }
+    
+    .header-actions {
+        gap: 8px;
+    }
+    
+    .mode-toggle {
+        display: none; Hide mode toggle on smallest screens */
+    /* }
+}
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .header-title {
+        padding-left: 0;
+        text-align: left;
+        width: 100%;
+    }
+} */
