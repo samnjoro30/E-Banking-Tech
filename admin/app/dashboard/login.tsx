@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 interface FormData {
   Username: string;
+  workId: string;
   Password: string;
 }
 
@@ -15,6 +16,7 @@ export default function LoginAdmin() {
   const [error, setError] = useState<string>('');
   const [formData, setFormData] = useState<FormData>({
     Username: '',
+    workId: '',
     Password: '',
   });
   const navigate = useRouter();
@@ -66,6 +68,22 @@ export default function LoginAdmin() {
                   name="Username"
                   type="text"
                   value={Username}
+                  onChange={onChange}
+                  required
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="workId" className="block text-sm font-medium text-gray-700">
+                workId
+              </label>
+              <div className="mt-1">
+                <input
+                  id="workId"
+                  name="workId"
+                  type="text"
+                  value={workId}
                   onChange={onChange}
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
