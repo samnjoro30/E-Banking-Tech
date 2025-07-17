@@ -1,6 +1,6 @@
 # 🏦 E‑Banking Tech
 
-A secure, full‑featured **E‑Banking System** built with the MERN stack— empower users to register, authenticate, and manage financial transactions seamlessly.
+A secure, full‑featured **E‑Banking System** built with the MERN and Next.js stack— empower users to register, authenticate, and manage financial transactions seamlessly.
 
 ## 🚀 Features
 
@@ -26,10 +26,10 @@ A secure, full‑featured **E‑Banking System** built with the MERN stack— em
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React.js (Vite, Bootstrap/Tailwind CSS)  
+- **Frontend**: React.js (Vite, Bootstrap/Tailwind CSS), Next.js 
 - **Backend**: Node.js, Express.js  
 - **Database**: MongoDB via Mongoose  
-- **Auth & Security**: JWT, bcrypt-hashing, validation middleware  
+- **Auth & Security**: JWT, bcrypt-hashing, validation middleware, cookie  
 - **Tooling**: Git, render, firebase and Github 
 
 ## 🎯 Getting Started
