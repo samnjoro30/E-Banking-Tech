@@ -9,7 +9,6 @@ import VerifyOTP from './components/VerifyOtp';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Auth from './pages/Auth';
-//import './index.css'
 // Other imports
 const socket = io('https://e-banking-tech.onrender.com');
 
