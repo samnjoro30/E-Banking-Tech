@@ -21,7 +21,7 @@ export default function LoginAdmin() {
   });
   const navigate = useRouter();
 
-  const { Username, Password } = formData;
+  const { Username, Password, workId } = formData;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,6 +37,7 @@ export default function LoginAdmin() {
     try {
       const response = await axios.post("/admin/login", formData);
       setMessage("Login successful");
+      navigate.push("/dashboard")
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed, please try again');
     } finally {
@@ -83,7 +84,7 @@ export default function LoginAdmin() {
                   id="workId"
                   name="workId"
                   type="text"
-                  value={workId}
+                  value={ workId }
                   onChange={onChange}
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
