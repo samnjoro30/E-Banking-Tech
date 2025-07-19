@@ -34,18 +34,6 @@ A secure, full‑featured **E‑Banking System** built with the MERN stack and i
 
 ## 🎯 Getting Started
 ## project structure
-E‑Banking-Tech/
-├── client/           # React frontend
-│   ├── public/
-│   └── src/
-├── server/           # Node/Express backend
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   └── middleware/
-├── .github/          # CI/CD workflows
-├── docker.yml
-└── package.json
 
 
 1. **Clone the repo**  
@@ -57,12 +45,18 @@ E‑Banking-Tech/
 2. **Navigate and install dependencies**
   navigate to the cloned folder and into client folder
   ```bash
-     cd client
+    cd client
   ```
   install dependencies
   ```bash
     npm install
+
   ```
+  Run frontend
+  ```bash
+   npm start
+  ```
+
   navigate to server folder
   ```bash 
     cd server
@@ -70,7 +64,7 @@ E‑Banking-Tech/
 3. **Run in development**
  In the server folder run
  ```bash 
-    npm start
+    nodemon server.js
  ```
 
 
