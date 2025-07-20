@@ -53,28 +53,28 @@ const sendConfirmationEmail = (email) => {
 
     return transporter.sendMail(mailOptions);
 };
-const generateCardNumber = () => {
-    let cardNumber = '4'; // Starting with '4' for Visa (change this for other types)
-    for (let i = 0; i < 15; i++) {
-        cardNumber += Math.floor(Math.random() * 10); // Append random digits
-    }
-    return cardNumber;
-};
-const generateExpiryDate = () => {
-    const currentYear = new Date().getFullYear();
-    const year = currentYear + Math.floor(Math.random() * 5 + 1); // Random year between now and 5 years later
-    const month = ('0' + Math.floor(Math.random() * 12 + 1)).slice(-2); // Random month
-    return `${month}/${year.toString().slice(-2)}`; // Format MM/YY
-};
+// const generateCardNumber = () => {
+//     let cardNumber = '4'; // Starting with '4' for Visa (change this for other types)
+//     for (let i = 0; i < 15; i++) {
+//         cardNumber += Math.floor(Math.random() * 10); // Append random digits
+//     }
+//     return cardNumber;
+// };
+// const generateExpiryDate = () => {
+//     const currentYear = new Date().getFullYear();
+//     const year = currentYear + Math.floor(Math.random() * 5 + 1); // Random year between now and 5 years later
+//     const month = ('0' + Math.floor(Math.random() * 12 + 1)).slice(-2); // Random month
+//     return `${month}/${year.toString().slice(-2)}`; // Format MM/YY
+// };
 
 // Function to generate a CVV
-const generateCVV = () => {
-    let cvv = '';
-    for (let i = 0; i < 3; i++) {
-        cvv += Math.floor(Math.random() * 10); // Append random digits
-    }
-    return cvv;
-}; 
+// const generateCVV = () => {
+//     let cvv = '';
+//     for (let i = 0; i < 3; i++) {
+//         cvv += Math.floor(Math.random() * 10); // Append random digits
+//     }
+//     return cvv;
+// }; 
 /*const creditCard = async (req, res) =>{
     setTimeout(() => {
         const cardDetails = {
@@ -87,7 +87,7 @@ const generateCVV = () => {
     }, 3000);
 };*/
 const registerUser = async (req, res) => {
-    const { email, password, firstName, lastName, pin, gender, dob, phoneNumber } = req.body;
+    const { email, password, firstName, lastName,  gender, phoneNumber } = req.body;
 
     // Check for validation errors
     const errors = validationResult(req);
@@ -120,7 +120,7 @@ const registerUser = async (req, res) => {
         if (!/^\d{5}$/.test(pin)) {
             return res.status(400).json({ message: 'PIN must be a 5-digit number.' });
         }
-        const hashedPin = await bcrypt.hash(pin, 10);
+        //const hashedPin = await bcrypt.hash(pin, 10);
         // Generate account number
         const accountNumber = await generateAccountNumber();
 
@@ -131,11 +131,11 @@ const registerUser = async (req, res) => {
             firstName,
             lastName,
             email,
-            dob,
+            //dob,
             password: hashedPassword,
             gender,
             phoneNumber,
-            pin: hashedPin,
+            //pin: hashedPin,
             accountNumber,
             balance: 0,
             otp,  // Store OTP
