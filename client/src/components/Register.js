@@ -12,9 +12,9 @@ const Register = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
-        dob: '',
+       // dob: '',
         email: '',
-        pin: '',
+        //pin: '',
         gender: '',
         password: '',
         confirmPassword: ''
@@ -145,7 +145,7 @@ const Register = () => {
                             onChange={onChange}
                             required
                         />
-                        <label>Date of Birth</label>
+                        {/* <label>Date of Birth</label>
                         <input
                            type="date"
                            name="dob"
@@ -158,7 +158,7 @@ const Register = () => {
                         <p style={{ color: 'blue' }}>
                            You are under 18. Would you like to open a Teens Savings Account?
                         </p>
-                         )}
+                         )} */}
                         <label>Gender:</label>
                         <select
                            name="gender"
@@ -201,7 +201,7 @@ const Register = () => {
                 {step === 2 && (
                     <div>
                         <h2>Step 2: Security Information</h2>
-                        <label>PIN (5 digits)</label>
+                        {/* <label>PIN (5 digits)</label>
                         <input
                             type="text"
                             name="pin"
@@ -210,7 +210,7 @@ const Register = () => {
                             maxLength={5}
                             pattern="\d{5}"
                             required
-                        />
+                        /> */}
                         <label>Password</label>
                         <input
                             type="password"
