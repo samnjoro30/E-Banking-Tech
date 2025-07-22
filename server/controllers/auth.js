@@ -53,39 +53,7 @@ const sendConfirmationEmail = (email) => {
 
     return transporter.sendMail(mailOptions);
 };
-// const generateCardNumber = () => {
-//     let cardNumber = '4'; // Starting with '4' for Visa (change this for other types)
-//     for (let i = 0; i < 15; i++) {
-//         cardNumber += Math.floor(Math.random() * 10); // Append random digits
-//     }
-//     return cardNumber;
-// };
-// const generateExpiryDate = () => {
-//     const currentYear = new Date().getFullYear();
-//     const year = currentYear + Math.floor(Math.random() * 5 + 1); // Random year between now and 5 years later
-//     const month = ('0' + Math.floor(Math.random() * 12 + 1)).slice(-2); // Random month
-//     return `${month}/${year.toString().slice(-2)}`; // Format MM/YY
-// };
 
-// Function to generate a CVV
-// const generateCVV = () => {
-//     let cvv = '';
-//     for (let i = 0; i < 3; i++) {
-//         cvv += Math.floor(Math.random() * 10); // Append random digits
-//     }
-//     return cvv;
-// }; 
-/*const creditCard = async (req, res) =>{
-    setTimeout(() => {
-        const cardDetails = {
-            cardNumber: generateCardNumber(),
-            cvv: generateCVV(),
-            expiryDate: generateExpiryDate(), // You can generate a dynamic expiry date if needed
-            cardHolder: `${firstName} ${lastName}` || 'John Doe' // or take this from the user input
-        };
-        res.json(cardDetails);
-    }, 3000);
-};*/
 const registerUser = async (req, res) => {
     const { email, password, firstName, lastName,  gender, phoneNumber } = req.body;
 
@@ -267,6 +235,9 @@ const verifyOTP = async (req, res) => {
         console.log("backend error", err.message);
     }
 };
+const logout = async (req, res) => {
+
+}
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
     try {
@@ -334,5 +305,6 @@ module.exports = { registerUser,
     verifyOTP, 
     getDashboardData, 
     resetPassword, 
-    forgotPassword
+    forgotPassword,
+    logout,
 };
