@@ -18,7 +18,7 @@
     min-height: 65vh;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .contain {
         width: 95% !important;
         margin: 0px !important;

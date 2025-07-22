@@ -16,7 +16,7 @@
   }
   
   /* Responsive Text */
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
     .footer-dash {
       font-size: 0.9rem;
       padding: 12px 10px;

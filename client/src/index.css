@@ -1,0 +1,42 @@
+:root {
+    --mobile: 480px;
+    --tablet: 768px;
+    --desktop: 1024px;
+    --max-width: 1200px;
+  }
+  
+@media (max-width: var(--mobile)) {
+    .dashboard-layout {
+      flex-direction: column;
+      padding: 1rem 0.5rem;
+    }
+  
+    .left-panel,
+    .sidebar-container,
+    .footer {
+      width: 100%;
+      position: fixed;
+      z-index: 999;
+    }
+  
+    .header {
+      top: 0;
+      left: 0;
+      right: 0;
+      position: fixed;
+      z-index: 1000;
+    }
+  
+    .footer {
+      bottom: 0;
+    }
+  
+    .left-panel {
+      top: 4rem; /* below header */
+      bottom: 4rem; /* above footer */
+      overflow-y: auto;
+      padding-bottom: 1rem;
+      background: var(--bg-color);
+    }
+  }
+  

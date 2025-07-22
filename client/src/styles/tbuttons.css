@@ -52,7 +52,7 @@
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .transfer-area {
         flex-direction: column;
     }

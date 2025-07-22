@@ -110,7 +110,7 @@ form button:hover {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .footerContent {
         flex-direction: column;
         text-align: left;

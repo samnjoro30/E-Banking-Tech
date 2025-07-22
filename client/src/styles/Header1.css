@@ -30,9 +30,8 @@
   gap: 1rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .eb-container {
-    position:fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
