@@ -29,18 +29,7 @@
 @media (max-width: 768px) {
   .dashboard-layout  {
     flex-direction: column;
+    position: fixed;
   }
 }
-
-/* Sidebar and content */
-/* .sidebar-container {
-    flex: 0 0 250px;
-}
-
-.main-content {
-    flex: 1;
-    min-width: 0;
-} */
-
-/* Responsive styles */
 
