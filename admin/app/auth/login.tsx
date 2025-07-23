@@ -36,10 +36,13 @@ export default function LoginAdmin() {
 
     try {
       const response = await axios.post("/admin/login", formData);
-      setMessage("Login successful");
-      navigate.push("/dashboard")
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed, please try again');
+      setMessage(response.data.message || "Login successful" );
+      setTimeout(() => {
+        navigate.push("/dashboard")
+      }, 2000);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      setError('Login failed, please try again');
     } finally {
       setLoading(false);
     }
