@@ -100,7 +100,7 @@ const transferFunds = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     try {
-        const { recipient, amount,  pin} = req.body;
+        const { recipient, amount } = req.body;
         const transferAmount = Number(amount);
 
         //rate limiting
@@ -113,10 +113,7 @@ const transferFunds = async (req, res) => {
 
         //pin validation
         const sender = await User.findOne({ accountNumber: req.user.accountNumber });
-        const verifyPin = await bcrypt.compare(pin, sender.pin)
-        if (!sender || verifyPin) { // Implement verifyPin method for PIN hashing/verification
-            return res.status(401).json({ message: 'Invalid PIN for authentication.' });
-        }
+       
         if (isNaN(transferAmount) || transferAmount <= 0) {
             return res.status(400).json({ message: 'Invalid transfer amount.' });
         }
