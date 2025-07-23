@@ -77,9 +77,13 @@ const LoginAdmin = async (req, res) => {
 const AdminVerification = (req, res) => {
 
 }
+const refreshToken = (req, res) =>{
+
+}
 
 module.exports = {
     RegisterAdmin,
     LoginAdmin,
     AdminVerification,
+    refreshToken,
 }
