@@ -34,25 +34,6 @@ const isPasswordComplex = (password) => {
     return lowercase && uppercase && number && specialChar;
 };
 
-//testing
-const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
-// Send confirmation email after registration
-const sendConfirmationEmail = (email) => {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: 'Registration Successful',
-        text: `Welcome to E-Banking Tech! Your registration was successful. You can now login using your credentials.`
-    };
-
-    return transporter.sendMail(mailOptions);
-};
 
 const registerUser = async (req, res) => {
     const { email, password, firstName, lastName,  gender, phoneNumber } = req.body;
@@ -70,7 +51,6 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Check password complexity
         if (!isPasswordComplex(password)) {
             return res.status(400).json({
                 message: 'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.'
@@ -82,13 +62,8 @@ const registerUser = async (req, res) => {
         if (passwordStrength.score < 3) {  // Adjust score threshold based on your needs
             return res.status(400).json({ message: 'Password is too weak' });
         }
-
         const hashedPassword = await bcrypt.hash(password, 10);
-        // Validate the PIN to ensure it's a 5-digit number
-        if (!/^\d{5}$/.test(pin)) {
-            return res.status(400).json({ message: 'PIN must be a 5-digit number.' });
-        }
-        //const hashedPin = await bcrypt.hash(pin, 10);
+        
         // Generate account number
         const accountNumber = await generateAccountNumber();
 
@@ -99,11 +74,9 @@ const registerUser = async (req, res) => {
             firstName,
             lastName,
             email,
-            //dob,
             password: hashedPassword,
             gender,
             phoneNumber,
-            //pin: hashedPin,
             accountNumber,
             balance: 0,
             otp,  // Store OTP
@@ -237,6 +210,7 @@ const verifyOTP = async (req, res) => {
 };
 const logout = async (req, res) => {
 
+
 }
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
@@ -278,9 +252,49 @@ const resetPassword = async (req, res) => {
     }
 };
 const changeEmail = async (req, res) =>{
+    const { email, newEmail} = req.body
+    if (!email || !newEmail){
+        return res.status(400).json({
+            "message": "both email fields are required"
+        });
+    }
+    if (email===newEmail){
+        return res.status(400).json({
+            "message": "New email must be different from the old email"
+        })
+    }
+    try{
+        const user = await User.findOne({ email: email })
+
+        if (!user){
+            return res.status(400).json({
+                "message": "email not found"
+            })
+        }
+        const emailExists = await User.findOne({ email: newEmail})
+        if (emailExists){
+            return res.status(400).json({
+                "message": "new email exists"
+            });
+        }
+
+        user.email = newEmail;
+        await user.save();
+
+        return re.status(200).json({
+            "message": "Email updated succesfully",
+            "newEmail": newEmail
+        })
+
+    }catch(err){
+        console.error("Error changing email:", err)
+        return res.status(500).json({
+            "message": "Server Error, email could not be updated"
+        })
+
+    }
 
 }
-
 
 const getDashboardData = async (req, res) => {
     try {
@@ -306,5 +320,6 @@ module.exports = { registerUser,
     getDashboardData, 
     resetPassword, 
     forgotPassword,
+    changeEmail,
     logout,
 };
