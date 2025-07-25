@@ -37,7 +37,6 @@ const isPasswordComplex = (password) => {
 
 const registerUser = async (req, res) => {
     const { email, password, firstName, lastName,  gender, phoneNumber } = req.body;
-
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -62,6 +61,7 @@ const registerUser = async (req, res) => {
         if (passwordStrength.score < 3) {  // Adjust score threshold based on your needs
             return res.status(400).json({ message: 'Password is too weak' });
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         
         // Generate account number
@@ -79,6 +79,7 @@ const registerUser = async (req, res) => {
             phoneNumber,
             accountNumber,
             balance: 0,
+            isVerified: false,
             otp,  // Store OTP
             otpExpires 
         });

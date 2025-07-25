@@ -5,11 +5,9 @@ const userSchema = new mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phoneNumber: {type: String, required: true, unique: true},
-    //dob: {type: String, required: true},
     gender: {type: String, required: true},
     password: { type: String, required: true },
     accountNumber: { type: String, unique: true },
-    //pin: {type: String, required: true },  // Bank-specific field
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isVerified: { type: Boolean, default: false },
     otp: { type: String },  // Temporary OTP storage
