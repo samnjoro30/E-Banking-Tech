@@ -74,10 +74,25 @@ const LoginAdmin = async (req, res) => {
     }
 }
 
-const AdminVerification = (req, res) => {
+const AdminVerification = async (req, res) => {
+
+    const { email, otp} = req.body;
+    try{
+        const admin = await Admin.findOne({ email });
+        if (!admin){
+            return res.status(400).json({
+                message: "Admin not registered using that email"
+            });
+        }
+        admin.otp = null;
+        admin.isVerified = true;
+        await admin.save()
+    }catch(error){
+        console.error("Error verifying admin", error);
+    }
 
 }
-const refreshToken = (req, res) =>{
+const refreshToken = async (req, res) =>{
 
 }
 
