@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axiosInstance from './axiosInstance';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getToken, removeToken } from '../utils/auth';
 import { FaMoneyCheckAlt, FaBalanceScale, FaHistory, FaFileInvoice, FaKey, FaFileAlt, FaUserCog, FaUniversity, FaExchangeAlt, FaTachometerAlt } from 'react-icons/fa';
-import Transfer from './Transfer';
-import User from './user';
 import '../styles/sideview.css';
 
 const Sidebar = ({ setActivePanel }) => {
-    const [showTransactions, setShowTransactions] = useState(false);
-    const [showTransfer, setShowTranfer] = useState(false);
-    const [showUser,  setShowUser] = useState(true);
-    const [setTest, setShowTest] = useState(false)
-    const [leftPanelContent, setLeftPanelContent] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
-
-    const showContent = (contentType) => {
-        setLeftPanelContent(contentType);
-      };
-
+    
+    const [ setShowTest ] = useState(false)
   
     return (
         <div className="sidebar-container">
