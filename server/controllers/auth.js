@@ -24,7 +24,6 @@ const generateAccountNumber = async () => {
     return accountNumber;
 };
 
-// Custom function to validate password complexity
 const isPasswordComplex = (password) => {
     const lowercase = /[a-z]/.test(password);
     const uppercase = /[A-Z]/.test(password);
@@ -37,14 +36,12 @@ const isPasswordComplex = (password) => {
 
 const registerUser = async (req, res) => {
     const { email, password, firstName, lastName,  gender, phoneNumber } = req.body;
-    // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-        // Check if user already exists
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ message: 'User already exists' });
@@ -56,7 +53,6 @@ const registerUser = async (req, res) => {
             });
         }
 
-        // Password strength validation using zxcvbn
         const passwordStrength = zxcvbn(password);
         if (passwordStrength.score < 3) {  // Adjust score threshold based on your needs
             return res.status(400).json({ message: 'Password is too weak' });
@@ -96,7 +92,6 @@ const registerUser = async (req, res) => {
                 token,
             });
         } catch (error) {
-            // If OTP email fails, log the error and rollback OTP
             user.otp = null;
             user.otpExpires = null;
             await user.save();
@@ -124,12 +119,6 @@ const loginUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        
-        // const token = jwtr.sign(
-        //     { userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber },
-        //     process.env.JWT_SECRET,
-        //     { expiresIn: process.env.JWT_EXPIRES_IN } // '1h', '7d', etc.
-        // );
 
         const accessToken = jwtr.sign({ userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
         const refreshToken = jwtr.sign({ userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
