@@ -61,7 +61,6 @@ const Register = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
         if (password !== confirmPassword) {
             setError("Passwords do not match", error);
             return;
@@ -69,7 +68,7 @@ const Register = () => {
         try {
             const res = await axiosInstance.post('/auth/register', formData);
             if (res.status === 201 && res.data.message.includes("OTP sent")) {
-                
+
                 setMessage('Registration successful! OTP sent to your email.');
                 sessionStorage.setItem('email', formData.email);
                 console.log("OTP email sent, form state updated.");
