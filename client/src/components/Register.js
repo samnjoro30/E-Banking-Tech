@@ -12,16 +12,11 @@ const Register = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
-       // dob: '',
         email: '',
-        //pin: '',
         gender: '',
         password: '',
         confirmPassword: ''
     });
-
-    const [isUnder18, setIsUnder18] = useState(false);
-    const [pin, setPin] = useState('');
     const [otp, setOtp] = useState(''); // For storing the OTP input
     const [otpSent, setOtpSent] = useState(false); 
     const [passwordStrength, setPasswordStrength] = useState(0);
@@ -31,8 +26,6 @@ const Register = () => {
         hasNumber: false,
         hasSpecialChar: false
     });
-     
-    
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const { firstName, lastName, email, password, confirmPassword, dob, phoneNumber, gender} = formData;
@@ -76,17 +69,15 @@ const Register = () => {
         try {
             const res = await axiosInstance.post('/auth/register', formData);
             if (res.status === 201 && res.data.message.includes("OTP sent")) {
-                setOtpSent(true);  // Set otpSent true only on success
+                
                 setMessage('Registration successful! OTP sent to your email.');
                 sessionStorage.setItem('email', formData.email);
                 console.log("OTP email sent, form state updated.");
                 navigate('/verify-otp'); 
             }
-            
         } catch (err) {
             setMessage(err.response.data.message);
             console.error(err.response.data);
-            // Handle registration error
         }
     };
     const checkAge = (dob) => {
@@ -98,24 +89,7 @@ const Register = () => {
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-
         setIsUnder18(age < 18);
-    };
-    const verifyOtp = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axiosInstance.post('/auth/verify-otp', { email, otp });
-            // Assume the response contains the account number
-            const accountNumber = res.data.accountNumber;
-
-            setMessage(`OTP verified successfully! Your account number is ${accountNumber}`);
-            setTimeout(() => {
-                navigate('/'); // Redirect to login after successful OTP verification
-            }, 3000); // Redirect after 3 seconds
-        } catch (err) {
-            setError(err.response?.data?.message || "Error verifying OTP");
-            console.error(err.response?.data);
-        }
     };
 
     const handleNext = () => setStep((prevStep) => prevStep + 1);
@@ -124,12 +98,11 @@ const Register = () => {
     return (
         <div>
             <h1>Register</h1>
-            {!otpSent ? (
             <form onSubmit={onSubmit}>
             {step === 1 && (
                     <div>
                         <h2>Step 1: Personal Information</h2>
-                        <label>First Name</label>
+                        <label>First Name:</label>
                         <input
                             type="text"
                             name="firstName"
@@ -137,7 +110,7 @@ const Register = () => {
                             onChange={onChange}
                             required
                         />
-                        <label>Last Name</label>
+                        <label>Last Name:</label>
                         <input
                             type="text"
                             name="lastName"
@@ -145,20 +118,6 @@ const Register = () => {
                             onChange={onChange}
                             required
                         />
-                        {/* <label>Date of Birth</label>
-                        <input
-                           type="date"
-                           name="dob"
-                           value={dob}
-                           onChange={onChange}
-                           required
-                        />
-
-                        {isUnder18 && (
-                        <p style={{ color: 'blue' }}>
-                           You are under 18. Would you like to open a Teens Savings Account?
-                        </p>
-                         )} */}
                         <label>Gender:</label>
                         <select
                            name="gender"
@@ -172,11 +131,11 @@ const Register = () => {
                            <option value="Female">Female</option>
                            <option value="Other">Other</option>
                         </select>
-                        <label>Email</label>
+                        <label>Email:</label>
                         <input
                             type="email"
                             name="email"
-                            value={email}
+                            value={formData.email}
                             onChange={onChange}
                             required
                         />
@@ -201,16 +160,6 @@ const Register = () => {
                 {step === 2 && (
                     <div>
                         <h2>Step 2: Security Information</h2>
-                        {/* <label>PIN (5 digits)</label>
-                        <input
-                            type="text"
-                            name="pin"
-                            value={pin}
-                            onChange={onChange}
-                            maxLength={5}
-                            pattern="\d{5}"
-                            required
-                        /> */}
                         <label>Password</label>
                         <input
                             type="password"
@@ -235,7 +184,7 @@ const Register = () => {
                            <p style={{ color: 'red', fontSize: 'smaller' }}>Password must contain at least one special character.</p>
                         )}
 
-                        <label>Confirm Password</label>
+                        <label>Confirm Password:</label>
                         <input
                             type="password"
                             name="confirmPassword"
@@ -262,24 +211,8 @@ const Register = () => {
                 )}
 
             </form>
-            ) :(
-                <form onSubmit={verifyOtp}>
-                    <div>
-                        <label>Enter OTP</label>
-                        <input
-                            type="text"
-                            name="otp"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Verify OTP</button>
-                </form>
-            )}
-
-            {/* Success message */}
-            {message && <p>{message}</p>}
+            
+            {message && <p style={{ color: 'green'}}>{message}</p>}
         </div>
     );
 };
