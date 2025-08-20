@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import axiosInstance from './axiosInstance';
-import zxcvbn from 'zxcvbn';  // For password strength checking
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 
@@ -17,8 +16,6 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
-    const [otp, setOtp] = useState(''); // For storing the OTP input
-    const [otpSent, setOtpSent] = useState(false); 
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [passwordComplexity, setPasswordComplexity] = useState({
         hasLowercase: false,
@@ -34,28 +31,6 @@ const Register = () => {
     const onChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-
-        if (name === 'pin') {
-            setPin(value);
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
-        if (name === 'dob') {
-            checkAge(value);
-        } else if (name === 'password') {
-            const complexity = checkPasswordComplexity(value);
-            setPasswordComplexity(complexity);
-            const strength = zxcvbn(value);
-            setPasswordStrength(strength.score);
-        }
-    };
-    const checkPasswordComplexity = (password) => {
-        return {
-            hasLowercase: /[a-z]/.test(password),
-            hasUppercase: /[A-Z]/.test(password),
-            hasNumber: /\d/.test(password),
-            hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-        };
     };
     const navigate = useNavigate();
 
@@ -78,17 +53,6 @@ const Register = () => {
             setMessage(err.response.data.message);
             console.error(err.response.data);
         }
-    };
-    const checkAge = (dob) => {
-        const birthDate = new Date(dob);
-        const today = new Date();
-        const age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        setIsUnder18(age < 18);
     };
 
     const handleNext = () => setStep((prevStep) => prevStep + 1);

@@ -4,7 +4,6 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const zxcvbn = require('zxcvbn');
 const { validationResult } = require('express-validator');
-const nodemailer = require('nodemailer');
 const jwtr = require('jsonwebtoken');
 require('dotenv').config();
 
