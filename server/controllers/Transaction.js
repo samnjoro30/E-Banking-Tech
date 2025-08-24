@@ -46,7 +46,7 @@ const getTransactions = async (req, res) => {
         // Include current page and total transactions count for frontend handling
         const totalTransactions = await Transaction.countDocuments({ accountNumber });
         
-        res.json({
+        res.status(200).json({
             balance,
             transactions: transactionList,
             totalTransactions,
