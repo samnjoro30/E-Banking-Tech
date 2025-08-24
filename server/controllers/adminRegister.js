@@ -93,6 +93,15 @@ const AdminVerification = async (req, res) => {
 
 }
 const refreshToken = async (req, res) =>{
+    const request = req.cookie.get('refresh_token');
+    if (!request) return res.json({message: "refresh token missing"})
+
+    try{
+
+
+    }catch(err){
+
+    }
 
 }
 
