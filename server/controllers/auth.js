@@ -284,7 +284,6 @@ const changeEmail = async (req, res) =>{
     }
 
 }
-
 const getDashboardData = async (req, res) => {
     try {
         const {firstName, lastName, email, accountNumber, balance} = req.user; 
