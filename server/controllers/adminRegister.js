@@ -1,4 +1,5 @@
 const Admin = require('../models/admin_reg');
+const { authMiddleware } = require('../middlewares/authMiddleware');
 const bcrypt = require('bcrypt');
 const { generateOTP, sendOTPEmail } = require('../utils/otp');
 const User = require('../models/User');
@@ -76,7 +77,7 @@ const LoginAdmin = async (req, res) => {
 
 const AdminVerification = async (req, res) => {
 
-    const { email, otp} = req.body;
+    const { email } = req.body;
     try{
         const admin = await Admin.findOne({ email });
         if (!admin){
@@ -97,6 +98,10 @@ const refreshToken = async (req, res) =>{
     if (!request) return res.json({message: "refresh token missing"})
 
     try{
+        const decode = request.authMiddleware();
+
+        return 
+        
 
 
     }catch(err){

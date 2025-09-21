@@ -34,8 +34,8 @@ const User = () => {
               lastName: res.data.lastName || '',
               email: res.data.email || '',
               accountNumber: res.data.accountNumber || '',
-              balance: res.data.balance || 0,
             });
+            setBalance(res.data.balance);
             console.log('data from backend', res);
           } catch (error) {
             if (error.response?.status === 401) {

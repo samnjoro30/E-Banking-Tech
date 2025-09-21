@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
 // Request interceptor to attach token dynamically
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('token'); // Changed from 'userToken' to 'token'
+    const token = sessionStorage.getItem('token'); 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
