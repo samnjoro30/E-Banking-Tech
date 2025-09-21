@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "e-payment-platform",
     "public": "build",
     "ignore": [
       "firebase.json",
