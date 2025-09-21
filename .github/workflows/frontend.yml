@@ -1,0 +1,25 @@
+name: frontend ci
+
+on:
+    push:
+        branches: [ developer ]
+        paths: [ 'client/**']
+    pull_request:
+        paths: [ 'client/**']
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 20.x
+            - uses: actions/checkout@v4
+              with: 
+                fetch=depth: 0
+            - name: Install and build client side
+              working-directory: ./client
+              run: |
+                npm ci --legacy-peer-deps
+                npm ls react-scripts
+                npm run build
