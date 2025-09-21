@@ -17,7 +17,7 @@ const Auth = () => {
                 <div className="panel-info">
                     {isLoginActive ? (
                         <>
-                            <h1>Welcome to E-Banking</h1>
+                            <h1>Welcome to E-payment Platform</h1>
                             <p>Manage your finances seamlessly.</p>
                             <ul>
                                 <li>Secure Transactions</li>
@@ -31,7 +31,7 @@ const Auth = () => {
                         </>
                     ) : (
                         <>
-                            <h1>Discover E-Banking Tech</h1>
+                            <h1>Discover E-Payment Platform</h1>
                             <ul>
                                 <li>Easy Registration</li>
                                 <li>Secure Account Management</li>
@@ -49,14 +49,14 @@ const Auth = () => {
                 <div className="panel-content">
                     {isLoginActive ? (
                         <>
-                            <h1>E-BANKING TECH</h1>
+                            <h1>E-Payment platform</h1>
                             <h2>Welcome Back!</h2>
                             <p>Login to manage your account and enjoy seamless banking services.</p>
                             <Login />
                         </>
                     ) : (
                         <>
-                            <h1>E-Banking Tech</h1>
+                            <h1>E-Payment Platform</h1>
                             <Register />
                         </>
                     )}

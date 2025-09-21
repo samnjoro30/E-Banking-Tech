@@ -1,21 +1,27 @@
 {
-  "short_name": "Banking",
-  "name": "E-Banking Tech",
+  "short_name": "E-Payment",
+  "name": "E-Payment platform",
+  "description": "digital payment platform for fast and reliable online payment",
+  "categories": ["payment-platform", "reliable-payment"],
+  "orientation": "potrait",
   "icons": [
     {
-      "src": "logo2.jpeg",
+      "src": "Logo_pay.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "logo2.jpeg",
       "type": "image/png",
-      "sizes": "192x192"
+      "purpose": "maskable"
     },
     {
-      "src": "logo2.jpeg",
-      "type": "image/jpeg",
-      "sizes": "512x512"
+      "src": "Logo_pay.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "Logo_pay.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": ".",
