@@ -6,7 +6,7 @@ const Header = ({ toggleDarkMode, isDarkMode, onLogout }) => {
     return (
         <header className="header-container">
             <div className="header-content">
-                <h1 className="header-title">Welcome to E-banking!</h1>
+                <h1 className="header-title">Welcome to E-Payment!</h1>
                 <div className="header-actions">
                     <button onClick={toggleDarkMode} className="mode-toggle">
                         {isDarkMode ? 'Light Mode' : 'Dark Mode'}

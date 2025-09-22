@@ -28,7 +28,7 @@ const Header1 = () => {
         <>
             <header className={`eb-header ${scrolled ? 'scrolled' : ''}`}>
                 <div className="eb-container">
-                    <h1 className="eb-logo">E-Platform</h1>
+                    <h1 className="eb-logo">E-Payment</h1>
                     
                     <nav className={isMobile ? "eb-nav mobile-nav" : "eb-nav"}>
                         {navItems.map((item, index) => (

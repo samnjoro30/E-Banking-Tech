@@ -82,7 +82,7 @@ const Footer = () => {
             </div>
 
             <div className='footerBottom'>
-                <p>&copy; {year} E-Banking Tech Inc. All Rights Reserved.</p>
+                <p>&copy; {year} E-Payment Platform Inc. All Rights Reserved.</p>
             </div>
         </footer>
     );

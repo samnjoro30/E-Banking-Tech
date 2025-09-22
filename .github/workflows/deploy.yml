@@ -2,7 +2,7 @@ name: Deployment to production
 
 on:
   workflow_run:
-    workflows: ["frontend ci"] # 👈 must be plural "workflows"
+    workflows: ["frontend ci", "Backend Ci"] # 👈 must be plural "workflows"
     branches: [main]
     types:
       - completed
@@ -24,3 +24,8 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
           projectId: e-banking-tech-61d82
           entryPoint: client
+      
+      - name: Deploy to render
+        run: |
+          echo "deploying to render"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_KEY }}"

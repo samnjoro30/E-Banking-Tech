@@ -7,7 +7,7 @@ const FooterDash = () => {
 
     return(
         <footer className="footer-dash">
-            &copy; {currentYear} E-Banking. All rights reserved.
+            &copy; {currentYear} E-Payment Platform. All rights reserved.
         </footer>
     )
 
