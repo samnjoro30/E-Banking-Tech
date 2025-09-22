@@ -3,7 +3,7 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
 const redis = require('redis');
 
 //Transactions
