@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.router();
+const router = express();
 const { LoginAdmin, RegisterAdmin, AdminVerifcation } = require('../controllers/adminRegister');
 
 router.post('/admin/login', LoginAdmin);
