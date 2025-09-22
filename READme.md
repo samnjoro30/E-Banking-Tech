@@ -1,4 +1,4 @@
-# 🏦 E‑Banking Tech
+#  E‑Payment Tech
 
 A secure, full‑featured **E‑Banking System** built with the MERN stack and incorporating Next js  fro admin panel— empower users to register, authenticate, and manage financial transactions seamlessly.
 

@@ -16,7 +16,11 @@ const router = data.Router();
 const  app = express();
 app.use(express.json());
 
-const allowedOrigins = ['https://e-banking-tech-61d82.web.app', "https://e-payment-platform.web.app/", 'http://localhost:3000'];
+const allowedOrigins = [
+  'https://e-banking-tech-61d82.web.app', 
+  "https://e-payment-platform.web.app/", 
+  'http://localhost:3000'
+];
 const corsOptions = {
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
@@ -34,15 +38,15 @@ const corsOptions = {
 
 //helmet for securing header
 app.use(helmet({
-  contentSecurityPolicy: false,  // Disable this if you're using inline scripts or styles
+  contentSecurityPolicy: false,  
   crossOriginEmbedderPolicy: true,
   crossOriginResourcePolicy: { policy: "same-origin" },
   dnsPrefetchControl: true,
   expectCt: true,
-  frameguard: { action: 'deny' },  // Prevent clickjacking
-  hidePoweredBy: true,  // Hides 'X-Powered-By' header
-  hsts: { maxAge: 31536000, includeSubDomains: true },  // Enforce HTTPS
-  noSniff: true,  // Prevent MIME-type sniffing
+  frameguard: { action: 'deny' },  
+  hidePoweredBy: true,  
+  hsts: { maxAge: 31536000, includeSubDomains: true },  
+  noSniff: true,
   xssFilter: true, 
 })); 
 app.use(cors(corsOptions));
