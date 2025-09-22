@@ -25,7 +25,4 @@ jobs:
           projectId: e-banking-tech-61d82
           entryPoint: client
       
-      # - name: Deploy to render
-      #   run: |
-      #     echo "deploying to render"
-      #     curl -X POST "${{ secrets.RENDER_DEPLOY_KEY }}"
+      
