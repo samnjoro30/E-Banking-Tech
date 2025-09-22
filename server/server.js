@@ -18,7 +18,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   'https://e-banking-tech-61d82.web.app', 
-  "https://e-payment-platform.web.app/", 
+  "https://e-payment-platform.web.app", 
   'http://localhost:3000'
 ];
 const corsOptions = {
