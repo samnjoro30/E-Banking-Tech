@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getToken, isAuthenticated, removeToken } from '../utils/auth';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import '../styles/user.css';
 import { FaUser, FaEnvelope, FaIdCard, FaCreditCard, FaCalendarAlt } from 'react-icons/fa';
 import DashboardSectionWrapper from './dashbordwrapper';
@@ -28,7 +28,7 @@ const User = () => {
           }
           
           try {
-            const res = await axiosInstance.get('/auth/dashboard');
+            const res = await axiosInstance.get('/auth/dash');
             setUserData({
               firstName: res.data.firstName || '',
               lastName: res.data.lastName || '',

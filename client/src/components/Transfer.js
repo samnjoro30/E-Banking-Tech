@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import { getToken } from '../utils/auth';
 import DashboardSectionWrapper from './dashbordwrapper';
 import '../styles/transfer.css';

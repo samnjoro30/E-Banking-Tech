@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import '../styles/login.css';
 
 const Login = () => {
