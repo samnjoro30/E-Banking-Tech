@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 

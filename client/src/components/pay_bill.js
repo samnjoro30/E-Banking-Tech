@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import DashboardSectionWrapper from './dashbordwrapper';
 
 const PayBill = () => {

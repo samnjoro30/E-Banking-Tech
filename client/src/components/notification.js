@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import '../styles/notification.css';
 
 const Notification = () => {
