@@ -36,7 +36,7 @@ const Balance = () => {
                 </div>
             ) : (
                 <div className="balance-amount">
-                    <p>Your current balance is: ${balance.toFixed(2)}</p>
+                    <p>Your current balance is: ${Number(balance || 0).toFixed(2)}</p>
                     <button onClick={FetchBalance}>Refresh</button>
                 </div>
             )}
