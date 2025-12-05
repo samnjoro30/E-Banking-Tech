@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/login', loginUser);
 router.post('/verify-otp', verifyOTP);
-router.get('/dashboard', authMiddleware, getDashboardData);
+router.get('/dash', authMiddleware, getDashboardData);
 // Add validation in the route
 router.post('/register', [
     check('email').isEmail().withMessage('Invalid email address'),

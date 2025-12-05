@@ -107,51 +107,36 @@ const registerUser = async (req, res) => {
 // After login, generate OTP and send via email
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+
     try {
         const user = await User.findOne({ email });
-        if (!user) {
-            console.log('User not found:', email);
-            return res.status(400).json({ message: 'Invalid email or password' });
-        }
+        if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid email or password' });
-        }
+        if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
-        const accessToken = jwtr.sign({ userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
-        const refreshToken = jwtr.sign({ userId: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, accountNumber: user.accountNumber }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        const payload = {
+            userId: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            accountNumber: user.accountNumber,
+        };
 
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            maxAge: 1 * 24 * 60 * 60 * 1000 
-          });
+        const accessToken = jwtr.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRES_IN }
+        );
 
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            maxAge: 1  * 24 * 60 * 1000 
-        });
-          
-
-        // Return token and user info
-        res.status(200).json({
-            message: 'Login successful',
+        return res.status(200).json({
+            message: "Login successful",
             accessToken,
-            user: {
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-              accountNumber: user.accountNumber
-            }
-          });
+        });
 
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: "Server error" });
     }
 };
 

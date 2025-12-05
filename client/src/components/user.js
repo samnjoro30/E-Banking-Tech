@@ -87,7 +87,7 @@ const User = () => {
                             <span className="info-label">Full Name:</span>
                             <span className="info-value">{userData.firstName} {userData.lastName}</span>
                         </div>
-                        <div className="info-row">
+                        <div className="info-r ow">
                             <span className="info-label"><FaEnvelope /> Email:</span>
                             <span className="info-value">{userData.email}</span>
                         </div>
