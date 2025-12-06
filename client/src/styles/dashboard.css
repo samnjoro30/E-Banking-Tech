@@ -21,6 +21,7 @@
   
 .dashboard-layout {
     display: flex;
+    position: relative;
     gap: 2rem;
     padding: 1.5rem;
     flex-direction: row;

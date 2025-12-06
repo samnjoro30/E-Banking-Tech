@@ -12,7 +12,7 @@ const User = () => {
         lastName: '',
         email: '',
         accountNumber: '',
-        balance: 500
+        //balance: 500
     });
 
     const [loading, setLoading] = useState(true);
@@ -104,7 +104,7 @@ const User = () => {
                         </div>
                         <div className="info-row">
                             <span className="info-label">Account Balance:</span>
-                            <span className="info-value">Ksh {balance.toFixed(2)}</span> 
+                            <span className="info-value">Ksh {Number(balance || 0).toFixed(2)}</span> 
                         </div>
                     </div>
                 </div>
