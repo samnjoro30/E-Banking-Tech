@@ -117,29 +117,48 @@ const loginUser = async (req, res) => {
 
         const payload = {
             userId: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
             email: user.email,
-            accountNumber: user.accountNumber,
         };
 
         const accessToken = jwtr.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN }
+            { expiresIn: "15m" }
         );
 
-        return res.status(200).json({
-            message: "Login successful",
-            accessToken,
+        const refreshToken = jwtr.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+        req.session.refreshToken = refreshToken;
+
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+            maxAge: 15 * 60 * 1000 // 15 minutes
+        });
+        
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
+        return res.json({ message: "Login successful" });
+          
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: "Server error" });
     }
 };
+//logout
+const logout = async (req, res) => {
 
+
+}
 // Verify OTP
 const verifyOTP = async (req, res) => {
     const { email, otp } = req.body;
@@ -182,10 +201,7 @@ const verifyOTP = async (req, res) => {
         console.log("backend error", err.message);
     }
 };
-const logout = async (req, res) => {
 
-
-}
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
     try {
