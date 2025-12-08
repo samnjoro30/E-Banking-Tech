@@ -16,28 +16,28 @@ axiosInstance.interceptors.request.use(
   }
 
 );
-// axiosInstance.interceptors.response.use(
-//   (response) => response,
-//   async (error) =>{
-//       const originalRequest = error.config;
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) =>{
+      const originalRequest = error.config;
 
-//       if(originalRequest.url.includes('/auth/refresh')){
-//           window.location.href="/auth/login"
-//           return Promise.reject(error);
-//       }
-//       if(error.response && error.response.status===401){
-//           try{
-//              await axiosInstance.post("/auth/refresh", {}, {withCredentials: true});
-//              return axiosInstance(originalRequest);
-//           }
-//           catch(refreshError){
-//              window.location.href="/auth/login"
-//              return Promise.reject(refreshError);
-//           }
-//       }
-//       return Promise.reject(error);
-//   }
-// );
+      if(originalRequest.url.includes('/auth/refresh-token')){
+          window.location.href="/auth"
+          return Promise.reject(error);
+      }
+      if(error.response && error.response.status===401){
+          try{
+             await axiosInstance.post("/auth/refresh-token", {}, {withCredentials: true});
+             return axiosInstance(originalRequest);
+          }
+          catch(refreshError){
+             window.location.href="/auth"
+             return Promise.reject(refreshError);
+          }
+      }
+      return Promise.reject(error);
+  }
+);
 
 axiosInstance.defaults.withCredentials=true
 
