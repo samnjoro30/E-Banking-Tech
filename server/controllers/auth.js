@@ -1,4 +1,5 @@
 const { generateOTP, sendOTPEmail } = require('../utils/otp');
+const refreshTokenModel = require('../models/refreshToken');
 const jwt = require('../utils/jwt');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
@@ -131,22 +132,26 @@ const loginUser = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
-        req.session.refreshToken = refreshToken;
+
+        await refreshTokenModel.create({
+            userId: user._id,
+            token: refreshToken,
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        })
 
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: "strict",
             maxAge: 15 * 60 * 1000 // 15 minutes
         });
         
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
-
         return res.json({ message: "Login successful" });
           
     } catch (err) {
@@ -287,15 +292,13 @@ const changeEmail = async (req, res) =>{
 }
 const getDashboardData = async (req, res) => {
     try {
-        const {firstName, lastName, email, accountNumber, balance} = req.user; 
-        
-        res.status(200).json({
-            firstName,
-            lastName,
-            email,
-            accountNumber,
-            balance,
-        });
+        const user = await User.findById(req.user.userId).select(
+            "firstName lastName email accountNumber balance"
+        );
+
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        res.status(200).json(user);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
