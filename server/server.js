@@ -179,6 +179,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/transaction', require('./routes/transaction'));
+app.use('/api/dash', require('./routes/dash'));
 app.use('api/admin', require('./routes/adminRoutes'));
 app.use('api/authadmin', require('./routes/adminAuth'));
 

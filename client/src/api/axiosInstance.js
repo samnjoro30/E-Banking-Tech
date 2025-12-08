@@ -8,27 +8,38 @@ const axiosInstance = axios.create({
 // Request interceptor to attach token dynamically
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('token'); 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
+      config.withCredentials = true;
+      return config;
   },
   (error) => {
-    return Promise.reject(error);
+      return Promise.reject(error);
   }
-);
 
-// Enhanced response interceptor
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      sessionStorage.removeItem('token');
-      window.location.href = '/auth'; // Force full page reload to clear state
-    }
-    return Promise.reject(error);
-  }
 );
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   async (error) =>{
+//       const originalRequest = error.config;
+
+//       if(originalRequest.url.includes('/auth/refresh')){
+//           window.location.href="/auth/login"
+//           return Promise.reject(error);
+//       }
+//       if(error.response && error.response.status===401){
+//           try{
+//              await axiosInstance.post("/auth/refresh", {}, {withCredentials: true});
+//              return axiosInstance(originalRequest);
+//           }
+//           catch(refreshError){
+//              window.location.href="/auth/login"
+//              return Promise.reject(refreshError);
+//           }
+//       }
+//       return Promise.reject(error);
+//   }
+// );
+
+axiosInstance.defaults.withCredentials=true
+
 
 export default axiosInstance;

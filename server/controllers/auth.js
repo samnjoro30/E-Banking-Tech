@@ -1,4 +1,5 @@
 const { generateOTP, sendOTPEmail } = require('../utils/otp');
+const refreshTokenModel = require('../models/refreshToken');
 const jwt = require('../utils/jwt');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
@@ -131,33 +132,79 @@ const loginUser = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
-        req.session.refreshToken = refreshToken;
+
+        await refreshTokenModel.create({
+            userId: user._id,
+            token: refreshToken,
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        })
 
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: "strict",
             maxAge: 15 * 60 * 1000 // 15 minutes
         });
         
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
-
-        return res.json({ message: "Login successful" });
-          
+        return res.json({ 
+            message: "Login successful" 
+        });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: "Server error" });
     }
 };
+const refreshAccessToken = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) return res.status(401).json({ message: "Missing refresh token" });
+
+    try {
+        const storedToken = await refreshTokenModel.findOne({ token: refreshToken });
+        if (!storedToken) return res.status(403).json({ message: "Invalid refresh token" });
+
+        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
+            if (err) return res.status(403).json({ message: "Expired refresh token" });
+
+            const payload = { userId: decoded.userId, email: decoded.email };
+
+            // Generate new access token
+            const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
+
+            res.cookie("accessToken", newAccessToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "strict",
+                maxAge: 15 * 60 * 1000,
+            });
+
+            return res.json({ message: "Access token refreshed" });
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+};
 //logout
 const logout = async (req, res) => {
-
-
+    const refreshToken = req.cookies.refreshToken;
+    try{
+        await refreshTokenModel.deleteOne({ token: refreshToken });
+        res.clearCookie("accessToken");
+        res.clearCookie("refreshToken");
+        return res.status(200).json({ message: "Logged out successfully" });
+    }catch(err){
+        return res.status(500).json({ 
+            message: "Error logging out" 
+        });
+    }
 }
 // Verify OTP
 const verifyOTP = async (req, res) => {
@@ -281,31 +328,14 @@ const changeEmail = async (req, res) =>{
         return res.status(500).json({
             "message": "Server Error, email could not be updated"
         })
-
     }
-
 }
-const getDashboardData = async (req, res) => {
-    try {
-        const {firstName, lastName, email, accountNumber, balance} = req.user; 
-        
-        res.status(200).json({
-            firstName,
-            lastName,
-            email,
-            accountNumber,
-            balance,
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
 
-module.exports = { registerUser,
+module.exports = { 
+    registerUser,
     loginUser,
-    verifyOTP, 
-    getDashboardData, 
+    refreshAccessToken,
+    verifyOTP,  
     resetPassword, 
     forgotPassword,
     changeEmail,

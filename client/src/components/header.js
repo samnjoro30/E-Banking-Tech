@@ -1,8 +1,21 @@
 import React from 'react';
 import Notification from './notification';
+import axiosInstance from '../api/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 import '../styles/header.css';
 
-const Header = ({ toggleDarkMode, isDarkMode, onLogout }) => {
+const Header = ({ toggleDarkMode, isDarkMode }) => {
+
+    const navigate = useNavigate();
+
+    const handleLogOut = async () => {
+        try{
+            const res = await axiosInstance.post('/auth/logout');
+            setTimeout(() => { navigate('/auth')},2000)
+        }catch(err){
+            console.error('Logout failed', err);
+        }
+    };
     return (
         <header className="header-container">
             <div className="header-content">
@@ -12,7 +25,7 @@ const Header = ({ toggleDarkMode, isDarkMode, onLogout }) => {
                         {isDarkMode ? 'Light Mode' : 'Dark Mode'}
                     </button>
                     <Notification />
-                    <button onClick={onLogout} className="logout-button">Logout</button>
+                    <button onClick={handleLogOut} className="logout-button">Logout</button>
                 </div>
             </div>
         </header>

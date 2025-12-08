@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Register from '../components/Register';
-import Login from '../components/Login';
+import Register from '../auth/Register';
+import Login from '../auth/Login';
 import '../styles/Auth.css';
 
 const Auth = () => {

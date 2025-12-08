@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { getToken } from '../utils/auth';
 import axiosInstance from '../api/axiosInstance';
 import '../styles/login.css';
 
@@ -13,8 +11,8 @@ const Login = () => {
 
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-
     const [showPassword, setShowPassword] = useState(false);
+
     const navigate = useNavigate();
     const { email, password } = formData;
 
@@ -29,26 +27,20 @@ const Login = () => {
     // Handle login form submission
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log()
+        setMessage('');
+        setError('');
+
         try {
             const res = await axiosInstance.post('/auth/login', { email, password }
             );
 
-            const accessToken = res.data.accessToken;
-            
-            setMessage('Login successful! Redirecting...');
-            console.log(res.data);
+            const data = res.data.message;
 
-            if (accessToken) {
-                sessionStorage.setItem('token', accessToken);
-                setMessage('Login successful! Redirecting...');
-        
-                setTimeout(() => {
-                    navigate('/dashboard');
-                }, 2000);
-            } else {
-                setError('Login failed - no token received');
-            }
+            setMessage(data || 'Login successful! Redirecting...');
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 2000);
+            
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
             console.error(err.response?.data);
