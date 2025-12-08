@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import Register from './components/Register';
-import Login from './components/Login';
+import Register from './auth/Register';
+import Login from './auth/Login';
 import ResetPassword from './components/ResetPassword';
 import ForgotPassword from './components/ForgotPassword';
 import VerifyOTP from './components/VerifyOtp';
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import Auth from './pages/Auth';
 
 const socket = io('https://e-banking-tech.onrender.com');

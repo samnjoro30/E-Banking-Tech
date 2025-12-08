@@ -12,7 +12,7 @@ const User = () => {
         lastName: '',
         email: '',
         accountNumber: '',
-        //balance: 500
+        balance: 500
     });
 
     const [loading, setLoading] = useState(true);
@@ -22,13 +22,13 @@ const User = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          if (!isAuthenticated()) {
-            navigate('/auth');
-            return;
-          }
+        //   if (!isAuthenticated()) {
+        //     navigate('/auth');
+        //     return;
+        //   }
           
           try {
-            const res = await axiosInstance.get('/auth/dash');
+            const res = await axiosInstance.get('/dash/profile');
             setUserData({
               firstName: res.data.firstName || '',
               lastName: res.data.lastName || '',
