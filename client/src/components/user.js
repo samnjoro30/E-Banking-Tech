@@ -22,11 +22,6 @@ const User = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-        //   if (!isAuthenticated()) {
-        //     navigate('/auth');
-        //     return;
-        //   }
-          
           try {
             const res = await axiosInstance.get('/dash/profile');
             setUserData({
