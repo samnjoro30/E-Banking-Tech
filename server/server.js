@@ -10,10 +10,9 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
-const data = require('express');
-const router = data.Router();
 
-const  app = express();
+
+const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
@@ -130,25 +129,6 @@ io.on('connection', (socket) => {
       });
 });
 
-// router.post('/refresh', (req, res) => {
-//   const token = req.cookies.refreshToken;
-
-//   if (!token) return res.sendStatus(401);
-
-//   try {
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     const newAccessToken = jwt.sign(
-//       { userId: decoded.userId },
-//       process.env.JWT_SECRET,
-//       { expiresIn: '15m' }
-//     );
-
-//     res.status(200).json({ accessToken: newAccessToken });
-//   } catch (err) {
-//     return res.sendStatus(403); // Invalid refresh token
-//   }
-// });
-
 const shutdown = () => {
   server.close(() => {
       console.log('Server is shutting down gracefully.');
@@ -178,7 +158,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/transaction', require('./routes/transaction'));
+app.use('/api/trans', require('./routes/transaction'));
 app.use('/api/dash', require('./routes/dash'));
 app.use('api/admin', require('./routes/adminRoutes'));
 app.use('api/authadmin', require('./routes/adminAuth'));
