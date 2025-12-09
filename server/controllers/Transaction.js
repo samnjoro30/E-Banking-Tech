@@ -11,41 +11,44 @@ const redisClient = redis.createClient();
 
 const getTransactions = async (req, res) => {
     try {
-        const  { accountNumber } = req.user;
-        console.log('Fetching transations for account:', accountNumber)
+        const userId = req.user.userId;
 
-        const user = await User.findOne({ accountNumber }).select('balance');
+        console.log('Fetching transactions for user:', userId);
+
+        const user = await User.findById(userId).select("balance accountNumber");
         if (!user) {
-            return res.status(404).json({ message: 'User account not found' });
+            return res.status(404).json({ message: "User account not found" });
         }
-        
-        const balance = user.balance;
 
+        const { balance, accountNumber } = user;
+
+        // Pagination
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
-        const cacheKey = `transactions:${accountNumber}:page${page}:limit${limit}`;
-
+        // Fetch transactions
         const transactions = await Transaction.find({ accountNumber })
             .sort({ date: -1 })
             .skip(skip)
             .limit(limit)
-            .populate('recipientAccount', 'name')
+            .populate("recipientAccount", "name")
             .lean();
 
-         // Format response data securely
-         const transactionList = transactions.map(transaction => ({
-            description: transaction.description,
-            amount: transaction.amount,
-            type: transaction.type,
-            date: transaction.date,
-            recipientName: transaction.recipientAccount ? transaction.recipientAccount.name : 'N/A',
+        // Format output
+        const transactionList = transactions.map(txn => ({
+            description: txn.description,
+            amount: txn.amount,
+            type: txn.type,
+            date: txn.date,
+            recipientName: txn.recipientAccount
+                ? txn.recipientAccount.name
+                : "N/A",
         }));
 
-        // Include current page and total transactions count for frontend handling
+        // Count total
         const totalTransactions = await Transaction.countDocuments({ accountNumber });
-        
+
         res.status(200).json({
             balance,
             transactions: transactionList,
@@ -53,13 +56,12 @@ const getTransactions = async (req, res) => {
             currentPage: page,
             totalPages: Math.ceil(totalTransactions / limit),
         });
-        
+
     } catch (err) {
-        console.error('Error fetching transactions:', err);
-        res.status(500).json({ message: 'Failed to fetch transactions' });
+        console.error("Error fetching transactions:", err);
+        res.status(500).json({ message: "Failed to fetch transactions" });
     }
 };
-
 
 // Create a transaction (e.g., transfer funds)
 const createTransaction = async (req, res) => {

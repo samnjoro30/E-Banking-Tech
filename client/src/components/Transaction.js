@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../api/axiosInstance';
-import { isAuthenticated } from '../utils/auth';
+//import { isAuthenticated } from '../utils/auth';
 import DashboardSectionWrapper from './dashbordwrapper';
 import '../styles/transaction.css';
 
@@ -16,8 +16,8 @@ const Transaction = () => {
     setLoading(true);
     try {
       const res = await axiosInstance.get(
-        `/transaction/transactions?page=${page}&limit=10`,
-        isAuthenticated()
+        `/trans/transactions?page=${page}&limit=10`
+        // isAuthenticated()
       );
       setTransactions(res.data.transactions);
       setBalance(res.data.balance);
@@ -31,7 +31,7 @@ const Transaction = () => {
   };
 
   useEffect(() => {
-    fetchTransactions();
+    fetchTransactions(1);
   }, []);
 
   const handlePageChange = (newPage) => {

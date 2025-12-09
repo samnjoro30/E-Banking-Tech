@@ -1,6 +1,5 @@
 const { generateOTP, sendOTPEmail } = require('../utils/otp');
 const refreshTokenModel = require('../models/refreshToken');
-const jwt = require('../utils/jwt');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const zxcvbn = require('zxcvbn');
@@ -169,7 +168,7 @@ const refreshAccessToken = async (req, res) => {
         const storedToken = await refreshTokenModel.findOne({ token: refreshToken });
         if (!storedToken) return res.status(403).json({ message: "Invalid refresh token" });
 
-        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
+        jwtr.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
             if (err) return res.status(403).json({ message: "Expired refresh token" });
 
             const payload = { userId: decoded.userId, email: decoded.email };
