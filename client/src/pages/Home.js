@@ -7,60 +7,123 @@ import Header1 from '../components/header1';
 
 const Home = () => {
     return (
-        <div className="home-page">
+        <div className="">
             <div className="header">
                 <Header1 />
                 
             </div>
-            <section className="ebanking-section">
-                <div className="ebanking-content">
-                    <h2 className="title">
-                      WHY CHOOSE OUR <br /> DIGITAL BANKING SOLUTIONS
-                    </h2>
-                    <p className="description">
-                       Our E-Banking platform is designed to keep your financial life seamless and secure. Enjoy 24/7 access, advanced fraud protection, and tools that empower smarter money management.
+            <section className="hero">
+                <div className="hero-inner">
+                    <h1 className="hero-title">
+                       Your All-In-One <span>Digital Finance Hub</span>
+                    </h1>
+                    <p className="hero-description">
+                        Secure payments, smart analytics, seamless transfers — enjoy banking 
+                        designed for speed, safety, and simplicity.
                     </p>
-                    <ul className="features-list">
-                        <li>✔️ Real-Time Account Monitoring</li>
-                        <li>✔️ AI-Powered Fraud Detection</li>
-                        <li>✔️ Personalized Financial Insights</li>
-                        <li>✔️ 24/7 Customer Support & Chatbot</li>
-                    </ul>
-                    <a href="/auth" className="cta-link">
-                        Open an Account
-                    </a>
-                </div>
-                <div className="ebanking-image">
-                    <img 
-                        src={bankArchImg} 
-                        alt="Digital Banking Team" 
-                        loading="lazy"
-                    /> 
+
+                    <a href="/auth" className="hero-btn">Get Started</a>
                 </div>
             </section>
 
-            {/* SERVICES */}
-            <section className="services-section">
-                <h3>Our Services</h3>
-                <div className="service-cards">
-                    <div className="service-card">
-                        <h4>Savings Accounts</h4>
-                        <p>Grow your savings with competitive rates and easy access anytime.</p>
-                    </div>
-                    <div className="service-card">
-                        <h4>Loans</h4>
-                        <p>Flexible personal, home, and business loans tailored for your needs.</p>
-                    </div>
-                    <div className="service-card">
-                        <h4>Credit Cards</h4>
-                        <p>Access exclusive benefits with our secure and rewarding credit cards.</p>
-                    </div>
-                    <div className="service-card">
-                        <h4>Investments</h4>
-                        <p>Secure your future with personalized investment plans.</p>
-                    </div>
-                </div>
-            </section>
+      {/* ================= WHY CHOOSE US ================= */}
+      <section className="why-section">
+        <div className="why-content">
+          <h2>
+            Why Choose Our <span>Digital Banking Solutions?</span>
+          </h2>
+          <p className="why-description">
+            We provide enterprise-grade security and intelligent money-management 
+            tools to keep your financial life convenient and safe.
+          </p>
+
+          <ul className="why-list">
+            <li>✓ Bank-Level Security & Encryption</li>
+            <li>✓ AI-Powered Fraud Detection</li>
+            <li>✓ Real-Time Financial Insights</li>
+            <li>✓ 24/7 Customer Support</li>
+          </ul>
+        </div>
+
+        <div className="why-image">
+          <img src={bankArchImg} alt="digital banking" />
+        </div>
+      </section>
+
+      {/* ================= SERVICES ================= */}
+      <section className="services">
+        <h3>Our Core Services</h3>
+
+        <div className="service-grid">
+
+          <div className="service-card">
+            <div className="icon-circle">💼</div>
+            <h4>Smart Wallet</h4>
+            <p>Secure, fast & intelligent wallet for managing your funds.</p>
+          </div>
+
+          {/* <div className="service-card">
+            <div className="icon-circle">💳</div>
+            <h4>Card Services</h4>
+            <p>Virtual & physical cards with fraud protection.</p>
+          </div> */}
+
+          <div className="service-card">
+            <div className="icon-circle">💸</div>
+            <h4>Instant Loans</h4>
+            <p>Quick approvals with transparent pricing.</p>
+          </div>
+
+          <div className="service-card">
+            <div className="icon-circle">📱</div>
+            <h4>Bills & Airtime</h4>
+            <p>Pay bills and buy airtime or data instantly.</p>
+          </div>
+
+          <div className="service-card">
+            <div className="icon-circle">🔁</div>
+            <h4>Send & Receive</h4>
+            <p>Transfer securely to any bank or wallet worldwide.</p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= STATS ================= */}
+      <section className="stats-section">
+        <div className="stat-box">
+          <h2>1M+</h2>
+          <p>Active Users</p>
+        </div>
+        <div className="stat-box">
+          <h2>$500M+</h2>
+          <p>Monthly Transactions</p>
+        </div>
+        <div className="stat-box">
+          <h2>97%</h2>
+          <p>User Satisfaction</p>
+        </div>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="testimonials">
+        <h3>What Users Say</h3>
+
+        <div className="testimonial-grid">
+          <div className="testimonial">
+            <p>“Super secure, super fast. My favorite payment platform!”</p>
+            <h4>— Sarah</h4>
+          </div>
+          <div className="testimonial">
+            <p>“The best UI/UX I’ve seen in a digital banking app.”</p>
+            <h4>— Daniel</h4>
+          </div>
+          <div className="testimonial">
+            <p>“Transfers are instant, and the support team is amazing.”</p>
+            <h4>— Olivia</h4>
+          </div>
+        </div>
+      </section>
 
             <Footer />
         </div>
