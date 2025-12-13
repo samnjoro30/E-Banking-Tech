@@ -1,222 +1,207 @@
-/* Hero Section */
-.hero {
+/* GENERAL */
+.epay-container {
+    font-family: 'Inter', sans-serif;
+    color: #0a1f44;
+    background: #f8fbff;
+  }
+  
+  /* ---------------- HERO SECTION ---------------- */
+  .hero {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    background: whitesmoke;
-    height: 90vh;
+    padding: 1rem;
+    text-align: center;
+    background: white;
+    overflow: hidden;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-title span {
+    background: linear-gradient(90deg, #0066ff, #0a1f44);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .hero-description {
+    max-width: 600px;
+    margin: auto;
+    color: #444;
+    font-size: 1.2rem;
+  }
+  
+  .hero-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    background: #0066ff;
+    color: white;
+    font-weight: bold;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: 0.3s ease;
+  }
+  
+  .hero-btn:hover {
+    background: #004acc;
+  }
+  
+  .hero-shapes {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0,102,255,0.15), transparent 70%);
+    opacity: 0.5;
+  }
+  
+  /* ---------------- WHY CHOOSE US ---------------- */
+  .why-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 5rem 8%;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .why-content {
+    flex: 1;
+  }
+  
+  .why-content h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+  
+  .why-content h2 span {
+    color: #0066ff;
+  }
+  
+  .why-description {
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .why-list li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .why-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  
+  /* ---------------- SERVICES ---------------- */
+  .services {
+    text-align: center;
+    padding: 5rem 8%;
+    background: white;
+  }
+  
+  .services h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+  
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-top: 3rem;
+    gap: 2rem;
+  }
+  
+  .service-card {
+    padding: 2rem;
+    background: #f1f4ff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+  
+  .icon-circle {
+    width: 60px;
+    height: 60px;
+    background: #0066ff;
+    color: white;
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.hero-overlay {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 3rem;
+    border-radius: 50%;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* ---------------- STATS ---------------- */
+  .stats-section {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 4rem;
+    background: #eef4ff;
+  }
+  
+  .stat-box {
     text-align: center;
-    color: white;
-    width: 100%;
-}
-
-.cta-button {
-    margin-top: 1rem;
-    padding: 0.75rem 2rem;
-    background-color: #f1c40f;
-    color: #002d62;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: #d4ac0d;
-}
-
-/* Architecture Section */
-.architecture {
-    padding: 4rem 2rem;
-    background-color: #eef3f7;
+  }
+  
+  .stat-box h2 {
+    font-size: 2.8rem;
+    color: #0066ff;
+    font-weight: 900;
+  }
+  
+  .stat-box p {
+    color: #444;
+  }
+  
+  /* ---------------- TESTIMONIALS ---------------- */
+  .testimonials {
+    padding: 5rem 8%;
+    background: #f8fbff;
     text-align: center;
-}
-
-.video-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.video-container video {
-    width: 100%;
-    border-radius: 12px;
-    margin: 1rem 0;
-}
-
-/* Services */
-.services-section {
-    padding: 4rem 2rem;
-    background-color: #ffffff;
-    text-align: center;
-}
-
-.service-cards {
+  }
+  
+  .testimonial-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
-}
-
-.service-card {
-    background-color: #f1f1f1;
+  }
+  
+  .testimonial {
+    background: white;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Footer (Handled in Footer component but styling can continue here if needed) */
-/* Update your CSS with these styles */
-.ebanking-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6rem 5%;
-    background: linear-gradient(135deg, #f4f8fb 0%, #e6f0ff 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.ebanking-content {
-    flex: 1;
-    max-width: 600px;
-    position: relative;
-    z-index: 2;
-}
-
-.title {
-    font-size: 3.5rem;
-    color: #0a1f44;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    background: linear-gradient(90deg, #0a1f44 0%, #0066ff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.description {
-    font-size: 1.2rem;
-    color: #444;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-    max-width: 90%;
-}
-
-.features-list {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 3rem;
-}
-
-.features-list li {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-    color: #222;
-    font-weight: 500;
-    position: relative;
-    padding-left: 2rem;
-}
-
-.features-list li:before {
-    content: "✓";
-    color: #0066ff;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 1.3rem;
-}
-
-.cta-link {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background-color: #0066ff;
-    color: white;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
-    border: 2px solid transparent;
-}
-
-.cta-link:hover {
-    background-color: white;
-    color: #0066ff;
-    border-color: #0066ff;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4);
-}
-
-.ebanking-image {
-    flex: 1;
-    max-width: 500px;
-    position: relative;
-    z-index: 1;
-}
-
-.ebanking-image img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    transform: perspective(1000px) rotateY(-10deg);
-    transition: transform 0.5s ease;
-}
-
-.ebanking-image:hover img {
-    transform: perspective(1000px) rotateY(-5deg);
-}
-
-/* Add a decorative element */
-.ebanking-section:before {
-    content: "";
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(0,102,255,0.1) 0%, rgba(0,102,255,0) 70%);
-    z-index: 0;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .ebanking-section {
-        flex-direction: column-reverse;
-        text-align: center;
-        padding: 4rem 2rem;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  
+  .testimonial p {
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  
+  
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width: 768px) {
+    .why-section {
+      flex-direction: column;
+      text-align: center;
     }
-
-    .title {
-        font-size: 2.5rem;
-    }
-
-    .description {
-        max-width: 100%;
-    }
-
-    .ebanking-image {
-        margin-bottom: 3rem;
-        max-width: 100%;
-    }
-
-    .ebanking-image img {
-        transform: none;
-    }
-}
+  }
+  

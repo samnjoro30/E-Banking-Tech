@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+const baseurl = [
+  "https://e-banking-tech.onrender.com/api",
+  "http://localhost:5000/api"
+]
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api", //"https://e-banking-tech.onrender.com/api",
+  baseURL: baseurl,
   withCreditials: true,
 });
 
