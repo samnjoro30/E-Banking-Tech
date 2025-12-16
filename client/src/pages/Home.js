@@ -22,11 +22,10 @@ const Home = () => {
                         designed for speed, safety, and simplicity.
                     </p>
 
-                    <a href="/auth" className="hero-btn">Get Started</a>
+                    <Link to="/auth" className="hero-btn">Get Started</Link>
                 </div>
             </section>
 
-      {/* ================= WHY CHOOSE US ================= */}
       <section className="why-section">
         <div className="why-content">
           <h2>
@@ -105,7 +104,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ================= TESTIMONIALS ================= */}
       <section className="testimonials">
         <h3>What Users Say</h3>
 

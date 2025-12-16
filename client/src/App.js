@@ -8,7 +8,7 @@ import ForgotPassword from './components/ForgotPassword';
 import VerifyOTP from './components/VerifyOtp';
 import Home from './pages/Home';
 import Dashboard from './dashboard/Dashboard';
-import Auth from './pages/Auth';
+import Auth from './auth/Auth';
 
 const socket = io('https://e-banking-tech.onrender.com');
 
