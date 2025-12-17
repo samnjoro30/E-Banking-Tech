@@ -82,7 +82,7 @@ connectDB();
 
 app.use(cookieParser());
 app.use(session({
-  secret: process.env.SECRET_KEY, // Change this to a more secure secret
+  secret: process.env.JWT_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { 
