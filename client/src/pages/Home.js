@@ -49,7 +49,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ================= SERVICES ================= */}
       <section className="services">
         <h3>Our Core Services</h3>
 
@@ -61,11 +60,6 @@ const Home = () => {
             <p>Secure, fast & intelligent wallet for managing your funds.</p>
           </div>
 
-          {/* <div className="service-card">
-            <div className="icon-circle">💳</div>
-            <h4>Card Services</h4>
-            <p>Virtual & physical cards with fraud protection.</p>
-          </div> */}
 
           <div className="service-card">
             <div className="icon-circle">💸</div>
