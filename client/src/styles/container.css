@@ -1,6 +1,6 @@
 .contain {
-    min-width: 600px;
-    max-width: 850px;
+    min-width: 700px;
+    max-width: 950px;
     width: 100%;
     margin-top: 80px;
     margin-right:  22rem;
@@ -8,11 +8,12 @@
     padding: 0 0rem;
     display: flex;
     flex-direction: column;
+    height: 105%;
 }
 
 .overview {
     width: 90%;
-    height: auto;
+    height: 100%;
     background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 50%, #a1c4b0 100%);
     border-radius: 12px;
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.08);

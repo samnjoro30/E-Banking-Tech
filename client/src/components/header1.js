@@ -18,10 +18,10 @@ const Header1 = () => {
     }, [isMobile]);
 
     const navItems = [
-        { path: '/', label: 'Home', icon: <FaHome /> },
-        { path: '/services', label: 'Services', icon: <FaCog /> },
-        { path: '/about', label: 'About', icon: <FaInfoCircle /> },
-        { path: '/contact', label: 'Contact', icon: <FaPhone /> }
+        { path: '#', label: 'Home', icon: <FaHome /> },
+        { path: '#', label: 'Services', icon: <FaCog /> },
+        { path: '#', label: 'About', icon: <FaInfoCircle /> },
+        { path: '#', label: 'Contact', icon: <FaPhone /> }
     ];
 
     return (
