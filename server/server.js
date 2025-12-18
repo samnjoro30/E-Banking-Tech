@@ -10,6 +10,7 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
+const db = require('./config/db_Postgre');
 
 
 const app = express();
@@ -147,6 +148,11 @@ const shutdown = () => {
 
 process.on('SIGTERM', shutdown);  // Handle SIGTERM for graceful shutdown
 process.on('SIGINT', shutdown);   // Handle Ctrl+C shutdown
+
+app.get('/live-db', async (req, res) => {
+  await db.execute("select 1");
+  res.json({ status: "ok db connected" });
+})
 
 app.get('/health', (req, res) => {
   res.status(200).json({
