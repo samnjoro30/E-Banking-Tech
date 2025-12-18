@@ -1,3 +1,4 @@
 #security
 .env
 /node_modules
+configfiles
