@@ -3,12 +3,10 @@ name: Backend CI
 on:
   push:
     branches: [developer]
-    paths:
-      - 'server/**'
+    paths: ['server/**', 'docker-compose.yml']
   pull_request:
     branches: [main]
-    paths:
-      - 'server/**'
+    paths:  ['server/**', 'docker-compose.yml']
 
 jobs:
   verify:
@@ -37,5 +35,5 @@ jobs:
         working-directory: server
         run: npm run format
 
-      - name: Docker build (verification)
-        run: docker build -t backend-ci ./server
+      - name: Docker Compose build (backend only)
+        run: docker compose build payment-server
