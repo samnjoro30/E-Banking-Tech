@@ -23,3 +23,13 @@ jobs:
                 npm ci --legacy-peer-deps
                 npm ls react-scripts
                 npm run build
+
+            - name: Deploy Firebase Preview
+              if: github.event_name == 'pull_request'
+              uses: FirebaseExtended/action-hosting-deploy@v0
+              with:
+                repoToken: ${{ secrets.GITHUB_TOKEN }}
+                firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
+                projectId: e-banking-tech-61d82
+                entryPoint: client
+                channelId: pr-${{ github.event.pull_request.number }}
