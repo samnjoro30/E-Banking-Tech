@@ -99,11 +99,9 @@ const registerUser = async (req, res) => {
       await user.save();
 
       console.error('Failed to send OTP email:', error.message);
-      return res
-        .status(500)
-        .json({
-          message: 'User registered, but failed to send OTP. Please try again.',
-        });
+      return res.status(500).json({
+        message: 'User registered, but failed to send OTP. Please try again.',
+      });
     }
   } catch (err) {
     console.error(err.message);
@@ -251,11 +249,9 @@ const verifyOTP = async (req, res) => {
       console.log(`Confirmation email sent to ${user.email}`);
     } catch (error) {
       console.error('Error sending confirmation email:', error.message);
-      return res
-        .status(500)
-        .json({
-          message: 'OTP verified, but failed to send confirmation email.',
-        });
+      return res.status(500).json({
+        message: 'OTP verified, but failed to send confirmation email.',
+      });
     }
 
     res.status(200).json({ message: 'OTP verified successfully' });

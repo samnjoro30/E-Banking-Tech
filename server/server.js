@@ -10,7 +10,6 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
 const db = require('./config/db_Postgre');
 const Logger = require('./config/logger');
 const { client, httpRequestDuration } = require('./config/metric');
