@@ -9,49 +9,51 @@ const socketIo = require('socket.io');
 const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const jwt = require('jsonwebtoken');
+
 
 const db = require('./config/db_Postgre');
 const Logger = require('./config/logger');
 const { client, httpRequestDuration } = require('./config/metric');
 
-
 const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  'https://e-banking-tech-61d82.web.app', 
-  'https://e-payment-platform.web.app', 
-  'http://localhost:3000'
+  'https://e-banking-tech-61d82.web.app',
+  'https://e-payment-platform.web.app',
+  'http://localhost:3000',
 ];
 const corsOptions = {
-  origin (origin, callback) {
+  origin(origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+      const msg =
+        'The CORS policy for this site does not allow access from the specified origin.';
       return callback(new Error(msg), false);
     }
     return callback(null, true);
   },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-  credentials: true,  
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
 
 //helmet for securing header
-app.use(helmet({
-  contentSecurityPolicy: false,  
-  crossOriginEmbedderPolicy: true,
-  crossOriginResourcePolicy: { policy: 'same-origin' },
-  dnsPrefetchControl: true,
-  expectCt: true,
-  frameguard: { action: 'deny' },  
-  hidePoweredBy: true,  
-  hsts: { maxAge: 31536000, includeSubDomains: true },  
-  noSniff: true,
-  xssFilter: true, 
-})); 
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: true,
+    crossOriginResourcePolicy: { policy: 'same-origin' },
+    dnsPrefetchControl: true,
+    expectCt: true,
+    frameguard: { action: 'deny' },
+    hidePoweredBy: true,
+    hsts: { maxAge: 31536000, includeSubDomains: true },
+    noSniff: true,
+    xssFilter: true,
+  })
+);
 app.use(cors(corsOptions));
 app.use(morgan('dev')); //log http request
 
@@ -67,7 +69,7 @@ app.use(limiter);
 const connectDB = async (retries = 5) => {
   while (retries) {
     try {
-      await mongoose.connect(process.env.MONGO_URI );
+      await mongoose.connect(process.env.MONGO_URI);
       console.log('MongoDB connected!');
       break;
     } catch (err) {
@@ -85,20 +87,22 @@ const connectDB = async (retries = 5) => {
 connectDB();
 
 app.use(cookieParser());
-app.use(session({
-  secret: process.env.JWT_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    httpOnly: true,
-    secure: false,
-    sameSite: 'Lax',
-    maxAge: 24 * 60 * 60 * 1000
-  } 
-}));
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'Lax',
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
 
 const server = http.createServer(app);
-const io = socketIo(server,{
+const io = socketIo(server, {
   cors: {
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
@@ -110,11 +114,11 @@ const io = socketIo(server,{
   reconnectionDelay: 2000,
 });
 
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   console.log(`new client connected: ${socket.id}`);
 
   socket.emit('message', 'Welcome to E-Banking Tech!');
-  socket.on('transaction', (data) => {
+  socket.on('transaction', data => {
     console.log(`New Transaction from ${socket.id}:`, data);
     io.emit('transactionUpdate', data);
 
@@ -123,7 +127,7 @@ io.on('connection', (socket) => {
       timestamp: new Date(),
     });
   });
-  socket.on('disconnect', (reason) => {
+  socket.on('disconnect', reason => {
     console.log(`Client ${socket.id} disconnected: ${reason}`);
     if (reason === 'ping timeout') {
       console.log('Network issue or client took too long to respond.');
@@ -149,8 +153,8 @@ const shutdown = () => {
   }, 10000);
 };
 
-process.on('SIGTERM', shutdown);  // Handle SIGTERM for graceful shutdown
-process.on('SIGINT', shutdown);   // Handle Ctrl+C shutdown
+process.on('SIGTERM', shutdown); // Handle SIGTERM for graceful shutdown
+process.on('SIGINT', shutdown); // Handle Ctrl+C shutdown
 
 app.use((req, res, next) => {
   const end = httpRequestDuration.startTimer();
@@ -170,7 +174,7 @@ app.get('/', (req, res) => {
     status: 'success',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    message: 'Welcome to the AuditAI API'
+    message: 'Welcome to the AuditAI API',
   });
   Logger.info('Root endpoint accessed');
 });
@@ -185,7 +189,7 @@ app.get('/health', (req, res) => {
     status: 'ok',
     uptime: process.uptime(),
     memoryUsage: process.memoryUsage(),
-    activeWebSockets: io.engine.clientsCount,  // Number of active WebSocket clients
+    activeWebSockets: io.engine.clientsCount, // Number of active WebSocket clients
   });
   Logger.info('Health check endpoint accessed');
 });

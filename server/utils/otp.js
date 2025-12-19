@@ -12,8 +12,8 @@ const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
 // Function to send OTP email
@@ -28,7 +28,7 @@ const sendOTPEmail = async (to, otp) => {
             <p>Please use this code to complete your authentication. The code will expire in 5 minutes.</p>
             <p>If you didn't request this code, please ignore this email.</p>
             <p>Best regards,<br>E-Banking Tech Team</p>
-        `
+        `,
   };
 
   try {
@@ -41,15 +41,13 @@ const sendOTPEmail = async (to, otp) => {
   }
 };
 
-
 const generateOTP = () => {
   return speakeasy.totp({
     secret: process.env.OTP_SECRET || 'mysecret',
     encoding: 'base32',
     digits: 6,
-    step: parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300 
+    step: parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300,
   });
 };
 
 module.exports = { sendOTPEmail, generateOTP };
-

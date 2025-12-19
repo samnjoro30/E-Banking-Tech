@@ -1,13 +1,12 @@
 const Transaction = require('../models/transaction');
 const User = require('../models/User');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
-// const { v4: uuidv4 } = require('uuid');
-const redis = require('redis');
+const { v4: uuidv4 } = require('uuid');
+// const redis = require('redis');
 
-//Transactions
-const redisClient = redis.createClient();
+// //Transactions
+// const redisClient = redis.createClient();
 
 const getTransactions = async (req, res) => {
   try {
@@ -41,13 +40,13 @@ const getTransactions = async (req, res) => {
       amount: txn.amount,
       type: txn.type,
       date: txn.date,
-      recipientName: txn.recipientAccount
-        ? txn.recipientAccount.name
-        : 'N/A',
+      recipientName: txn.recipientAccount ? txn.recipientAccount.name : 'N/A',
     }));
 
     // Count total
-    const totalTransactions = await Transaction.countDocuments({ accountNumber });
+    const totalTransactions = await Transaction.countDocuments({
+      accountNumber,
+    });
 
     res.status(200).json({
       balance,
@@ -56,7 +55,6 @@ const getTransactions = async (req, res) => {
       currentPage: page,
       totalPages: Math.ceil(totalTransactions / limit),
     });
-
   } catch (err) {
     console.error('Error fetching transactions:', err);
     res.status(500).json({ message: 'Failed to fetch transactions' });
@@ -71,7 +69,9 @@ const createTransaction = async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
   if (amount <= 0) {
-    return res.status(400).json({ message: 'Amount must be greater than zero' });
+    return res
+      .status(400)
+      .json({ message: 'Amount must be greater than zero' });
   }
   if (!['credit', 'debit'].includes(type)) {
     return res.status(400).json({ message: 'Invalid transaction type' });
@@ -88,15 +88,14 @@ const createTransaction = async (req, res) => {
     await transaction.save();
     res.status(201).json(transaction);
   } catch (err) {
+    console.error('Error creating transaction:', err);
     res.status(500).json({ message: 'Failed to create transaction' });
   }
 };
 
 const transferAttempts = {};
 
-
 const transferFunds = async (req, res) => {
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -109,22 +108,27 @@ const transferFunds = async (req, res) => {
     const lastAttempt = transferAttempts[req.user.accountNumber];
     const now = Date.now();
     if (lastAttempt && now - lastAttempt < 30000) {
-      return res.status(429).json({ message: 'Too many transfer requests. Try again later.' });
+      return res
+        .status(429)
+        .json({ message: 'Too many transfer requests. Try again later.' });
     }
     transferAttempts[req.user.accountNumber] = now;
 
     //pin validation
-    const sender = await User.findOne({ accountNumber: req.user.accountNumber });
-       
+    const sender = await User.findOne({
+      accountNumber: req.user.accountNumber,
+    });
+
     if (isNaN(transferAmount) || transferAmount <= 0) {
       return res.status(400).json({ message: 'Invalid transfer amount.' });
     }
-        
+
     // Ensure that amount is a number and greater than 0
     if (typeof amount !== 'number' || amount <= 0) {
-      return res.status(400).json({ message: 'Amount must be a positive number.' });
+      return res
+        .status(400)
+        .json({ message: 'Amount must be a positive number.' });
     }
-
 
     const recipientUser = await User.findOne({ accountNumber: recipient }); // Find recipient by account number
     // Check if recipient exists and is different from the sender
@@ -133,7 +137,9 @@ const transferFunds = async (req, res) => {
     }
 
     if (sender.accountNumber === recipientUser.accountNumber) {
-      return res.status(400).json({ message: 'You cannot transfer money to your own account.' });
+      return res
+        .status(400)
+        .json({ message: 'You cannot transfer money to your own account.' });
     }
 
     // Check if sender has enough balance
@@ -192,21 +198,20 @@ const transferFunds = async (req, res) => {
       await session.abortTransaction();
       session.endSession();
       console.error('Transfer Error (rolled back):', err);
-      res.status(500).json({ message: 'Transfer failed due to an internal error.' });
+      res
+        .status(500)
+        .json({ message: 'Transfer failed due to an internal error.' });
     }
   } catch (error) {
     console.error('Transfer Error:', error); // More specific error log
     res.status(500).json({ message: 'Transfer failed.' });
   }
 };
-const Trans_notification = () => {
+const Trans_notification = () => {};
 
+module.exports = {
+  getTransactions,
+  createTransaction,
+  transferFunds,
+  Trans_notification,
 };
-
-module.exports = { 
-  getTransactions, 
-  createTransaction, 
-  transferFunds, 
-  Trans_notification
-};
-

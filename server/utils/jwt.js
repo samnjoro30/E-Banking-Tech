@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-
 // Generate JWT Token
-const generateToken = (user) => {
+const generateToken = user => {
   return jwt.sign(
     { id: user._id, email: user.email, accountNumber: user.accountNumber },
     process.env.JWT_SECRET,
@@ -11,15 +10,14 @@ const generateToken = (user) => {
   );
 };
 
-
 // Verify JWT Token
-const verifyToken = (token) => {
+const verifyToken = token => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
+    console.error('JWT Verification Error:', err);
     throw new Error('Invalid Token');
   }
 };
 
 module.exports = { generateToken, verifyToken };
-

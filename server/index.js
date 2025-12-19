@@ -1,9 +1,6 @@
-
 const express = require('express');
 
-
 const { httpRequestDuration } = require('./config/metric');
-
 
 const app = express();
 

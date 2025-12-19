@@ -1,23 +1,31 @@
 import js from '@eslint/js';
 
 export default [
+  // Base recommended rules
   js.configs.recommended,
 
+  // Backend (CommonJS) rules
   {
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'script', // IMPORTANT for require()
+      sourceType: 'script', // ✅ IMPORTANT (CommonJS)
       globals: {
-        console: 'readonly',
-        process: 'readonly',
-        Buffer: 'readonly',
+        // Node / CommonJS globals
+        require: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
         __dirname: 'readonly',
         __filename: 'readonly',
-        URL: 'readonly',
+        process: 'readonly',
+        Buffer: 'readonly',
+
+        // Timers
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',
+
+        console: 'readonly',
       },
     },
 
@@ -34,6 +42,7 @@ export default [
     },
   },
 
+  // Test files
   {
     files: ['tests/**/*.js'],
     languageOptions: {
@@ -50,7 +59,14 @@ export default [
     },
   },
 
+  // Ignore folders
   {
-    ignores: ['node_modules/**', 'coverage/**', 'logs/**', 'drizzle/**'],
+    ignores: [
+      'node_modules/**',
+      'coverage/**',
+      'logs/**',
+      'drizzle/**',
+      'eslint.config.js', // ✅ IMPORTANT
+    ],
   },
 ];

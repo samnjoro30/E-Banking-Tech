@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const transactionSchema = new mongoose.Schema({
-  userId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
-    required: true 
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   description: {
     type: String,
@@ -25,7 +25,6 @@ const transactionSchema = new mongoose.Schema({
   },
   senderAccountNumber: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   recipientAccountNumber: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

@@ -4,17 +4,16 @@ const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  phoneNumber: {type: String, required: true, unique: true},
-  gender: {type: String, required: true},
+  phoneNumber: { type: String, required: true, unique: true },
+  gender: { type: String, required: true },
   password: { type: String, required: true },
   accountNumber: { type: String, unique: true },
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
   isVerified: { type: Boolean, default: false },
-  otp: { type: String },  // Temporary OTP storage
+  otp: { type: String }, // Temporary OTP storage
   createdAt: { type: Date, default: Date.now },
   balance: { type: Number, default: 500 },
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }],
 });
 
 module.exports = mongoose.model('User', userSchema);
-
