@@ -3,9 +3,9 @@ name: frontend ci
 on:
     push:
         branches: [ developer ]
-        paths: [ 'client/**']
+        paths: ['client/**', 'docker-compose.yml']
     pull_request:
-        paths: [ 'client/**']
+        paths: ['client/**', 'docker-compose.yml']
 
 jobs:
     build:
@@ -14,6 +14,9 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                 node-version: 20.x
+                cache: npm
+                cache-dependency-path: client/package-lock.json
+
             - uses: actions/checkout@v4
               with: 
                 fetch-depth: 0
@@ -23,6 +26,9 @@ jobs:
                 npm ci --legacy-peer-deps
                 npm ls react-scripts
                 npm run build
+            
+            - name: Docker Compose build (client only)
+              run: docker compose build client
 
             - name: Deploy Firebase Preview
               if: github.event_name == 'pull_request'

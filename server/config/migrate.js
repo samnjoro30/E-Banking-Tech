@@ -5,19 +5,22 @@ require('dotenv').config();
 
 async function runMigration() {
   console.log('Starting migrations...');
-  
+
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    ssl:
+      process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false,
   });
 
   try {
     const db = drizzle(pool);
-    
-    await migrate(db, { 
-      migrationsFolder: './drizzle/migrations' 
+
+    await migrate(db, {
+      migrationsFolder: './drizzle/migrations',
     });
-    
+
     console.log('✅ Migrations completed successfully!');
   } catch (error) {
     console.error('❌ Migration failed:', error);
@@ -27,7 +30,7 @@ async function runMigration() {
   }
 }
 
-runMigration().catch((err) => {
+runMigration().catch(err => {
   console.error('Migration error:', err);
   process.exit(1);
 });
