@@ -47,7 +47,7 @@ const generateOTP = () => {
         secret: process.env.OTP_SECRET || 'mysecret',
         encoding: 'base32',
         digits: 6,
-        step: parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300 // Default 5-minute expiry
+        step: parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300 
     });
 };
 
