@@ -7,21 +7,6 @@ const { validationResult } = require('express-validator');
 const jwtr = require('jsonwebtoken');
 require('dotenv').config();
 
-// Generate account number function
-const generateAccountNumber = async () => {
-  let accountNumber;
-  let user;
-
-  // Ensure uniqueness
-  do {
-    accountNumber = Math.floor(
-      1000000000 + Math.random() * 9000000000
-    ).toString(); // Random 10-digit number
-    user = await User.findOne({ accountNumber });
-  } while (user);
-
-  return accountNumber;
-};
 
 const isPasswordComplex = password => {
   const lowercase = /[a-z]/.test(password);
@@ -55,18 +40,13 @@ const registerUser = async (req, res) => {
 
     const passwordStrength = zxcvbn(password);
     if (passwordStrength.score < 3) {
-      // Adjust score threshold based on your needs
       return res.status(400).json({ message: 'Password is too weak' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Generate account number
-    const accountNumber = await generateAccountNumber();
-
     const otp = generateOTP();
-    const otpExpires =
-      Date.now() + (parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300) * 1000;
+    const otpExpires = Date.now() + (parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300) * 1000;
     // Create new user
     user = new User({
       firstName,
@@ -75,10 +55,9 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
       gender,
       phoneNumber,
-      accountNumber,
       balance: 0,
       isVerified: false,
-      otp, // Store OTP
+      otp, 
       otpExpires,
     });
 
