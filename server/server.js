@@ -21,29 +21,29 @@ app.use(express.json());
 
 const allowedOrigins = [
   'https://e-banking-tech-61d82.web.app', 
-  "https://e-payment-platform.web.app", 
+  'https://e-payment-platform.web.app', 
   'http://localhost:3000'
 ];
 const corsOptions = {
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = 'The CORS policy for this site does not allow access from the specified origin.';
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization'], 
-    credentials: true,  
-  };
+  origin (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true,  
+};
 
 //helmet for securing header
 app.use(helmet({
   contentSecurityPolicy: false,  
   crossOriginEmbedderPolicy: true,
-  crossOriginResourcePolicy: { policy: "same-origin" },
+  crossOriginResourcePolicy: { policy: 'same-origin' },
   dnsPrefetchControl: true,
   expectCt: true,
   frameguard: { action: 'deny' },  
@@ -57,29 +57,29 @@ app.use(morgan('dev')); //log http request
 
 //configure to prevent brute force attacks
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 10000,
-    message: 'Too many requests from this IP, please try again after 15 minutes',
+  windowMs: 15 * 60 * 1000,
+  max: 10000,
+  message: 'Too many requests from this IP, please try again after 15 minutes',
 });
 app.use(limiter);
 
 // Connect to MongoDB
 const connectDB = async (retries = 5) => {
   while (retries) {
-      try {
-          await mongoose.connect(process.env.MONGO_URI );
-          console.log('MongoDB connected!');
-          break;
-      } catch (err) {
-          console.error('Failed to connect to MongoDB:', err);
-          retries -= 1;
-          console.log(`Retries left: ${retries}`);
-          await new Promise(res => setTimeout(res, 5000)); // Wait 5 seconds before retrying
-      }
+    try {
+      await mongoose.connect(process.env.MONGO_URI );
+      console.log('MongoDB connected!');
+      break;
+    } catch (err) {
+      console.error('Failed to connect to MongoDB:', err);
+      retries -= 1;
+      console.log(`Retries left: ${retries}`);
+      await new Promise(res => setTimeout(res, 5000)); // Wait 5 seconds before retrying
+    }
   }
   if (!retries) {
-      console.error('Could not connect to MongoDB, exiting...');
-      process.exit(1);
+    console.error('Could not connect to MongoDB, exiting...');
+    process.exit(1);
   }
 };
 connectDB();
@@ -94,58 +94,58 @@ app.use(session({
     secure: false,
     sameSite: 'Lax',
     maxAge: 24 * 60 * 60 * 1000
-   } 
+  } 
 }));
 
 const server = http.createServer(app);
 const io = socketIo(server,{
-    cors: {
-        origin: allowedOrigins,
-        methods: ['GET', 'POST', 'DELETE', 'PUT'],
-        allowedHeaders: ['Authorization'],
-        credentials: true,
-    },
-    reconnection: true,
-    reconnectionAttempts: 5,
-    reconnectionDelay: 2000,
+  cors: {
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    allowedHeaders: ['Authorization'],
+    credentials: true,
+  },
+  reconnection: true,
+  reconnectionAttempts: 5,
+  reconnectionDelay: 2000,
 });
 
 io.on('connection', (socket) => {
-    console.log(`new client connected: ${socket.id}`);
+  console.log(`new client connected: ${socket.id}`);
 
-    socket.emit('message', 'Welcome to E-Banking Tech!');
-    socket.on('transaction', (data) => {
-        console.log(`New Transaction from ${socket.id}:`, data);
-        io.emit('transactionUpdate', data);
+  socket.emit('message', 'Welcome to E-Banking Tech!');
+  socket.on('transaction', (data) => {
+    console.log(`New Transaction from ${socket.id}:`, data);
+    io.emit('transactionUpdate', data);
 
-        socket.emit('notification', {
-          message: 'Your transaction is being processed!',
-          timestamp: new Date(),
-      });
-      });
-      socket.on('disconnect', (reason) => {
-        console.log(`Client ${socket.id} disconnected: ${reason}`);
-        if (reason === 'ping timeout') {
-          console.log('Network issue or client took too long to respond.');
-        } else if (reason === 'transport close') {
-          console.log('Client manually closed the connection.');
-        }
-      });
+    socket.emit('notification', {
+      message: 'Your transaction is being processed!',
+      timestamp: new Date(),
+    });
+  });
+  socket.on('disconnect', (reason) => {
+    console.log(`Client ${socket.id} disconnected: ${reason}`);
+    if (reason === 'ping timeout') {
+      console.log('Network issue or client took too long to respond.');
+    } else if (reason === 'transport close') {
+      console.log('Client manually closed the connection.');
+    }
+  });
 });
 
 const shutdown = () => {
   server.close(() => {
-      console.log('Server is shutting down gracefully.');
-      mongoose.connection.close(false, () => {
-          console.log('MongoDB connection closed.');
-          process.exit(0);
-      });
+    console.log('Server is shutting down gracefully.');
+    mongoose.connection.close(false, () => {
+      console.log('MongoDB connection closed.');
+      process.exit(0);
+    });
   });
 
   // Force shutdown if the above doesn't work within 10 seconds
   setTimeout(() => {
-      console.error('Forcing server shutdown...');
-      process.exit(1);
+    console.error('Forcing server shutdown...');
+    process.exit(1);
   }, 10000);
 };
 
@@ -167,18 +167,18 @@ app.get('/metrics', async (req, res) => {
 
 app.get('/', (req, res) => {
   res.status(200).json({
-      status: 'success',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-      message: 'Welcome to the AuditAI API'
+    status: 'success',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    message: 'Welcome to the AuditAI API'
   });
   Logger.info('Root endpoint accessed');
 });
 
 app.get('/live-db', async (req, res) => {
-  await db.execute("select 1");
-  res.json({ status: "ok db connected" });
-})
+  await db.execute('select 1');
+  res.json({ status: 'ok db connected' });
+});
 
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -186,8 +186,8 @@ app.get('/health', (req, res) => {
     uptime: process.uptime(),
     memoryUsage: process.memoryUsage(),
     activeWebSockets: io.engine.clientsCount,  // Number of active WebSocket clients
-});
-Logger.info('Health check endpoint accessed');
+  });
+  Logger.info('Health check endpoint accessed');
 });
 
 app.use('/api/auth', require('./routes/auth'));

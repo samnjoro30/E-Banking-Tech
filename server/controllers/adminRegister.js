@@ -6,113 +6,113 @@ const User = require('../models/User');
 const jwtr = require('jsonwebtoken');
 
 const RegisterAdmin = async (req, res) =>{
-    const { FirstName, LastName, email, PhoneNumber, Password} = req.body;
+  const { FirstName, LastName, email, PhoneNumber, Password} = req.body;
 
-    try{
-        let admin = await Admin.findOne({ email })
-        if (admin){
-            return res.status(400).json({
-                message: 'Admin already exists'
-            });
-        }
-        const hashedPassword = await bcrypt.hash(Password, 10);
-        admin = new Admin({
-            FirstName,
-            LastName,
-            email,
-            PhoneNumber,
-            Password: hashedPassword,
-        })
-
-        await admin.save();
-
-    }catch(err){
-        console.error(err.message);
-        res.status(500).send('Error Registering, backend error');
+  try{
+    let admin = await Admin.findOne({ email });
+    if (admin){
+      return res.status(400).json({
+        message: 'Admin already exists'
+      });
     }
-}
+    const hashedPassword = await bcrypt.hash(Password, 10);
+    admin = new Admin({
+      FirstName,
+      LastName,
+      email,
+      PhoneNumber,
+      Password: hashedPassword,
+    });
+
+    await admin.save();
+
+  }catch(err){
+    console.error(err.message);
+    res.status(500).send('Error Registering, backend error');
+  }
+};
 
 const LoginAdmin = async (req, res) => {
-    const { email, Password} = req.body;
-    try{
-        const admin = await Admin.findOne({ email });
-        if(!admin){
-            return res.status(400).json({
-                message: "Incorrect  email registerd"
-            });
-        }
-
-        const isMatch = await bcrypt.compatre(Password, admin.Password)
-        if(!isMatch){
-            return res.status(400).json({
-                message: "Incorrect Password"
-            });
-        }
-        const accessToken = jwt.sign({
-            userId: User._id,
-        }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRES_IN
-        });
-
-        res.cookie('accessToken', accessToken, {
-            httpOnly:true,
-            secure: true,
-            sameSite: 'none',
-            maxAge:  60 * 60 * 1000
-        })
-
-        res.status(200).json({
-            message: 'login successful',
-            accessToken,
-            admin: { FirstName, LastName, email, PhoneNumber}
-        })
-
-    }catch(err){
-        console.log(err.message);
-        return res.status(500).json({
-            message: "Backend Error, Failed to login"
-        });
+  const { email, Password} = req.body;
+  try{
+    const admin = await Admin.findOne({ email });
+    if(!admin){
+      return res.status(400).json({
+        message: 'Incorrect  email registerd'
+      });
     }
-}
+
+    const isMatch = await bcrypt.compatre(Password, admin.Password);
+    if(!isMatch){
+      return res.status(400).json({
+        message: 'Incorrect Password'
+      });
+    }
+    const accessToken = jwt.sign({
+      userId: User._id,
+    }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN
+    });
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly:true,
+      secure: true,
+      sameSite: 'none',
+      maxAge:  60 * 60 * 1000
+    });
+
+    res.status(200).json({
+      message: 'login successful',
+      accessToken,
+      admin: { FirstName, LastName, email, PhoneNumber}
+    });
+
+  }catch(err){
+    console.log(err.message);
+    return res.status(500).json({
+      message: 'Backend Error, Failed to login'
+    });
+  }
+};
 
 const AdminVerification = async (req, res) => {
 
-    const { email } = req.body;
-    try{
-        const admin = await Admin.findOne({ email });
-        if (!admin){
-            return res.status(400).json({
-                message: "Admin not registered using that email"
-            });
-        }
-        admin.otp = null;
-        admin.isVerified = true;
-        await admin.save()
-    }catch(error){
-        console.error("Error verifying admin", error);
+  const { email } = req.body;
+  try{
+    const admin = await Admin.findOne({ email });
+    if (!admin){
+      return res.status(400).json({
+        message: 'Admin not registered using that email'
+      });
     }
+    admin.otp = null;
+    admin.isVerified = true;
+    await admin.save();
+  }catch(error){
+    console.error('Error verifying admin', error);
+  }
 
-}
+};
 const refreshToken = async (req, res) =>{
-    const request = req.cookie.get('refresh_token');
-    if (!request) return res.json({message: "refresh token missing"})
+  const request = req.cookie.get('refresh_token');
+  if (!request) return res.json({message: 'refresh token missing'});
 
-    try{
-        const decode = request.authMiddleware();
+  try{
+    const decode = request.authMiddleware();
 
-        return 
+    return; 
         
 
 
-    }catch(err){
+  }catch(err){
 
-    }
+  }
 
-}
+};
 
 module.exports = {
-    RegisterAdmin,
-    LoginAdmin,
-    AdminVerification,
-    refreshToken,
-}
+  RegisterAdmin,
+  LoginAdmin,
+  AdminVerification,
+  refreshToken,
+};
