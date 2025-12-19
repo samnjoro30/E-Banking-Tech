@@ -7,7 +7,6 @@ const { validationResult } = require('express-validator');
 const jwtr = require('jsonwebtoken');
 require('dotenv').config();
 
-
 const isPasswordComplex = password => {
   const lowercase = /[a-z]/.test(password);
   const uppercase = /[A-Z]/.test(password);
@@ -46,7 +45,8 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const otp = generateOTP();
-    const otpExpires = Date.now() + (parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300) * 1000;
+    const otpExpires =
+      Date.now() + (parseInt(process.env.OTP_EXPIRY_SECONDS, 10) || 300) * 1000;
     // Create new user
     user = new User({
       firstName,
@@ -57,7 +57,7 @@ const registerUser = async (req, res) => {
       phoneNumber,
       balance: 0,
       isVerified: false,
-      otp, 
+      otp,
       otpExpires,
     });
 
