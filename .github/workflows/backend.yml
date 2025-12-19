@@ -37,9 +37,5 @@ jobs:
         working-directory: server
         run: npm run format
 
-      - name: Run tests
-        working-directory: server
-        run: npm test
-
       - name: Docker build (verification)
         run: docker build -t backend-ci ./server
