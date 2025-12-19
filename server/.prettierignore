@@ -1,0 +1,5 @@
+#modules
+node_modules/
+package-lock.json
+drizzle/
+logs/
