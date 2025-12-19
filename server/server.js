@@ -10,7 +10,10 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
+
 const db = require('./config/db_Postgre');
+const Logger = require('./config/logger');
+const { client, httpRequestDuration } = require('./config/metric');
 
 
 const app = express();
@@ -149,6 +152,29 @@ const shutdown = () => {
 process.on('SIGTERM', shutdown);  // Handle SIGTERM for graceful shutdown
 process.on('SIGINT', shutdown);   // Handle Ctrl+C shutdown
 
+app.use((req, res, next) => {
+  const end = httpRequestDuration.startTimer();
+  res.on('finish', () => {
+    end({ method: req.method, route: req.route?.path, status: res.statusCode });
+  });
+  next();
+});
+
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
+});
+
+app.get('/', (req, res) => {
+  res.status(200).json({
+      status: 'success',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      message: 'Welcome to the AuditAI API'
+  });
+  Logger.info('Root endpoint accessed');
+});
+
 app.get('/live-db', async (req, res) => {
   await db.execute("select 1");
   res.json({ status: "ok db connected" });
@@ -161,6 +187,7 @@ app.get('/health', (req, res) => {
     memoryUsage: process.memoryUsage(),
     activeWebSockets: io.engine.clientsCount,  // Number of active WebSocket clients
 });
+Logger.info('Health check endpoint accessed');
 });
 
 app.use('/api/auth', require('./routes/auth'));

@@ -2,10 +2,15 @@ name: Deployment to production
 
 on:
   workflow_run:
-    workflows: ["frontend ci"] # 👈 must be plural "workflows"
+    workflows: ["frontend ci", "Backend CI"] 
     branches: [main]
     types:
       - completed
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
 
 jobs:
   deploy:
@@ -16,6 +21,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST "$RENDER_DEPLOY_HOOK"
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_KEY }}
 
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
