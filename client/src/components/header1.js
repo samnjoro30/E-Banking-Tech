@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes, FaHome, FaCog, FaInfoCircle, FaPhone, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import '../styles/Header1.css';
 
 const Header1 = () => {
@@ -42,22 +43,22 @@ const Header1 = () => {
                                 {item.label}
                             </a>
                         ))}
-                        <a 
-                            href="/auth" 
+                        <Link
+                            to="/auth" 
                             className="nav-link login-btn"
                             onClick={() => setIsMobile(false)}
                         >
                             <FaSignInAlt />
                             Login
-                        </a>
-                        <a 
-                            href="/auth" 
+                        </Link>
+                        <Link
+                            to="/auth" 
                             className="nav-link register-btn"
                             onClick={() => setIsMobile(false)}
                         >
                             <FaUserPlus />
                             Register
-                        </a>
+                        </Link>
                     </nav>
 
                     <div className="menu-icon" onClick={() => setIsMobile(!isMobile)}>

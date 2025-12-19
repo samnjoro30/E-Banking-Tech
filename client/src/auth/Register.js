@@ -15,13 +15,13 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
-    const [passwordStrength, setPasswordStrength] = useState(0);
-    const [passwordComplexity, setPasswordComplexity] = useState({
-        hasLowercase: false,
-        hasUppercase: false,
-        hasNumber: false,
-        hasSpecialChar: false
-    });
+    // const [passwordStrength, setPasswordStrength] = useState(0);
+    // const [passwordComplexity, setPasswordComplexity] = useState({
+    //     hasLowercase: false,
+    //     hasUppercase: false,
+    //     hasNumber: false,
+    //     hasSpecialChar: false
+    // });
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const { firstName, lastName, email, password, confirmPassword, dob, phoneNumber, gender} = formData;

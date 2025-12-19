@@ -4,6 +4,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "start": "node server.js",
+    "lint": "eslint --max-warnings=0",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "jest",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push"
@@ -45,6 +51,11 @@
   "devDependencies": {
     "concurrently": "^9.2.0",
     "drizzle-kit": "^0.31.8",
-    "nodemon": "^3.1.11"
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-node": "^11.1.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.7.4"
   }
 }
