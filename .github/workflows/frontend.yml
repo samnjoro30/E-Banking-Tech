@@ -28,7 +28,7 @@ jobs:
                 npm run build
             
             - name: Docker Compose build (client only)
-              run: docker compose build client
+              run: docker compose build payment-client
 
             - name: Deploy Firebase Preview
               if: github.event_name == 'pull_request'
