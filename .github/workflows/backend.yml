@@ -36,4 +36,4 @@ jobs:
         run: npm run format
 
       - name: Docker Compose build (backend only)
-        run: docker compose build payment-server
+        run: docker compose build server
