@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: server
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Lint
         working-directory: server
