@@ -1,25 +1,21 @@
-
-# ---- Build Stage ----
-FROM node:20-alpine AS build
+# -------- Dependencies layer --------
+FROM node:20-alpine AS deps
 
 WORKDIR /app
-
-# Install dependencies first (better caching)
 COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 
-# Copy source and build
+# -------- Build layer --------
+FROM node:20-alpine AS build
+
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# ---- Production Stage ----
+# -------- Runtime layer --------
 FROM nginx:alpine
 
-# Copy build output to Nginx
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
