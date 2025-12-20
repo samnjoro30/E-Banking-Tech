@@ -196,6 +196,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/trans', require('./routes/transaction'));
 app.use('/api/dash', require('./routes/dash'));
+app.use('/api/account', require('./routes/account'));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
