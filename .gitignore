@@ -1,3 +1,4 @@
 #modules
 /node_modules
 git.sh
+.DS_Store
