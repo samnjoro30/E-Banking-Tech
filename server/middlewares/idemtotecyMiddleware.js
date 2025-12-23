@@ -1,32 +1,19 @@
-const redis = require('redis');
-const client = redis.createClient();
+module.exports = function idempotencyMiddleware(req, res, next) {
+  const idempotencyKey = req.headers['idempotency-key'];
 
-const idempotencyMiddleware = async (req, res, next) => {
-  const key = req.headers['idempotency-key'];
-
-  if (!key) return next();
-
-  try {
-    const cachedResponse = await client.get(key);
-    if (cachedResponse) {
-      const { status, body } = JSON.parse(cachedResponse);
-      return res.status(status).json(body);
-    }
-
-    const originalSend = res.send;
-    res.send = function (body) {
-      client.setEx(
-        key,
-        86400,
-        JSON.stringify({ status: res.statusCode, body: JSON.parse(body) })
-      );
-      originalSend.call(this, body);
-    };
-
-    next();
-  } catch (err) {
-    next(err);
+  if (!idempotencyKey) {
+    return res.status(400).json({
+      message: 'Idempotency-Key header is required',
+    });
   }
-};
 
-module.exports = idempotencyMiddleware;
+  if (typeof idempotencyKey !== 'string' || idempotencyKey.length < 8) {
+    return res.status(400).json({
+      message: 'Invalid Idempotency-Key',
+    });
+  }
+
+  req.idempotencyKey = idempotencyKey;
+
+  next();
+};
