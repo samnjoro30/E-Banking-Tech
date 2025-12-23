@@ -12,10 +12,15 @@ const session = require('express-session');
 
 const healthCheck = require('./utils/health.check');
 const Logger = require('./config/logger');
+const os = require('os');
 const { client, httpRequestDuration } = require('./config/metric');
 
+
+
 const app = express();
-app.use(express.json());
+app.use(express.json().urlencoded({ extended: true }));
+
+app.set('io', socketIo);
 
 const allowedOrigins = [
   'https://e-banking-tech-61d82.web.app',
@@ -54,7 +59,7 @@ app.use(
   })
 );
 app.use(cors(corsOptions));
-app.use(morgan('dev')); //log http request
+app.use(morgan('dev'));
 
 //configure to prevent brute force attacks
 const limiter = rateLimit({
@@ -168,19 +173,18 @@ app.get('/metrics', async (req, res) => {
   res.end(await client.register.metrics());
 });
 
-
 app.get('/health', async (req, res) => {
   const mongoStatus = healthCheck.checkMongo()
     ? 'MongoDB connected'
     : 'MongoDB disconnected';
 
-  const posgresStatus = await healthCheck.checkPostgres()
+  const posgresStatus = (await healthCheck.checkPostgres())
     ? 'PostgreSQL connected'
     : 'PostgreSQL disconnected';
   const isHealthy =
     mongoStatus === 'MongoDB connected' &&
     posgresStatus === 'PostgreSQL connected';
-  
+
   const response = {
     status: isHealthy ? 'ok' : 'unhealthy',
     timestamp: new Date().toISOString(),
@@ -189,15 +193,13 @@ app.get('/health', async (req, res) => {
     cpu: os.loadavg(),
     services: {
       api: true,
-      mongo: mongoOk,
-      postgres: postgresOk,
+      mongo: mongoStatus,
+      postgres: posgresStatus,
     },
     activeWebSockets: io.engine.clientsCount, // Number of active WebSocket clients
-    if (Logger) {
-      Logger.info('Health check accessed', response);
-    }
   };
-    res.status(isHealthy ? 200 : 503).json(response);
+  Logger.info('Health check accessed', response);
+  res.status(isHealthy ? 200 : 503).json(response);
 });
 
 app.use('/api/auth', require('./routes/auth'));

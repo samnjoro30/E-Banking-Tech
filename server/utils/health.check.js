@@ -10,6 +10,7 @@ const checkPostgres = async () => {
     await db.execute('select 1');
     return true;
   } catch (err) {
+    console.error('PostgreSQL health check failed:', err);
     return false;
   }
 };
