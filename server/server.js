@@ -15,8 +15,6 @@ const Logger = require('./config/logger');
 const os = require('os');
 const { client, httpRequestDuration } = require('./config/metric');
 
-
-
 const app = express();
 app.use(express.json().urlencoded({ extended: true }));
 
