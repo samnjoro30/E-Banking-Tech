@@ -1,22 +1,20 @@
 name: Deployment to production
 
 on:
-  workflow_run:
-    workflows: ["frontend ci", "Backend CI"] 
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches: [ main ]
 
 permissions:
-  checks: write
   contents: read
-  pull-requests: write
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+  
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    concurrency: production-deploy
 
     steps:
       - name: Checkout repository
