@@ -16,7 +16,7 @@ const os = require('os');
 const { client, httpRequestDuration } = require('./config/metric');
 
 const app = express();
-app.use(express);
+app.use(express.json());
 
 app.set('io', socketIo);
 
