@@ -57,7 +57,7 @@ const createFinancialAccount = async (mongoUser, idempotencyKey) => {
         reference: crypto.randomUUID(),
         description: 'Account opening',
         amount: '0.00',
-        status: 'COMPLETED', 
+        status: 'COMPLETED',
       })
       .returning('*');
 
