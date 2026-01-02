@@ -96,7 +96,6 @@ const transferFunds = async ({
     ]);
 
     //update cached balances
-
     await tx
       .update(Accounts)
       .set({ balance: senderBalanceAfter.toFixed(2) })

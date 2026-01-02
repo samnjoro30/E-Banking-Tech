@@ -1,4 +1,4 @@
-module.exports = function idempotencyMiddleware(req, res, next) {
+const idempotencyMiddleware = (req, res, next) => {
   const idempotencyKey = req.headers['idempotency-key'];
 
   if (!idempotencyKey) {
@@ -17,3 +17,5 @@ module.exports = function idempotencyMiddleware(req, res, next) {
 
   next();
 };
+
+module.exports = idempotencyMiddleware;
