@@ -9,11 +9,42 @@ const socketIo = require('socket.io');
 const http = require('http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const os = require('os');
+const { RedisStore } = require('connect-redis');
+const { createClient } = require('redis');
+
 
 const healthCheck = require('./utils/health.check');
 const Logger = require('./config/logger');
-const os = require('os');
 const { client, httpRequestDuration } = require('./config/metric');
+
+
+const isProd = process.env.NODE_ENV === 'production';
+
+let redisClient = createClient({
+  url: isProd
+  ? process.env.REDIS_URL        // Render Redis
+  : 'redis://127.0.0.1:6379',
+  socket: {
+    tls: true,  
+    rejectUnauthorized: false,
+  }
+});
+
+//redisClient.connect().catch(console.error);
+redisClient.on('error', (err) => {
+  console.error('Redis Client Error:', err);
+});
+
+redisClient.on('connect', () => {
+  console.log('Connected to Redis');
+});
+
+// Connect to Redis
+(async () => {
+  await redisClient.connect();
+})();
+
 
 const app = express();
 app.use(express.json());
@@ -91,6 +122,9 @@ connectDB();
 app.use(cookieParser());
 app.use(
   session({
+    store: new RedisStore({ 
+      client: redisClient,
+    }),
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
@@ -204,6 +238,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/trans', require('./routes/transaction'));
 app.use('/api/dash', require('./routes/dash'));
 app.use('/api/account', require('./routes/account'));
+app.use('/api/transfer', require('./routes/transfer.routes'));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
