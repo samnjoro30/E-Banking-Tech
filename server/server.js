@@ -13,26 +13,24 @@ const os = require('os');
 const { RedisStore } = require('connect-redis');
 const { createClient } = require('redis');
 
-
 const healthCheck = require('./utils/health.check');
 const Logger = require('./config/logger');
 const { client, httpRequestDuration } = require('./config/metric');
 
-
 const isProd = process.env.NODE_ENV === 'production';
 
-let redisClient = createClient({
+const redisClient = createClient({
   url: isProd
-  ? process.env.REDIS_URL        // Render Redis
-  : 'redis://127.0.0.1:6379',
+    ? process.env.REDIS_URL // Render Redis
+    : 'redis://127.0.0.1:6379',
   socket: {
-    tls: true,  
+    tls: true,
     rejectUnauthorized: false,
-  }
+  },
 });
 
 //redisClient.connect().catch(console.error);
-redisClient.on('error', (err) => {
+redisClient.on('error', err => {
   console.error('Redis Client Error:', err);
 });
 
@@ -44,7 +42,6 @@ redisClient.on('connect', () => {
 (async () => {
   await redisClient.connect();
 })();
-
 
 const app = express();
 app.use(express.json());
@@ -122,7 +119,7 @@ connectDB();
 app.use(cookieParser());
 app.use(
   session({
-    store: new RedisStore({ 
+    store: new RedisStore({
       client: redisClient,
     }),
     secret: process.env.JWT_SECRET,

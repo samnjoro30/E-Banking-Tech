@@ -2,7 +2,8 @@ const Transaction = require('../models/transaction');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
+const uuidv4 = () => crypto.randomUUID();
 // const redis = require('redis');
 
 // //Transactions
