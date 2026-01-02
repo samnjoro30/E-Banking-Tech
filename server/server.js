@@ -12,6 +12,7 @@ const session = require('express-session');
 const os = require('os');
 const { RedisStore } = require('connect-redis');
 const { createClient } = require('redis');
+const csrf = require('csurf');
 
 const healthCheck = require('./utils/health.check');
 const Logger = require('./config/logger');
@@ -116,6 +117,15 @@ const connectDB = async (retries = 5) => {
 };
 connectDB();
 
+const csrfProtection = csrf({
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  }
+});
+
+app.use(csrfProtection);
 app.use(cookieParser());
 app.use(
   session({
