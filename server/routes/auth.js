@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.post('/login', verifyCsrf, loginUser);
 router.post('/refresh-token', verifyCsrf, refreshAccessToken);
-router.post('/logout',verifyCsrf, authMiddleware, logout);
+router.post('/logout', verifyCsrf, authMiddleware, logout);
 router.post('/verify-otp', verifyCsrf, verifyOTP);
 // Add validation in the route
 router.post(
