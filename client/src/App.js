@@ -35,7 +35,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/verify-otp" element={ <VerifyOTP />} />
+                {/* <Route path="/verify-otp" element={ <VerifyOTP />} /> */}
                 <Route path="/dashboard" element= { <Dashboard /> } />
             </Routes>    
         </Router>
