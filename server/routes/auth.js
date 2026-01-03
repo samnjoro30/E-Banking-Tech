@@ -10,12 +10,13 @@ const {
 } = require('../controllers/auth');
 const { check } = require('express-validator');
 const authMiddleware = require('../middlewares/authMiddleware');
+const { verifyCsrf } = require('../utils/csrf');
 const router = express.Router();
 
-router.post('/login', loginUser);
-router.post('/refresh-token', refreshAccessToken);
-router.post('/logout', authMiddleware, logout);
-router.post('/verify-otp', verifyOTP);
+router.post('/login', verifyCsrf, loginUser);
+router.post('/refresh-token', verifyCsrf, refreshAccessToken);
+router.post('/logout',verifyCsrf, authMiddleware, logout);
+router.post('/verify-otp', verifyCsrf, verifyOTP);
 // Add validation in the route
 router.post(
   '/register',
@@ -27,9 +28,10 @@ router.post(
     check('firstName').notEmpty().withMessage('First name is required'),
     check('lastName').notEmpty().withMessage('Last name is required'),
   ],
+  verifyCsrf,
   registerUser
 );
-router.post('/forgot-password', forgotPassword);
-router.post('/reset-password', resetPassword);
+router.post('/forgot-password', verifyCsrf, forgotPassword);
+router.post('/reset-password', verifyCsrf, resetPassword);
 
 module.exports = router;
