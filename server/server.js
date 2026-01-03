@@ -12,11 +12,11 @@ const session = require('express-session');
 const os = require('os');
 const { RedisStore } = require('connect-redis');
 const { createClient } = require('redis');
-const csrf = require('csurf');
 
 const healthCheck = require('./utils/health.check');
 const Logger = require('./config/logger');
 const { client, httpRequestDuration } = require('./config/metric');
+const { csrfMiddleware } = require('./utils/csrf');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -25,7 +25,7 @@ const redisClient = createClient({
     ? process.env.REDIS_URL // Render Redis
     : 'redis://127.0.0.1:6379',
   socket: {
-    tls: true,
+    tls: false,
     rejectUnauthorized: false,
   },
 });
@@ -45,8 +45,9 @@ redisClient.on('connect', () => {
 })();
 
 const app = express();
+app.set('trust proxy', 1);
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: false }));
 app.set('io', socketIo);
 
 const allowedOrigins = [
@@ -117,15 +118,6 @@ const connectDB = async (retries = 5) => {
 };
 connectDB();
 
-const csrfProtection = csrf({
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-  },
-});
-
-app.use(csrfProtection);
 app.use(cookieParser());
 app.use(
   session({
@@ -143,6 +135,8 @@ app.use(
     },
   })
 );
+
+app.use(csrfMiddleware);
 
 const server = http.createServer(app);
 const io = socketIo(server, {
