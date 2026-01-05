@@ -11,15 +11,15 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v4
+              with: 
+                fetch-depth: 0
             - uses: actions/setup-node@v3
               with:
                 node-version: 20.x
                 cache: npm
                 cache-dependency-path: client/package-lock.json
 
-            - uses: actions/checkout@v4
-              with: 
-                fetch-depth: 0
             - name: Install and build client side
               working-directory: ./client
               run: |
@@ -30,12 +30,12 @@ jobs:
             - name: Docker Compose build (client only)
               run: docker compose build client
 
-            - name: Deploy Firebase Preview
-              if: github.event_name == 'pull_request'
-              uses: FirebaseExtended/action-hosting-deploy@v0
-              with:
-                repoToken: ${{ secrets.GITHUB_TOKEN }}
-                firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
-                projectId: e-banking-tech-61d82
-                entryPoint: client
-                channelId: pr-${{ github.event.pull_request.number }}
+            # - name: Deploy Firebase Preview
+            #   if: github.event_name == 'pull_request'
+            #   uses: FirebaseExtended/action-hosting-deploy@v0
+            #   with:
+            #     repoToken: ${{ secrets.ACESS_TOKEN }}
+            #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
+            #     projectId: e-banking-tech-61d82
+            #     entryPoint: client
+            #     channelId: pr-${{ github.event.pull_request.number }}
