@@ -3,8 +3,13 @@ const refreshTokenModel = require('../models/refreshToken');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const zxcvbn = require('zxcvbn');
-const { validationResult } = require('express-validator');
+const { AuthRegisterValidation } = require('../validation/auth.validate');
+const { formatValidateErrors } = require('../utils/format.utils');
+const { hashPassword } = require('../services/auth.service');
+const { Cookie } = require('../utils/cookie');
 const jwtr = require('jsonwebtoken');
+const { generateToken } = require('../utils/jwt');
+const logger = require('../config/logger');
 require('dotenv').config();
 
 const isPasswordComplex = password => {
@@ -16,15 +21,19 @@ const isPasswordComplex = password => {
   return lowercase && uppercase && number && specialChar;
 };
 
-const registerUser = async (req, res) => {
-  const { email, password, firstName, lastName, gender, phoneNumber } =
-    req.body;
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+const registerUser = async (req, res, next) => {
   try {
+    const validatedData = AuthRegisterValidation.parse(req.body);
+    if (!validatedData.success) {
+      return res.status(400).json({
+        error: 'Validation failed',
+        details: formatValidateErrors(validatedData.error),
+      });
+    }
+
+    const { email, password, firstName, lastName, gender, phoneNumber } =
+      validatedData.data;
+
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: 'User already exists' });
@@ -42,7 +51,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'Password is too weak' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = hashPassword(password);
 
     const otp = generateOTP();
     const otpExpires =
@@ -62,27 +71,31 @@ const registerUser = async (req, res) => {
     });
 
     await user.save();
+    const token = generateToken.sign({
+      id: user._id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    });
 
-    const token = jwtr.generateToken(user);
-    try {
-      await sendOTPEmail(user.email, otp);
-      console.log(`OTP email sent to ${user.email}`);
-      res.status(201).json({
-        message: 'User registered successfully. OTP sent to your email.',
-        userId: user._id,
-        token,
-      });
-    } catch (error) {
-      user.otp = null;
-      user.otpExpires = null;
-      await user.save();
-
-      console.error('Failed to send OTP email:', error.message);
-      return res.status(500).json({
-        message: 'User registered, but failed to send OTP. Please try again.',
-      });
-    }
+    Cookie.set(res, 'token', token);
+    logger.info(`User registered: ${email}`);
+    res.status(201).json({
+      massage:
+        'User registered successfully. Please verify your email with the OTP sent.',
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    });
   } catch (err) {
+    logger.error('Registration error:', err);
+    if (err.message === 'User already exists') {
+      return res.status(409).json({ error: 'User already exists' });
+    }
+    next(err);
     console.error(err.message);
     res.status(500).send('Server error');
   }
