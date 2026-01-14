@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../api/axiosInstance';
+import  { attachCsrf, fetchCsrfToken } from '../utils/csrf';
+
 import '../styles/login.css';
+import { faTabletAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -31,12 +34,13 @@ const Login = () => {
         setError('');
 
         try {
+            await fetchCsrfToken();
             const res = await axiosInstance.post('/auth/login', { email, password }
             );
 
-            const data = res.data.message;
+            attachCsrf(res.data.csrfToken);
 
-            setMessage(data || 'Login successful! Redirecting...');
+            setMessage('Login successful! Redirecting...');
             setTimeout(() => {
                 navigate('/dashboard');
             }, 2000);

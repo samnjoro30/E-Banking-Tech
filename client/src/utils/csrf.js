@@ -1,4 +1,4 @@
-import api from './axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 
 let csrfToken = null;
 
@@ -6,7 +6,7 @@ let csrfToken = null;
  * Fetch CSRF token from backend
  */
 export async function fetchCsrfToken() {
-  const res = await api.get('/api/csrf');
+  const res = await axiosInstance.get('/csrf');
   csrfToken = res.data.csrfToken;
   attachCsrf(csrfToken);
   return csrfToken;
@@ -16,7 +16,7 @@ export async function fetchCsrfToken() {
  * Attach CSRF token to axios
  */
 export function attachCsrf(token) {
-  api.defaults.headers.common['X-CSRF-Token'] = token;
+  axiosInstance.defaults.headers.common['X-CSRF-Token'] = token;
 }
 
 /**
@@ -32,5 +32,5 @@ export async function rotateCsrf() {
  */
 export function clearCsrf() {
   csrfToken = null;
-  delete api.defaults.headers.common['X-CSRF-Token'];
+  delete axiosInstance.defaults.headers.common['X-CSRF-Token'];
 }
