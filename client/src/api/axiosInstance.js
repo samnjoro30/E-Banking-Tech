@@ -1,13 +1,9 @@
 import axios from 'axios';
-
-// const baseurl = [
-//   //"https://e-banking-tech.onrender.com/api",
-//   "http://localhost:5000/api"
-// ]
+import { fetchCsrfToken } from '../utils/csrf';
 
 const axiosInstance = axios.create({
-  baseURL: "https://e-banking-tech.onrender.com/api",
-  withCreditials: true,
+  baseURL: 'http://localhost:5000/api',//"https://e-banking-tech.onrender.com/api",
+  withCredentials: true
 });
 
 // Request interceptor to attach token dynamically
@@ -16,6 +12,7 @@ axiosInstance.interceptors.request.use(
       config.withCredentials = true;
       return config;
   },
+  
   (error) => {
       return Promise.reject(error);
   }
@@ -24,6 +21,11 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) =>{
+
+    if (error.response?.status === 403) {
+      await fetchCsrfToken();
+      return axiosInstance(originalRequest);
+    }
       const originalRequest = error.config;
 
       if(originalRequest.url.includes('/auth/refresh-token')){

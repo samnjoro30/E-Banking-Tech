@@ -16,8 +16,7 @@ const { createClient } = require('redis');
 const healthCheck = require('./utils/health.check');
 const Logger = require('./config/logger');
 const { client, httpRequestDuration } = require('./config/metric');
-const { csrfMiddleware } = require('./utils/csrf');
-
+const { csrfMiddleware, csrfEndpoint } = require('./utils/csrf');
 const isProd = process.env.NODE_ENV === 'production';
 
 const redisClient = createClient({
@@ -128,15 +127,24 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'Lax',
+      httpOnly: false,
+      secure: true,
+      sameSite: 'none',
       maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
 
 app.use(csrfMiddleware);
+
+app.get('/api/csrf', csrfEndpoint);
+app.get('/csrf-debug', (req, res) => {
+  res.json({
+    cookie: req.cookies['XSRF-TOKEN'],
+    header: req.headers['x-csrf-token'],
+    cookies: req.cookies,
+  });
+});
 
 const server = http.createServer(app);
 const io = socketIo(server, {

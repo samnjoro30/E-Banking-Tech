@@ -6,13 +6,15 @@ import Login from './auth/Login';
 import Home from './pages/Home';
 import Dashboard from './dashboard/Dashboard';
 import Auth from './auth/Auth';
-import { fetchCsrfToken } from './api/csrf';
 
-const socket = io('https://e-banking-tech.onrender.com');
+const socket = io('https://e-banking-tech.onrender.com', 
+{ 
+  withCredentials: true 
+});
 
 const App = () => {
     useEffect(() => {
-        fetchCsrfToken().catch(console.error);
+        //fetchCsrfToken().catch(console.error);
         socket.on('connect', () => {
           console.log('Connected to Socket.IO server');
         });

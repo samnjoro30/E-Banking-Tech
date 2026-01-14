@@ -8,6 +8,7 @@ const { formatValidateErrors } = require('../utils/format.utils');
 const { hashPassword } = require('../services/auth.service');
 const { Cookie } = require('../utils/cookie');
 const jwtr = require('jsonwebtoken');
+const { rotateCsrf } = require('../utils/csrf');
 const { generateToken } = require('../utils/jwt');
 const logger = require('../config/logger');
 require('dotenv').config();
@@ -134,19 +135,21 @@ const loginUser = async (req, res) => {
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+    const newCsrfToken = rotateCsrf(req, res);
     return res.json({
       message: 'Login successful',
+      csrfToken: newCsrfToken,
     });
   } catch (err) {
     console.error(err.message);
