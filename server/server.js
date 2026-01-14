@@ -238,7 +238,7 @@ app.get('/health', async (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/trans', require('./routes/transaction'));
 app.use('/api/dash', require('./routes/dash'));
-app.use('/api/account', require('./routes/account'));
+app.use('/api/account', require('./routes/account.routes'));
 app.use('/api/transfer', require('./routes/transfer.routes'));
 
 const PORT = process.env.PORT || 5000;

@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { createFinancialAccount } = require('../services/accountService');
+const { createFinancialAccount } = require('../services/account.service');
 
 const createAccount = async (req, res) => {
   try {

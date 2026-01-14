@@ -17,4 +17,4 @@ const Cookie = {
   },
 };
 
-module.exports = Cookie;
+module.exports = { Cookie };

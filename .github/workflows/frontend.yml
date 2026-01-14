@@ -30,12 +30,12 @@ jobs:
             - name: Docker Compose build (client only)
               run: docker compose build client
 
-            # - name: Deploy Firebase Preview
-            #   if: github.event_name == 'pull_request'
-            #   uses: FirebaseExtended/action-hosting-deploy@v0
-            #   with:
-            #     repoToken: ${{ secrets.ACESS_TOKEN }}
-            #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
-            #     projectId: e-banking-tech-61d82
-            #     entryPoint: client
-            #     channelId: pr-${{ github.event.pull_request.number }}
+            - name: Deploy Firebase Preview
+              if: github.event_name == 'pull_request'
+              uses: FirebaseExtended/action-hosting-deploy@v0
+              with:
+                repoToken: ${{ secrets.ACESS_TOKEN }}
+                firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_BANKING_TECH_61D82 }}
+                projectId: e-banking-tech-61d82
+                entryPoint: client
+                channelId: pr-${{ github.event.pull_request.number }}
