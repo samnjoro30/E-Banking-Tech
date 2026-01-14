@@ -1,5 +1,5 @@
 const express = require('express');
-const { createAccount } = require('../controllers/Account');
+const { createAccount } = require('../controllers/account.controller');
 const authMiddleware = require('../middlewares/authMiddleware');
 const idempotencyMiddleware = require('../middlewares/idemtotecyMiddleware');
 const { verifyCsrf } = require('../utils/csrf');

@@ -35,7 +35,7 @@ const registerUser = async (req, res, next) => {
       validatedData.data;
 
     let user = await User.findOne({ email });
-    if (user) {
+    if (user.length > 0) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
