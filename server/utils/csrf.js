@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const CSRF_COOKIE = 'XSRF-TOKEN';
+// const CSRF_COOKIE = 'XSRF-TOKEN';
 
 function generateToken() {
   return crypto.randomBytes(32).toString('hex');
@@ -36,7 +36,6 @@ function csrfEndpoint(req, res) {
  * Verify token on state-changing requests
  */
 function verifyCsrf(req, res, next) {
-
   const tokenFromHeader = req.headers['x-csrf-token'];
   const tokenFromCookie = req.cookies['XSRF-TOKEN'];
 

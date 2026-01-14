@@ -146,7 +146,6 @@ app.get('/csrf-debug', (req, res) => {
   });
 });
 
-
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
@@ -243,7 +242,6 @@ app.get('/health', async (req, res) => {
   Logger.info('Health check accessed', response);
   res.status(isHealthy ? 200 : 503).json(response);
 });
-
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/trans', require('./routes/transaction'));
