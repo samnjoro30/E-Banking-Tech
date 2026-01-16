@@ -37,7 +37,6 @@ const Login = () => {
             //await fetchCsrfToken();
             const res = await axiosInstance.post('/auth/login', { email, password }
             );
-
             attachCsrf(res.data.csrfToken);
 
             setMessage('Login successful! Redirecting...');
