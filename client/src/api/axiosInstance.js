@@ -2,7 +2,7 @@ import axios from 'axios';
 import { fetchCsrfToken } from '../utils/csrf';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api',//"https://e-banking-tech.onrender.com/api",
+  baseURL: "https://e-banking-tech.onrender.com/api",
   withCredentials: true
 });
 
@@ -22,11 +22,11 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) =>{
 
-    if (error.response?.status === 403) {
-      await fetchCsrfToken();
-      return axiosInstance(originalRequest);
-    }
       const originalRequest = error.config;
+      if (error.response?.status === 403) {
+        await fetchCsrfToken();
+        return axiosInstance(originalRequest);
+      }
 
       if(originalRequest.url.includes('/auth/refresh-token')){
           window.location.href="/auth"

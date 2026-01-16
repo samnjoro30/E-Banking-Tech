@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../api/axiosInstance';
-import  { attachCsrf, fetchCsrfToken } from '../utils/csrf';
+import  { attachCsrf} from '../utils/csrf';
 
 import '../styles/login.css';
 import { faTabletAlt } from '@fortawesome/free-solid-svg-icons';
@@ -34,7 +34,7 @@ const Login = () => {
         setError('');
 
         try {
-            await fetchCsrfToken();
+            //await fetchCsrfToken();
             const res = await axiosInstance.post('/auth/login', { email, password }
             );
 
