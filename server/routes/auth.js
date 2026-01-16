@@ -13,7 +13,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const { verifyCsrf } = require('../utils/csrf');
 const router = express.Router();
 
-router.post('/login', verifyCsrf, loginUser);
+router.post('/login', loginUser);
 router.post('/refresh-token', verifyCsrf, refreshAccessToken);
 router.post('/logout', verifyCsrf, authMiddleware, logout);
 router.post('/verify-otp', verifyCsrf, verifyOTP);

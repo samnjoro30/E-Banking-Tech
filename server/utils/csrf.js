@@ -14,10 +14,11 @@ function csrfMiddleware(req, res, next) {
 
   if (!token) {
     token = generateToken();
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('XSRF-TOKEN', token, {
       httpOnly: false, // frontend must read
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',
+      secure: isProd,
+      sameSite: isProd ? 'lax' : 'none',
       path: '/',
     });
   }
@@ -29,6 +30,11 @@ function csrfMiddleware(req, res, next) {
  * Explicit endpoint for frontend to fetch token
  */
 function csrfEndpoint(req, res) {
+  res.set({
+    'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+    Pragma: 'no-cache',
+    Expires: '0',
+  });
   res.json({ csrfToken: req.csrfToken });
 }
 
@@ -52,10 +58,12 @@ function verifyCsrf(req, res, next) {
 function rotateCsrf(req, res) {
   const newToken = generateToken();
 
+  const isProd = process.env.NODE_ENV === 'production';
+
   res.cookie('XSRF-TOKEN', newToken, {
     httpOnly: false,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
+    secure: isProd,
+    sameSite: isProd ? 'lax' : 'none',
     path: '/',
   });
 
