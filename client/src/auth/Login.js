@@ -4,7 +4,7 @@ import axiosInstance from '../api/axiosInstance';
 import  { attachCsrf} from '../utils/csrf';
 
 import '../styles/login.css';
-import { faTabletAlt } from '@fortawesome/free-solid-svg-icons';
+//import { faTabletAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
     const [formData, setFormData] = useState({

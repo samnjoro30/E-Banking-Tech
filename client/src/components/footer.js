@@ -28,6 +28,7 @@ const Footer = () => {
                     value={email}
                     onChange={handleEmailChange}
                     placeholder="Enter your email"
+                    className="footerEmail"
                     required
                 />
                 <button type="submit">Subscribe</button>
