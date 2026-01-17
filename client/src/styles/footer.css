@@ -108,6 +108,10 @@ form button:hover {
     height: 1px;
     background-color: #444;
 }
+.footerEmail{
+    color: white;
+    text-decoration: none;
+}
 
 /* Responsive */
 @media (max-width: 480px) {
