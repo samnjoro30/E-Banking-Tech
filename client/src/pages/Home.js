@@ -10,77 +10,74 @@ const Home = () => {
         <div className="">
             <div className="header">
                 <Header1 />
-                
             </div>
             <section className="hero">
-                <div className="hero-inner">
-                    <h1 className="hero-title">
-                       Your All-In-One <span>Digital Finance Hub</span>
-                    </h1>
-                    <p className="hero-description">
-                        Secure payments, smart analytics, seamless transfers — enjoy banking 
-                        designed for speed, safety, and simplicity.
-                    </p>
+              <div className="hero-inner">
+                  <h1 className="hero-title">
+                    Your All-In-One <span>Digital Finance Hub</span>
+                  </h1>
+                  <p className="hero-description">
+                    Secure payments, smart analytics, seamless transfers — enjoy banking 
+                    designed for speed, safety, and simplicity.
+                  </p>
 
-                    <Link to="/auth" className="hero-btn">Get Started</Link>
-                </div>
+                  <Link to="/auth" className="hero-btn">Get Started</Link>
+              </div>
             </section>
+            <section className="why-section">
+  {/* Water ripple effects */}
+  <div className="water-ripple ripple-1"></div>
+  <div className="water-ripple ripple-2"></div>
+  <div className="water-ripple ripple-3"></div>
+  
+  <div className="why-content-wrapper">
+    <div className="why-content">
+      <h2>
+        Why Choose Our <span>Digital Banking Solutions?</span>
+      </h2>
+      <p className="why-description">
+        We provide enterprise-grade security and intelligent money-management 
+        tools to keep your financial life convenient and safe.
+      </p>
 
-      <section className="why-section">
-        <div className="why-content">
-          <h2>
-            Why Choose Our <span>Digital Banking Solutions?</span>
-          </h2>
-          <p className="why-description">
-            We provide enterprise-grade security and intelligent money-management 
-            tools to keep your financial life convenient and safe.
-          </p>
-
-          <ul className="why-list">
-            <li>✓ Bank-Level Security & Encryption</li>
-            <li>✓ AI-Powered Fraud Detection</li>
-            <li>✓ Real-Time Financial Insights</li>
-            <li>✓ 24/7 Customer Support</li>
-          </ul>
-        </div>
-
-        <div className="why-image">
-          <img src={bankArchImg} alt="digital banking" />
-        </div>
-      </section>
-
-      <section className="services">
-        <h3>Our Core Services</h3>
-
-        <div className="service-grid">
-
-          <div className="service-card">
-            <div className="icon-circle">💼</div>
-            <h4>Smart Wallet</h4>
-            <p>Secure, fast & intelligent wallet for managing your funds.</p>
-          </div>
-
-
-          <div className="service-card">
-            <div className="icon-circle">💸</div>
-            <h4>Instant Loans</h4>
-            <p>Quick approvals with transparent pricing.</p>
-          </div>
-
-          <div className="service-card">
-            <div className="icon-circle">📱</div>
-            <h4>Bills & Airtime</h4>
-            <p>Pay bills and buy airtime or data instantly.</p>
-          </div>
-
-          <div className="service-card">
-            <div className="icon-circle">🔁</div>
-            <h4>Send & Receive</h4>
-            <p>Transfer securely to any bank or wallet worldwide.</p>
-          </div>
-
-        </div>
-      </section>
+      <ul className="why-list">
+        <li>✓ Bank-Level Security & Encryption</li>
+        <li>✓ AI-Powered Fraud Detection</li>
+        <li>✓ Real-Time Financial Insights</li>
+        <li>✓ 24/7 Customer Support</li>
+      </ul>
+    </div>
+    
+    <div className="why-image">
+      <img src={bankArchImg} alt="digital banking" />
+    </div>
+  </div>
+</section>
+            <section className="services">
+              <h3>Our Core Services</h3>
+              <div className="service-grid">
+                <div className="service-card">
+                  <div className="icon-circle">💼</div>
+                    <h4>Smart Wallet</h4>
+                    <p>Secure, fast & intelligent wallet for managing your funds.</p>
+                  </div>
+                  <div className="service-card">
+                    <div className="icon-circle">💸</div>
+                      <h4>Instant Loans</h4>
+                      <p>Quick approvals with transparent pricing.</p>
+                    </div>
+                    <div className="service-card">
+                      <div className="icon-circle">📱</div>
+                        <h4>Bills & Airtime</h4>
+                        <p>Pay bills and buy airtime or data instantly.</p>
+                      </div>
+                      <div className="service-card">
+                        <div className="icon-circle">🔁</div>
+                          <h4>Send & Receive</h4>
+                          <p>Transfer securely to any bank or wallet worldwide.</p>
+                        </div>
+                      </div>
+            </section>
 
       {/* ================= STATS ================= */}
       <section className="stats-section">
