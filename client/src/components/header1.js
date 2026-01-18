@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes, FaHome, FaCog, FaInfoCircle, FaPhone, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/Header1.css';
 
 const Header1 = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         document.body.style.overflow = isMobile ? 'hidden' : 'auto';
         
         const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
+            setScrolled(window.scrollY > 50);
         };
         
         window.addEventListener('scroll', handleScroll);
@@ -24,50 +25,63 @@ const Header1 = () => {
         { path: '#', label: 'About', icon: <FaInfoCircle /> },
         { path: '#', label: 'Contact', icon: <FaPhone /> }
     ];
+    const isActive = (path) => {
+        if (path === '/') return location.pathname === '/';
+        return location.pathname.startsWith(path);
+    };
 
     return (
-        <>
-            <header className={`eb-header ${scrolled ? 'scrolled' : ''}`}>
-                <div className="eb-container">
-                    <h1 className="eb-logo">E-Payment</h1>
-                    
-                    <nav className={isMobile ? "eb-nav mobile-nav" : "eb-nav"}>
-                        {navItems.map((item, index) => (
-                            <a 
-                                key={index}
-                                href={item.path} 
-                                className="nav-link"
+        <header className={`eb-header ${scrolled ? 'scrolled' : ''}`}>
+            <div className="eb-container">
+                <Link to="/" className="eb-logo">
+                    E-Payment
+                </Link>
+                
+                <nav className={isMobile ? "eb-nav mobile-nav" : "eb-nav"}>
+                    <div className="nav-main">
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
                                 onClick={() => setIsMobile(false)}
                             >
                                 {item.icon}
-                                {item.label}
-                            </a>
+                                <span>{item.label}</span>
+                            </Link>
                         ))}
+                    </div>
+                    
+                    <div className="nav-actions">
                         <Link
-                            to="/auth" 
+                            to="/auth"
                             className="nav-link login-btn"
                             onClick={() => setIsMobile(false)}
                         >
                             <FaSignInAlt />
-                            Login
+                            <span>Login</span>
                         </Link>
                         <Link
-                            to="/auth" 
+                            to="/auth"
                             className="nav-link register-btn"
                             onClick={() => setIsMobile(false)}
                         >
                             <FaUserPlus />
-                            Register
+                            <span>Register</span>
                         </Link>
-                    </nav>
-
-                    <div className="menu-icon" onClick={() => setIsMobile(!isMobile)}>
-                        {isMobile ? <FaTimes /> : <FaBars />}
                     </div>
-                </div>
-            </header>
+                </nav>
 
-        </>
+                <button 
+                    className="menu-icon"
+                    onClick={() => setIsMobile(!isMobile)}
+                    aria-label={isMobile ? "Close menu" : "Open menu"}
+                    aria-expanded={isMobile}
+                >
+                    {isMobile ? <FaTimes /> : <FaBars />}
+                </button>
+            </div>
+        </header>
     );
 };
 
