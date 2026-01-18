@@ -1,63 +1,63 @@
 /* Main container */
 .transfer-area {
-    display: flex;
-    gap: 16px; 
-    padding: 5px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    margin: 1px 0;
+  display: flex;
+  gap: 16px;
+  padding: 5px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin: 1px 0;
 }
 
 .transfer-button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 200px;
-    text-align: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  text-align: center;
 }
 
 .transfer-button.account {
-    background-color: #10b981;
-    color: white;
+  background-color: #10b981;
+  color: white;
 }
 
 .transfer-button.account:hover {
-    background-color: #2563eb;
-    transform: translateY(-2px);
+  background-color: #2563eb;
+  transform: translateY(-2px);
 }
 
 .transfer-button.mpesa {
-    background-color: #10b981;
-    color: white;
+  background-color: #10b981;
+  color: white;
 }
 
 .transfer-button.mpesa:hover {
-    background-color: #059669;
-    transform: translateY(-2px);
+  background-color: #059669;
+  transform: translateY(-2px);
 }
 
 /* Active state */
 .transfer-button:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 /* Focus state for accessibility */
 .transfer-button:focus {
-    outline: 3px solid rgba(59, 130, 246, 0.5);
-    outline-offset: 2px;
+  outline: 3px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
 }
 
 /* Responsive design */
 @media (max-width: 480px) {
-    .transfer-area {
-        flex-direction: column;
-    }
-    
-    .transfer-button {
-        width: 50%;
-    }
+  .transfer-area {
+    flex-direction: column;
+  }
+
+  .transfer-button {
+    width: 50%;
+  }
 }

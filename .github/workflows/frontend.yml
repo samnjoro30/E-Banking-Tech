@@ -23,7 +23,7 @@ jobs:
             - name: Install and build client side
               working-directory: ./client
               run: |
-                npm ci --legacy-peer-deps
+                npm ci 
                 npm ls react-scripts
                 npm run build
             

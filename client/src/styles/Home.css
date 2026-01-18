@@ -1,207 +1,621 @@
 /* GENERAL */
 .epay-container {
-    font-family: 'Inter', sans-serif;
-    color: #0a1f44;
-    background: #f8fbff;
+  font-family: 'Inter', sans-serif;
+  color: #0a1f44;
+  background: #f8fbff;
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+  text-align: center;
+  background: white;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero-title span {
+  background: linear-gradient(90deg, #0066ff, #0a1f44);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  max-width: 600px;
+  margin: auto;
+  color: #444;
+  font-size: 1.2rem;
+}
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  background: #0066ff;
+  color: white;
+  font-weight: bold;
+  border-radius: 40px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #004acc;
+}
+
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.15), transparent 70%);
+  opacity: 0.5;
+}
+
+/* ---------------- WHY CHOOSE US ---------------- */
+/* Wavy Container Section */
+/* Watery Glass Wavy Container */
+.why-section {
+  position: relative;
+  padding: 4rem 0 2rem 0; /* Reduced top padding, kept bottom for wave */
+  margin: 2rem 0;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 216, 234, 0.1) 0%,
+    /* Light blue water tone */ rgba(161, 196, 176, 0.15) 50%,
+    /* Your brand's green tone */ rgba(135, 206, 235, 0.08) 100%
+      /* Sky blue tone */
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(31, 38, 135, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Subtle Water Texture Overlay */
+.why-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 2px
+    );
+  background-size:
+    300px 300px,
+    200px 200px,
+    400px 400px;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* Gentle Wavy Top - Less Prominent */
+.why-section::after {
+  content: '';
+  position: absolute;
+  top: -2px; /* Reduced wave height */
+  left: 0;
+  width: 100%;
+  height: 60px; /* Smaller wave */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.15' fill='%23a1c4b0'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+}
+
+/* Content Container with Better Spacing */
+.why-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 3rem 2rem; /* Added bottom padding for image */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Changed from center to flex-start */
+  gap: 4rem;
+}
+
+.why-content {
+  flex: 1;
+  max-width: 600px;
+  padding-top: 1rem; /* Content starts higher */
+}
+
+/* Enhanced Typography */
+.why-content h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  color: #1e293b;
+  position: relative;
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.why-content h2 span {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.why-content h2 span::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  border-radius: 2px;
+}
+
+.why-description {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 2.25rem;
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced Feature List - Glass Effect */
+.why-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.why-list li {
+  position: relative;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #334155;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+.why-list li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.why-list li:hover::before {
+  transform: translateX(100%);
+}
+
+.why-list li:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 12px -2px rgba(0, 0, 0, 0.08),
+    0 4px 8px -2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.why-list li:nth-child(1) {
+  border-left: 4px solid rgba(37, 99, 235, 0.8);
+}
+
+.why-list li:nth-child(2) {
+  border-left: 4px solid rgba(16, 185, 129, 0.8);
+}
+
+.why-list li:nth-child(3) {
+  border-left: 4px solid rgba(245, 158, 11, 0.8);
+}
+
+.why-list li:nth-child(4) {
+  border-left: 4px solid rgba(139, 92, 246, 0.8);
+}
+
+.why-list li::after {
+  content: '✓';
+  display: inline-block;
+  margin-right: 0.75rem;
+  font-weight: bold;
+  color: inherit;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Enhanced Image Container - Positioned Lower */
+.why-image {
+  flex: 1;
+  position: relative;
+  max-width: 500px;
+  margin-top: 3rem; /* Pushes image lower */
+  align-self: flex-end; /* Aligns to bottom of container */
+}
+
+.why-image::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.1),
+    rgba(139, 92, 246, 0.1)
+  );
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  z-index: -1;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.why-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.02),
+    0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.why-image img:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow:
+    0 25px 30px -5px rgba(0, 0, 0, 0.12),
+    0 15px 15px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Water Drop Effect for Image */
+.why-image::after {
+  content: '';
+  position: absolute;
+  bottom: -25px;
+  right: -25px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(37, 99, 235, 0.15),
+    transparent 70%
+  );
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+  animation: waterDrop 8s ease-in-out infinite;
+}
+
+@keyframes waterDrop {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.6;
   }
-  
-  /* ---------------- HERO SECTION ---------------- */
-  .hero {
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 2rem;
-    text-align: center;
-    background: white;
-    overflow: hidden;
+  50% {
+    transform: scale(1.1) translateY(-5px);
+    opacity: 0.8;
   }
-  
-  .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-  }
-  
-  .hero-title span {
-    background: linear-gradient(90deg, #0066ff, #0a1f44);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .hero-description {
-    max-width: 600px;
-    margin: auto;
-    color: #444;
-    font-size: 1.2rem;
-  }
-  
-  .hero-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 1rem 2.5rem;
-    background: #0066ff;
-    color: white;
-    font-weight: bold;
-    border-radius: 40px;
-    text-decoration: none;
-    transition: 0.3s ease;
-  }
-  
-  .hero-btn:hover {
-    background: #004acc;
-  }
-  
-  .hero-shapes {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle, rgba(0,102,255,0.15), transparent 70%);
-    opacity: 0.5;
-  }
-  
-  /* ---------------- WHY CHOOSE US ---------------- */
-  .why-section {
-    display: flex;
-    justify-content: space-between;
-    padding: 5rem 8%;
-    align-items: center;
-    gap: 3rem;
-  }
-  
-  .why-content {
-    flex: 1;
-  }
-  
-  .why-content h2 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-  }
-  
-  .why-content h2 span {
-    color: #0066ff;
-  }
-  
-  .why-description {
-    color: #555;
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .why-list li {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-  }
-  
-  .why-image img {
-    width: 100%;
-    max-width: 500px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  }
-  
-  /* ---------------- SERVICES ---------------- */
-  .services {
-    text-align: center;
-    padding: 5rem 8%;
-    background: white;
-  }
-  
-  .services h3 {
-    font-size: 2.5rem;
-    font-weight: 800;
-  }
-  
-  .service-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    margin-top: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .why-content-wrapper {
+    flex-direction: column;
     gap: 2rem;
+    text-align: center;
+    padding-bottom: 2rem;
   }
-  
-  .service-card {
-    padding: 2rem;
-    background: #f1f4ff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
+
+  .why-content {
+    padding-top: 0;
   }
-  
-  .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+
+  .why-content h2 {
+    font-size: 2.3rem;
   }
-  
-  .icon-circle {
+
+  .why-list {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .why-image {
+    margin-top: 1.5rem;
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-section {
+    padding: 3rem 0 1.5rem 0;
+    margin: 1.5rem 0;
+  }
+
+  .why-content-wrapper {
+    padding: 1.5rem;
+  }
+
+  .why-content h2 {
+    font-size: 1.9rem;
+  }
+
+  .why-description {
+    font-size: 1.1rem;
+    padding: 0.75rem;
+  }
+
+  .why-list li {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .why-image::after {
     width: 60px;
     height: 60px;
-    background: #0066ff;
-    color: white;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    bottom: -15px;
+    right: -15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-section {
+    padding: 2rem 0 1rem 0;
+    margin: 1rem 0;
+  }
+
+  .why-content-wrapper {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .why-content h2 {
     font-size: 1.7rem;
-    margin-bottom: 1rem;
   }
-  
-  /* ---------------- STATS ---------------- */
-  .stats-section {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    padding: 4rem;
-    background: #eef4ff;
+
+  .why-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
-  .stat-box {
+
+  .why-list {
+    gap: 1rem;
+  }
+
+  .why-list li {
+    padding: 0.875rem;
+  }
+}
+
+/* Subtle Floating Animation for Image */
+@keyframes gentleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.why-image img {
+  animation: gentleFloat 8s ease-in-out infinite;
+}
+
+/* Water Ripple Effects */
+.why-section .water-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(161, 196, 176, 0.1),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: ripple 15s ease-in-out infinite;
+}
+
+.why-section .ripple-1 {
+  top: 15%;
+  left: 8%;
+  width: 120px;
+  height: 120px;
+  animation-delay: 0s;
+}
+
+.why-section .ripple-2 {
+  bottom: 25%;
+  right: 12%;
+  width: 90px;
+  height: 90px;
+  animation-delay: -5s;
+  animation-duration: 18s;
+}
+
+.why-section .ripple-3 {
+  top: 40%;
+  left: 12%;
+  width: 70px;
+  height: 70px;
+  animation-delay: -8s;
+  animation-duration: 12s;
+}
+
+@keyframes ripple {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.15;
+  }
+}
+/* ---------------- SERVICES ---------------- */
+.services {
+  text-align: center;
+  padding: 5rem 8%;
+  background: white;
+}
+
+.services h3 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 3rem;
+  gap: 2rem;
+}
+
+.service-card {
+  padding: 2rem;
+  background: #f1f4ff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background: #0066ff;
+  color: white;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- STATS ---------------- */
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 4rem;
+  background: #eef4ff;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box h2 {
+  font-size: 2.8rem;
+  color: #0066ff;
+  font-weight: 900;
+}
+
+.stat-box p {
+  color: #444;
+}
+
+/* ---------------- TESTIMONIALS ---------------- */
+.testimonials {
+  padding: 5rem 8%;
+  background: #f8fbff;
+  text-align: center;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.testimonial {
+  background: white;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial p {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .why-section {
+    flex-direction: column;
     text-align: center;
   }
-  
-  .stat-box h2 {
-    font-size: 2.8rem;
-    color: #0066ff;
-    font-weight: 900;
-  }
-  
-  .stat-box p {
-    color: #444;
-  }
-  
-  /* ---------------- TESTIMONIALS ---------------- */
-  .testimonials {
-    padding: 5rem 8%;
-    background: #f8fbff;
-    text-align: center;
-  }
-  
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .testimonial {
-    background: white;
-    padding: 2rem;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  }
-  
-  .testimonial p {
-    font-style: italic;
-    margin-bottom: 1rem;
-  }
-  
-  
-  /* ---------------- RESPONSIVE ---------------- */
-  @media (max-width: 768px) {
-    .why-section {
-      flex-direction: column;
-      text-align: center;
-    }
-  }
-  
+}
