@@ -1,82 +1,83 @@
 /* GENERAL */
 .epay-container {
-    font-family: 'Inter', sans-serif;
-    color: #0a1f44;
-    background: #f8fbff;
-  }
-  
-  /* ---------------- HERO SECTION ---------------- */
-  .hero {
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 2rem;
-    text-align: center;
-    background: white;
-    overflow: hidden;
-  }
-  
-  .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-  }
-  
-  .hero-title span {
-    background: linear-gradient(90deg, #0066ff, #0a1f44);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .hero-description {
-    max-width: 600px;
-    margin: auto;
-    color: #444;
-    font-size: 1.2rem;
-  }
-  
-  .hero-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 1rem 2.5rem;
-    background: #0066ff;
-    color: white;
-    font-weight: bold;
-    border-radius: 40px;
-    text-decoration: none;
-    transition: 0.3s ease;
-  }
-  
-  .hero-btn:hover {
-    background: #004acc;
-  }
-  
-  .hero-shapes {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle, rgba(0,102,255,0.15), transparent 70%);
-    opacity: 0.5;
-  }
-  
-  /* ---------------- WHY CHOOSE US ---------------- */
- /* Wavy Container Section */
+  font-family: 'Inter', sans-serif;
+  color: #0a1f44;
+  background: #f8fbff;
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+  text-align: center;
+  background: white;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero-title span {
+  background: linear-gradient(90deg, #0066ff, #0a1f44);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  max-width: 600px;
+  margin: auto;
+  color: #444;
+  font-size: 1.2rem;
+}
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  background: #0066ff;
+  color: white;
+  font-weight: bold;
+  border-radius: 40px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #004acc;
+}
+
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.15), transparent 70%);
+  opacity: 0.5;
+}
+
+/* ---------------- WHY CHOOSE US ---------------- */
+/* Wavy Container Section */
 /* Watery Glass Wavy Container */
 .why-section {
   position: relative;
   padding: 4rem 0 2rem 0; /* Reduced top padding, kept bottom for wave */
   margin: 2rem 0;
   background: linear-gradient(
-    135deg, 
-    rgba(168, 216, 234, 0.1) 0%,    /* Light blue water tone */
-    rgba(161, 196, 176, 0.15) 50%,  /* Your brand's green tone */
-    rgba(135, 206, 235, 0.08) 100%  /* Sky blue tone */
+    135deg,
+    rgba(168, 216, 234, 0.1) 0%,
+    /* Light blue water tone */ rgba(161, 196, 176, 0.15) 50%,
+    /* Your brand's green tone */ rgba(135, 206, 235, 0.08) 100%
+      /* Sky blue tone */
   );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(31, 38, 135, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
   overflow: hidden;
@@ -91,11 +92,26 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.12) 2px, transparent 2px);
-  background-size: 300px 300px, 200px 200px, 400px 400px;
+  background-image:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 2px
+    );
+  background-size:
+    300px 300px,
+    200px 200px,
+    400px 400px;
   opacity: 0.4;
   z-index: -1;
 }
@@ -197,7 +213,7 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 12px;
-  box-shadow: 
+  box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.05),
     0 2px 4px -1px rgba(0, 0, 0, 0.03),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -216,7 +232,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    135deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transform: translateX(-100%);
   transition: transform 0.6s ease;
 }
@@ -227,7 +248,7 @@
 
 .why-list li:hover {
   transform: translateY(-3px);
-  box-shadow: 
+  box-shadow:
     0 8px 12px -2px rgba(0, 0, 0, 0.08),
     0 4px 8px -2px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -276,7 +297,11 @@
   left: -15px;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.1),
+    rgba(139, 92, 246, 0.1)
+  );
   border-radius: 20px;
   backdrop-filter: blur(5px);
   z-index: -1;
@@ -287,7 +312,7 @@
   width: 100%;
   height: auto;
   border-radius: 16px;
-  box-shadow: 
+  box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.08),
     0 10px 10px -5px rgba(0, 0, 0, 0.02),
     0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -299,7 +324,7 @@
 
 .why-image img:hover {
   transform: translateY(-5px) scale(1.01);
-  box-shadow: 
+  box-shadow:
     0 25px 30px -5px rgba(0, 0, 0, 0.12),
     0 15px 15px -5px rgba(0, 0, 0, 0.04),
     0 0 0 1px rgba(255, 255, 255, 0.8);
@@ -313,7 +338,11 @@
   right: -25px;
   width: 80px;
   height: 80px;
-  background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.15), transparent 70%);
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(37, 99, 235, 0.15),
+    transparent 70%
+  );
   border-radius: 50%;
   opacity: 0.6;
   z-index: 0;
@@ -321,7 +350,8 @@
 }
 
 @keyframes waterDrop {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateY(0);
     opacity: 0.6;
   }
@@ -339,21 +369,21 @@
     text-align: center;
     padding-bottom: 2rem;
   }
-  
+
   .why-content {
     padding-top: 0;
   }
-  
+
   .why-content h2 {
     font-size: 2.3rem;
   }
-  
+
   .why-list {
     grid-template-columns: 1fr;
     max-width: 400px;
     margin: 0 auto;
   }
-  
+
   .why-image {
     margin-top: 1.5rem;
     align-self: center;
@@ -365,25 +395,25 @@
     padding: 3rem 0 1.5rem 0;
     margin: 1.5rem 0;
   }
-  
+
   .why-content-wrapper {
     padding: 1.5rem;
   }
-  
+
   .why-content h2 {
     font-size: 1.9rem;
   }
-  
+
   .why-description {
     font-size: 1.1rem;
     padding: 0.75rem;
   }
-  
+
   .why-list li {
     padding: 1rem;
     font-size: 1rem;
   }
-  
+
   .why-image::after {
     width: 60px;
     height: 60px;
@@ -397,25 +427,25 @@
     padding: 2rem 0 1rem 0;
     margin: 1rem 0;
   }
-  
+
   .why-content-wrapper {
     padding: 1rem;
     gap: 1.5rem;
   }
-  
+
   .why-content h2 {
     font-size: 1.7rem;
   }
-  
+
   .why-description {
     font-size: 1rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .why-list {
     gap: 1rem;
   }
-  
+
   .why-list li {
     padding: 0.875rem;
   }
@@ -423,7 +453,8 @@
 
 /* Subtle Floating Animation for Image */
 @keyframes gentleFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -439,7 +470,11 @@
 .why-section .water-ripple {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(161, 196, 176, 0.1), transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(161, 196, 176, 0.1),
+    transparent 70%
+  );
   pointer-events: none;
   z-index: 0;
   animation: ripple 15s ease-in-out infinite;
@@ -472,7 +507,8 @@
 }
 
 @keyframes ripple {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.1;
   }
@@ -481,107 +517,105 @@
     opacity: 0.15;
   }
 }
-  /* ---------------- SERVICES ---------------- */
-  .services {
+/* ---------------- SERVICES ---------------- */
+.services {
+  text-align: center;
+  padding: 5rem 8%;
+  background: white;
+}
+
+.services h3 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 3rem;
+  gap: 2rem;
+}
+
+.service-card {
+  padding: 2rem;
+  background: #f1f4ff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background: #0066ff;
+  color: white;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- STATS ---------------- */
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 4rem;
+  background: #eef4ff;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box h2 {
+  font-size: 2.8rem;
+  color: #0066ff;
+  font-weight: 900;
+}
+
+.stat-box p {
+  color: #444;
+}
+
+/* ---------------- TESTIMONIALS ---------------- */
+.testimonials {
+  padding: 5rem 8%;
+  background: #f8fbff;
+  text-align: center;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.testimonial {
+  background: white;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial p {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .why-section {
+    flex-direction: column;
     text-align: center;
-    padding: 5rem 8%;
-    background: white;
   }
-  
-  .services h3 {
-    font-size: 2.5rem;
-    font-weight: 800;
-  }
-  
-  .service-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    margin-top: 3rem;
-    gap: 2rem;
-  }
-  
-  .service-card {
-    padding: 2rem;
-    background: #f1f4ff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-  }
-  
-  .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-  }
-  
-  .icon-circle {
-    width: 60px;
-    height: 60px;
-    background: #0066ff;
-    color: white;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.7rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* ---------------- STATS ---------------- */
-  .stats-section {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    padding: 4rem;
-    background: #eef4ff;
-  }
-  
-  .stat-box {
-    text-align: center;
-  }
-  
-  .stat-box h2 {
-    font-size: 2.8rem;
-    color: #0066ff;
-    font-weight: 900;
-  }
-  
-  .stat-box p {
-    color: #444;
-  }
-  
-  /* ---------------- TESTIMONIALS ---------------- */
-  .testimonials {
-    padding: 5rem 8%;
-    background: #f8fbff;
-    text-align: center;
-  }
-  
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .testimonial {
-    background: white;
-    padding: 2rem;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  }
-  
-  .testimonial p {
-    font-style: italic;
-    margin-bottom: 1rem;
-  }
-  
-  
-  /* ---------------- RESPONSIVE ---------------- */
-  @media (max-width: 768px) {
-    .why-section {
-      flex-direction: column;
-      text-align: center;
-    }
-  }
-  
+}

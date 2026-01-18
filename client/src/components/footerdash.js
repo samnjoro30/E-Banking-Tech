@@ -2,15 +2,13 @@ import React from 'react';
 import '../styles/footerdash.css';
 
 const FooterDash = () => {
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
-
-    return(
-        <footer className="footer-dash">
-            &copy; {currentYear} E-Payment Platform. All rights reserved.
-        </footer>
-    )
-
-}
+  return (
+    <footer className="footer-dash">
+      &copy; {currentYear} E-Payment Platform. All rights reserved.
+    </footer>
+  );
+};
 
 export default FooterDash;

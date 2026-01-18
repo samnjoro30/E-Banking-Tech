@@ -1,36 +1,37 @@
 /* Base layout */
 :root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --primary-color: #4a6fa5;
-    /* other light mode variables */
-  }
-  
-  .dark-mode {
-    --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
-    --primary-color: #6d8cc0;
-    /* other dark mode variables */
-  }
-  
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --primary-color: #4a6fa5;
+  /* other light mode variables */
+}
+
+.dark-mode {
+  --bg-color: #1a1a1a;
+  --text-color: #f0f0f0;
+  --primary-color: #6d8cc0;
+  /* other dark mode variables */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
 .dashboard-layout {
-    display: flex;
-    position: relative;
-    gap: 2rem;
-    padding: 1.5rem;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  position: relative;
+  gap: 2rem;
+  padding: 1.5rem;
+  flex-direction: row;
+  justify-content: space-between;
 }
 @media (max-width: 480px) {
-  .dashboard-layout  {
+  .dashboard-layout {
     flex-direction: column;
     position: fixed;
   }
 }
-

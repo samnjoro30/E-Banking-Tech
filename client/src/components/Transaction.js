@@ -34,7 +34,7 @@ const Transaction = () => {
     fetchTransactions(1);
   }, []);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = newPage => {
     if (newPage >= 1 && newPage <= totalPages) {
       fetchTransactions(newPage);
     }
@@ -68,7 +68,9 @@ const Transaction = () => {
               <tbody>
                 {transactions.length === 0 ? (
                   <tr>
-                    <td colSpan="5" className="no-data">No transactions found.</td>
+                    <td colSpan="5" className="no-data">
+                      No transactions found.
+                    </td>
                   </tr>
                 ) : (
                   transactions.map((txn, index) => (
@@ -93,7 +95,9 @@ const Transaction = () => {
           >
             Previous
           </button>
-          <span>Page {currentPage} of {totalPages}</span>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage >= totalPages}
