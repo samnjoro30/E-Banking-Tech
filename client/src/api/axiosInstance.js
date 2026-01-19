@@ -5,7 +5,6 @@ const axiosInstance = axios.create({
   baseURL: 'https://e-banking-tech.onrender.com/api',
   withCredentials: true,
 });
-
 // Request interceptor to attach token dynamically
 axiosInstance.interceptors.request.use(
   config => {

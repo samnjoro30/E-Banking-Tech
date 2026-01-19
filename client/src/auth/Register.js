@@ -14,13 +14,7 @@ const Register = () => {
     password: '',
     confirmPassword: '',
   });
-  // const [passwordStrength, setPasswordStrength] = useState(0);
-  // const [passwordComplexity, setPasswordComplexity] = useState({
-  //     hasLowercase: false,
-  //     hasUppercase: false,
-  //     hasNumber: false,
-  //     hasSpecialChar: false
-  // });
+  
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const {
@@ -29,21 +23,22 @@ const Register = () => {
     email,
     password,
     confirmPassword,
-    dob,
     phoneNumber,
     gender,
   } = formData;
+
+  const navigate = useNavigate();
+
 
   const onChange = e => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const navigate = useNavigate();
 
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match', error);
+      setError('Passwords do not match');
       return;
     }
     try {
@@ -55,7 +50,7 @@ const Register = () => {
         navigate('/verify-otp');
       }
     } catch (err) {
-      setMessage(err.response.data.message);
+      setMessage(err.response.data.message || 'Registration failed');
       console.error(err.response.data);
     }
   };
@@ -90,7 +85,7 @@ const Register = () => {
             <select
               name="gender"
               type="text"
-              value={formData.gender}
+              value={gender}
               onChange={onChange}
               required
             >
@@ -103,7 +98,7 @@ const Register = () => {
             <input
               type="email"
               name="email"
-              value={formData.email}
+              value={email}
               onChange={onChange}
               required
             />
@@ -115,7 +110,7 @@ const Register = () => {
               placeholder="07XXXXXXXX or 01XXXXXXXX"
               pattern="(07|01)\d{8}"
               title="Please enter a valid 10-digit phone number starting with 07 or 01"
-              value={formData.phoneNumber}
+              value={phoneNumber}
               onChange={onChange}
               required
             />
