@@ -7,7 +7,7 @@ let csrfToken = null;
  */
 export async function fetchCsrfToken() {
   const res = await axiosInstance.get('/csrf');
-  csrfToken = res.data.csrfToken;
+  csrfToken = res.data.csrfIToken;
   attachCsrf(csrfToken);
   return csrfToken;
 }
