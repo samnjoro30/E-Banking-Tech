@@ -6,19 +6,19 @@
   "orientation": "potrait",
   "icons": [
     {
-      "src": "Logo_pay.png",
+      "src": "logo5.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "Logo_pay.png",
+      "src": "logo5.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "Logo_pay.png",
+      "src": "logo5.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
