@@ -151,7 +151,7 @@ const loginUser = async (req, res) => {
     const newCsrfToken = rotateCsrf(req, res);
     return res.json({
       message: 'Login successful',
-      csrfToken: newCsrfToken,
+      csrfIToken: newCsrfToken,
     });
   } catch (err) {
     console.error(err.message);

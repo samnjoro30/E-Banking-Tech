@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getToken, removeToken } from '../utils/auth';
+import {  removeToken } from '../utils/auth';
 import Header from '../components/header';
 import Sidebar from '../components/sideView';
 import User from '../components/user';
-import Transfer from '../components/Transfer';
+//import Transfer from '../components/Transfer';
 import FooterDash from '../components/footerdash';
 import '../styles/dashboard.css';
 import Transaction from '../components/Transaction';
@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('darkMode') === 'true'
   );
-  const [sideBarVisible, setSidebarVisible] = useState(false);
+  //const [sideBarVisible, setSidebarVisible] = useState(false);
   const [activePanel, setActivePanel] = useState(null);
   const navigate = useNavigate();
 
@@ -32,10 +32,10 @@ const Dashboard = () => {
     document.body.classList.toggle('dark-mode', isDarkMode);
   }, [isDarkMode]);
 
-  const handleLogout = () => {
-    removeToken();
-    navigate('/');
-  };
+  // const handleLogout = () => {
+  //   removeToken();
+  //   navigate('/');
+  // };
 
   if (loading) return <div className="loading-spinner">Loading...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -60,7 +60,7 @@ const Dashboard = () => {
   return (
     <div className={`dashboard-app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <Header
-        onLogout={handleLogout}
+        // onLogout={handleLogout}
         toggleDarkMode={toggleDarkMode}
         isDarkMode={isDarkMode}
       />
