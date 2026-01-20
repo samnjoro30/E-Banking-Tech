@@ -24,7 +24,7 @@ const redisClient = createClient({
     ? process.env.REDIS_URL // Render Redis
     : 'redis://127.0.0.1:6379',
   socket: {
-    tls: false,
+    tls: true,
     rejectUnauthorized: false,
   },
 });
