@@ -7,14 +7,14 @@
   "icons": [
     {
       "src": "logo5.png",
-      "sizes": "192x192",
+      "sizes": "500x500",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
       "src": "logo5.png",
       "type": "image/png",
-      "sizes": "192x192",
+      "sizes": "500x500",
       "purpose": "maskable"
     },
     {
@@ -24,8 +24,8 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#a1c4b0"
 }
