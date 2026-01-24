@@ -42,6 +42,9 @@ const Header1 = () => {
   return (
     <header className={`eb-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="eb-container">
+        <div className="brand-logo">
+          <img src="/logo5.png" alt="logo" />
+        </div>
         <Link to="/" className="eb-logo">
           E-Payment
         </Link>
