@@ -2,7 +2,7 @@ import axios from 'axios';
 import { fetchCsrfToken } from '../utils/csrf';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api', //'https://e-banking-tech.onrender.com/api',
+  baseURL: 'https://e-banking-tech.onrender.com/api',
   withCredentials: true,
 });
 // Request interceptor to attach token dynamically
