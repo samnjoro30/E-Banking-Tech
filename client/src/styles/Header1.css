@@ -63,8 +63,8 @@ body {
 
 /* Header */
 .brand-logo{
-  width: 4.5rem;
-  height: 5.0rem;
+  width: 5.0rem;
+  height: 4.0rem;
   display: flex;
   border-radius: 50%;
   padding: 0.5rem;

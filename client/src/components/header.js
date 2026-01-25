@@ -2,6 +2,7 @@ import React from 'react';
 import Notification from './notification';
 import axiosInstance from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { clearCsrf } from '../utils/csrf';
 import '../styles/header.css';
 
 const Header = ({ toggleDarkMode, isDarkMode }) => {
@@ -10,11 +11,13 @@ const Header = ({ toggleDarkMode, isDarkMode }) => {
   const handleLogOut = async () => {
     try {
       const res = await axiosInstance.post('/auth/logout');
-      setTimeout(() => {
+      if (res.status === 200) {
         navigate('/auth');
-      }, 2000);
+      }
     } catch (err) {
       console.error('Logout failed', err);
+    }finally{
+      clearCsrf();
     }
   };
   return (
