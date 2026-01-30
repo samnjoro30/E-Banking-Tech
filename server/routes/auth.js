@@ -11,9 +11,16 @@ const {
 const { check } = require('express-validator');
 const authMiddleware = require('../middlewares/authMiddleware');
 const { verifyCsrf } = require('../utils/csrf');
+const { createRateLimiter } = require('../utils/rateLimit.util');
 const router = express.Router();
 
-router.post('/login', loginUser);
+const loginLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  keyPrefix: 'rl:login:',
+});
+
+router.post('/login', loginLimiter, loginUser);
 router.post('/refresh-token', verifyCsrf, refreshAccessToken);
 router.post('/logout', authMiddleware, logout);
 router.post('/verify-otp', verifyCsrf, verifyOTP);
