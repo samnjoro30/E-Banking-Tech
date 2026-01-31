@@ -13,6 +13,11 @@ services:
       - ./server:/app
       - /app/node_modules
     restart: unless-stopped
+  
+  worker:
+    build: ./worker
+    ports: 
+      - "5672:5672"
 
   client:
     build: ./client
