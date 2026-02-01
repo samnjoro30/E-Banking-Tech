@@ -5,7 +5,6 @@ const { validationResult } = require('express-validator');
 const crypto = require('crypto');
 const uuidv4 = () => crypto.randomUUID();
 
-
 const getTransactions = async (req, res) => {
   try {
     const userId = req.user.userId;
