@@ -4,10 +4,7 @@ const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const crypto = require('crypto');
 const uuidv4 = () => crypto.randomUUID();
-// const redis = require('redis');
 
-// //Transactions
-// const redisClient = redis.createClient();
 
 const getTransactions = async (req, res) => {
   try {
