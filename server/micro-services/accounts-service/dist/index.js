@@ -8,4 +8,8 @@ async function startAccountsService() {
         console.log("Accounts service is running on port 5000");
     });
 }
+startAccountsService().catch((err) => {
+    console.error("Error starting accounts service:", err);
+    process.exit(1);
+});
 //# sourceMappingURL=index.js.map
